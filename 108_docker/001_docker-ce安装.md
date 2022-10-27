@@ -1,43 +1,29 @@
 # 安装
 
-##### docker镜像网站
-
-```
-https://hub.docker.com/
-```
-
-##### 镜像中安装vim
-
-```
-apt-get update
-apt-get install vim
-```
+> [镜像网站](https://hub.docker.com/)
 
 ##### centos
 
 ```bash
-安装
-# yum -y install yum-utils
-# yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo (慢)
-# yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-# yum install docker-ce docker-ce-cli containerd.io
+$ sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+$ sudo yum install docker-ce
+```
 
-启动命令
-# systemctl start docker
-# systemctl enable docker
-# systemctl restart docker
-# systemctl status docker
+##### fedora
 
-国内源
-# vim /etc/docker/daemon.json
-{
-  "registry-mirrors": ["https://docker.mirrors.ustc.edu.cn/"]
-}
+```bash
+1. 删除旧的
+$ dnf remove docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-selinux docker-engine-selinux docker-engine
+
+2. 安装
+$ dnf install dnf-plugins-core
+$ dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+$ dnf install docker-ce docker-ce-cli containerd.io
 ```
 
 ##### debian
 
-```
+```bash
 第1步：卸载旧软件
 apt-get remove docker docker-engine docker.io containerd runc
 
@@ -62,24 +48,30 @@ apt-get update
 
 第7步：安装Docker CE
 apt-get install docker-ce docker-ce-cli containerd.io
-
-
-service docker start
-service docker restart
-
 ```
 
 ##### mac
 
-```
-官网下载
-```
+##### 安装速度慢
 
+```
+修改该 hosts
+
+108.157.150.30 download.docker.com
+```
 
 ##### 国内源
 
+> 编辑 /etc/docker/daemon.json
+
+```json
+{
+  "registry-mirrors": ["https://docker.mirrors.ustc.edu.cn/"]
+}
 ```
-推荐使用阿里加速源
+
+```json
+(未使用)
 {
   "registry-mirrors" : [
     "http://ovfftd6p.mirror.aliyuncs.com",
@@ -94,12 +86,6 @@ service docker restart
   "debug" : true,
   "experimental" : true
 }
-```
-
-##### 镜像网站
-
-```
-https://hub.docker.com/
 ```
 
 ##### 设置IP
@@ -120,7 +106,7 @@ docker network create --subnet=172.19.0.0/16 glfaddnetwork
 docker run --net glfaddnetwork --ip 172.19.0.10 --name redis -p 6379:6379 -d redis:latest
 ```
 
-##### 普通用于可以运行docker
+##### 普通用户运行 docker
 
 ```
 sudo groupadd docker
@@ -128,6 +114,51 @@ sudo groupadd docker
 sudo usermod -aG docker $USER
 #更新用户组
 newgrp docker
+```
+
+# 操作
+
+##### 服务
+
+```bash
+$ systemctl start docker
+$ service docker start
+```
+
+##### 命令
+
+```bash
+docker version
+systemctl daemon-reload
+docker images
+docker ps -a
+docker ps
+docker container ls -a
+# 删除已有的image
+docker rmi image_id
+docker rmi -f 91dadee7afee
+# 删除容器
+docker rm 69ecad01f6c0
+docker start mysql
+docker stop 容器ID或容器名
+docker stop container_name
+# 参数 -t：关闭容器的限时，如果超时未能关闭则用kill强制关闭，默认值10s，这个时间用于容器的自己保存状态 
+docker stop -t=60 容器ID或容器名
+docker kill 容器ID或容器名
+# 搜索
+docker starch jumpserver
+--------------------------------------------------------------
+# 查看容器详细信息
+docker inspect mysql8
+# 可以查看容器中正在运行的进程
+docker top mysql8
+```
+
+##### 镜像中安装vim
+
+```
+apt-get update
+apt-get install vim
 ```
 
 ##### 快照
@@ -154,15 +185,6 @@ docker run -it 9342f2b6c135 /bin/bash
 docker run -itd 9342f2b6c135 /bin/bash
 ```
 
-# 镜像
-
-##### apt-get
-
-```
-apt-get update
-apt-get vim
-```
-
 ##### 文件拷贝到docker容器
 
 ```
@@ -170,34 +192,7 @@ docker cp 原文件路径 容器名字:容器里的路径
 docker cp /root/init.sh  CS5_AS_EALL1:/home/hundsun/workspace/log
 ```
 
-##### 常用命令
-
-```python
-docker version
-systemctl daemon-reload
-docker images
-docker ps -a
-docker ps
-docker container ls -a
-# 删除已有的image
-docker rmi image_id
-docker rmi -f 91dadee7afee
-# 删除容器
-docker rm 69ecad01f6c0
-docker start mysql
-docker stop 容器ID或容器名
-docker stop container_name
-# 参数 -t：关闭容器的限时，如果超时未能关闭则用kill强制关闭，默认值10s，这个时间用于容器的自己保存状态 
-docker stop -t=60 容器ID或容器名
-docker kill 容器ID或容器名
-# 搜索
-docker starch jumpserver
---------------------------------------------------------------
-# 查看容器详细信息
-docker inspect mysql8
-# 可以查看容器中正在运行的进程
-docker top mysql8
-```
+# 镜像
 
 ##### mysql
 
