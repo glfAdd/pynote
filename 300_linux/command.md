@@ -113,6 +113,14 @@ http://10.211.55.3:8000/
 # firewall-cmd --reload
 ```
 
+##### ss
+
+```
+
+```
+
+
+
 ##### 文件目录
 
 ```bash
@@ -314,8 +322,6 @@ cat file1 file2 > file
     dropped     数据包有问题被丢弃的数量
     collisions  数据包碰撞情况，数值太多代表网络状况差
 ```
-
-
 
 ##### 用户
 
@@ -968,6 +974,76 @@ export PATH=/usr/local/mongodb/bin:$PATH
 ```bash
 
 ss -tlnp | grep mongo
+```
+
+##### pkg-config
+
+> 在编译时, 如果库的头文件不在 /usr/include 目录中, 需要用 -I 参数指定其路径. 
+>
+> 但同一个库在不同系统安装路径不同, 造成 -I 或 -L 参数不同
+>
+> 把库的位置信息保存在文件中, 编译时都到这个文件中读取, 使编译命令一致, 例如使用 pkg-config
+
+```
+1. 返回已安装库文件的元信息, 这些信息记录在 .pc 文件中
+2. 不同的库会读取对应的 .pc 文件 (用 python3 会去读 python3.pc)
+3. 文件保存在 
+	默认路径 /usr/lib/pkgconfig 或 /usr/lib64/pkgconfig
+	环境变量 PKG_CONFIG_PATH 指定的路径
+4. 库编译完成后目录中有该库的 .pc 文件 (用 find 找), 将该文件复制到 pkg-config 默认目录或在环境变量中指定该文件的路径. 使依赖此库的其他库可以通过 pkg-config 自动加载该库, 避免编译期错误.
+```
+
+
+
+```
+--list-all 	已安装的库
+--cflags	一般用于指定头文件
+--libs		一般用于指定库文件
+
+$ gcc sample.c -o sample `pkg-config --cflags --libs glib-2.0`
+```
+
+```
+
+```
+
+
+
+- 参数
+
+- 实例
+
+  ```
+  # See: man pkg-config
+  prefix=/usr/local
+  exec_prefix=${prefix}
+  libdir=/sdwan/lib
+  includedir=${prefix}/include
+  
+  Name: Python
+  Description: Python library
+  Requires: 
+  Version: 3.7
+  Libs.private: -lpthread -ldl  -lutil
+  Libs: -L${libdir} -lpython3
+  Cflags: -I${includedir}/python3.7m
+  ```
+
+  
+
+
+
+```
+Name: 名字, 不会影响 pkg-config 使用, pkg-config 用 .pc 文件名来工作
+Description: 简短描述
+URL: 获取package的更多信息或者package的下载地址
+Version: 指定 package 版本号
+Requires: 本库所依赖的其他库文件。所依赖的库文件的版本号可以通过使用如下比较操作符指定：=,<,>,<=,>=
+Requires.private: 本库所依赖的一些私有库文件，但是这些私有库文件并不需要暴露给应用程序。这些私有库文件的版本指定方式与Requires中描述的类似。
+Conflicts: 描述与本package所冲突的其他package。版本号的描述也与Requires中的描述类似。本字段也可以取值为同一个package的多个不同版本实例。例如: Conflicts: bar < 1.2.3, bar >= 1.3.0
+Cflags: 编译器编译本package时所指定的编译选项，和其他并不支持pkg-config的library的一些编译选项值。假如所需要的library支持pkg-config,则它们应该被添加到Requires或者Requires.private中
+Libs: 链接本库时所需要的一些链接选项，和其他一些并不支持pkg-config的library的链接选项值。与Cflags类似
+Libs.private: 本库所需要的一些私有库的链接选项。
 ```
 
 
