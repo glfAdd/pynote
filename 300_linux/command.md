@@ -972,7 +972,6 @@ export PATH=/usr/local/mongodb/bin:$PATH
 ##### 查看进程占用的端口
 
 ```bash
-
 ss -tlnp | grep mongo
 ```
 
@@ -993,23 +992,22 @@ ss -tlnp | grep mongo
 4. 库编译完成后目录中有该库的 .pc 文件 (用 find 找), 将该文件复制到 pkg-config 默认目录或在环境变量中指定该文件的路径. 使依赖此库的其他库可以通过 pkg-config 自动加载该库, 避免编译期错误.
 ```
 
-
-
-```
---list-all 	已安装的库
---cflags	一般用于指定头文件
---libs		一般用于指定库文件
-
-$ gcc sample.c -o sample `pkg-config --cflags --libs glib-2.0`
-```
-
-```
-
-```
-
-
-
 - 参数
+
+  ```
+  --list-all 	已安装的库
+  --cflags	一般用于指定头文件
+  --libs		一般用于指定库文件
+  
+  $ gcc sample.c -o sample `pkg-config --cflags --libs glib-2.0`
+  ```
+
+- 添加环境变量
+
+  ```
+  PKG_CONFIG_PATH=$PKG_CONFIG_PATH:~/.pyenv/versions/3.7.10/lib/pkgconfig
+  export PKG_CONFIG_PATH
+  ```
 
 - 实例
 

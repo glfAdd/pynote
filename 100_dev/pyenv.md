@@ -58,6 +58,18 @@ $ apt-get install build-essential zlib1g-dev
   $ echo 'eval "$(pyenv init -)"' >> ~/.zshrc
   ```
 
+##### pycharm 用 sudo 权限启动 python
+
+- 创建脚本一定以 python 开头, 不然后面 Pycharm 无法识别 python_sudo.sh
+
+  ```shell
+  #!/bin/bash
+  sudo /home/glfadd/.pyenv/versions/p3710-dev/bin/python "$@"
+  ```
+
+- 可执行权限
+
+- pycharm 选择这个脚本
 
 ##### pyenv-virtualenv
 
@@ -141,6 +153,7 @@ pyenv versions
 
 ```
 阿里源下载 https://registry.npmmirror.com/binary.html?path=python/
+wget https://registry.npmmirror.com/-/binary/python/3.7.10/Python-3.7.10.tar.xz
 *.tar.xz
 创建目录放安装文件 ~/.pyenv/cache
 使用pyenv install 2.7.16 查看下载文件的目录, 并用wget下载
