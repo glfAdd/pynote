@@ -1,3 +1,7 @@
+[TOC]
+
+# system
+
 ##### 联想笔记本 bois 升级
 
 ```
@@ -5,7 +9,31 @@
 https://newsupport.lenovo.com.cn/driveList.html?fromsource=driveList&selname=%E6%8B%AF%E6%95%91%E8%80%85R7000%202020
 ```
 
-##### windows 系统包管理工具
+##### 字体
+
+> [字体下载地址]([Nerd Fonts - Iconic font aggregator, glyphs/icons collection, & fonts patcher](https://www.nerdfonts.com/))
+
+```
+DejaVuSansMono Nerd Font
+Cousine Nerd Font
+```
+
+
+
+##### 工具 - LxRunOffline
+
+> [github](https://github.com/DDoSolitary/LxRunOffline)
+
+```
+下载
+wget https://github.com/DDoSolitary/LxRunOffline/releases/download/v3.5.0/LxRunOffline-v3.5.0-msvc.zip
+
+解压
+
+环境变量 -> 系统变量 -> Path -> 添加"文件的目录"
+```
+
+##### 包管理工具(弃用)
 
 > 命令安装在: C:\Users\lg\scoop\apps
 
@@ -143,66 +171,109 @@ tool -> shell path -> powershell.exe
 字体美化
 ```
 
-##### wox
+##### Windows Terminal
+
+> C:\Users\xxx\AppData\Local\Packages\Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe\LocalState\setting.json
+
+- 下载 [MesloLGM NF字体]([跳转中... (zhihu.com)](https://link.zhihu.com/?target=https%3A//github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Meslo.zip)). CTRL+A全选，右键点击安装
+
+- 修改 setting.json 文件
+
+  ```json
+  {
+      "profiles": {
+          "defaults": {
+              "font": {
+                  "face": "MesloLGM NF"
+              }
+          }
+      }
+  }
+  ```
+
+- 快捷键
+
+  ```
+  SHIFT + ALT + ‘-’		水平分割
+  SHIFT + ALT + ‘+’		垂直分割
+  CTRL + SHIFT + ‘W’		关闭此时所处的窗口
+  ```
+
+##### oh my posh(弃用)
+
+> [github](https://github.com/JanDeDobbeleer/oh-my-posh)
+>
+> [home page](https://ohmyposh.dev/)
+
+- 管理启动 Powershell
+
+- 安装 posh-git, oh-my-posh, PSReadLine
+
+  > -Scope CurrentUser 限制仅当前用户可用
+
+  ```bash
+  > Install-Module posh-git -Scope CurrentUser
+  > Install-Module oh-my-posh -Scope CurrentUser
+  # PSReadLine 命令行增强补全工具
+  > Install-Module PSReadLine -Scope CurrentUser
+  
+  # 查看主题的路径 (没有手动创建)
+  > $env:POSH_THEMES_PATH
+  # 查看主题
+  > Get-PoshThemes
+  # 下载主题 https://github.com/JanDeDobbeleer/oh-my-posh/tree/main/themes 复制到主题目录下
+  
+  
+  winget install JanDeDobbeleer.OhMyPosh -s winget
+  
+  
+  ```
+
+- Windows Terminal 输入命令
+
+  > $PROFILE 显示 WindowsPowerShell 配置文件路径
+
+  ```bash
+  # 1. 启动编辑power shell配置文件的引擎
+  > if (!(Test-Path -Path $PROFILE )) { New-Item -Type File -Path $PROFILE -Force }
+  
+  # 2. 记事本打开配置文件
+  > notepad $PROFILE
+  ```
+
+- 配置文件
+
+  ```
+  # 引入 posh-git
+  Import-Module posh-git
+  # 引入 oh-my-posh
+  Import-Module oh-my-posh
+  # 设置主题
+  Set-PoshPrompt -Theme honukai
+  
+  # 引入 PSReadLine
+  Import-Module PSReadLine
+  Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
+  Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
+  Set-PSReadLineKeyHandler -Key Tab -Function Complete
+  ```
+
+- 卸载
+
+  ```bash
+  # 移除缓存文件
+  > Remove-Item $env:POSH_PATH -Force -Recurse
+  # 卸载oh-my-posh
+  > Uninstall-Module oh-my-posh -AllVersions
+  ```
+
 
 ```
-教程 https://sspai.com/post/33460
+# 如果后面日期乱码, 使用命令
+Set-Culture en-US
 
-1. 直接输入数字当做计算器使用
-2. 安装插件
-3. 剪切板历史插件
-    安装 wpm install Clipboard History
-    触发命令 cb
-4. 弹出 USB 设备
-    安装 wpm install Remove USB
-    触发命令 reu
-```
-
-##### oh-my-posh
-
-```
-https://github.com/JanDeDobbeleer/oh-my-posh
-
-1. 打开 PowerShell 安装
-
-2. 安装 ConEmu
-使用: choco install ConEmu
-或使用: sudo scoop install conemu
-
-2. 安装 posh-git 和 oh-my-posh 这两个模块
-    Install-Module posh-git -Scope CurrentUser
-    Install-Module oh-my-posh -Scope CurrentUser
-
-3. 新增（或修改）你的 PowerShell 配置文件
-    # 如果之前没有配置文件，就新建一个 PowerShell 配置文件
-    if (!(Test-Path -Path $PROFILE )) { New-Item -Type File -Path $PROFILE -Force }
-    # 用记事本打开配置文件
-    notepad $PROFILE
-    # 在其中添加下面的内容
-    Import-Module posh-git
-    Import-Module oh-my-posh
-    Set-Theme Paradox
-    # 如果后面日期乱码, 使用命令
-    Set-Culture en-US
-
-4. 生成配置文件目录, 可以通过命令查看
-    $PROFILE
-
-5. 使用命令设置主题
-    Set-Theme paradox
-        Agnoster
-        Avit        (这个主题有两行)
-        Darkblood
-        Fish
-        Honukai
-        Paradox
-        PowerLine
-        robbyrussell
-        Sorin
-        tehrob
-
-6. 安装Gow可以执行Linux命令
-    choco install gow
+查看按键
+> Get-PSReadLineKeyHandler
 ```
 
 #####  删除win10预览版水印
@@ -244,12 +315,6 @@ pause >nul
 exit
 ```
 
-##### 系统美化
-
-```
-
-```
-
 ##### 删除VS2017右键菜单 在Visual Studio中打开
 
 ```
@@ -260,20 +325,144 @@ Windows Registry Editor Version 5.00
 [-HKEY_CLASSES_ROOT\Directory\shell\AnyCode]
 ```
 
-##### 完全卸载
+# docker
+
+> [docker hub](https://hub.docker.com/)
+
+##### 国内源
 
 ```
-1. 使用安装文件安装, 在选择的时候将所有的文件选择为 "uninstall"
-2. 创建安.bat脚本删除其他的文件, DIRECTORY_NAME 设置成实际安装的目录
+docker desktop -> docker engine -> 添加
 
-SET DIRECTORY_NAME="C:\cygwin64"
-C:\windows\system32\TAKEOWN /f %DIRECTORY_NAME% /r /d y
-C:\windows\system32\ICACLS %DIRECTORY_NAME% /grant administrators:F /t
-PAUSE
+"registry-mirrors": ["https://docker.mirrors.ustc.edu.cn/"]
+```
+
+##### 下载地址
+
+```
+C:\Users\xxx\AppData\Local\Docker\wsl\data
+```
+
+# wsl
+
+##### 安装
+
+- 管理员运行powershell
+
+  ```bash
+  # 启用虚拟机平台
+  > Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform
+  
+  # 启用Linux子系统功能
+  > Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
+  ```
+  
+  cmd 管理员运行
+  
+  ```bash
+  > dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+  ```
+  
+- 从 [官网](https://learn.microsoft.com/zh-cn/windows/wsl/install-manual#step-4---download-the-linux-kernel-update-package) 下载 [WSL2 Linux 内核更新包](https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi)
+
+##### 命令
+
+```bash
+wsl --set-default-version 2			设置默认版本2
+wsl -l -v							查看列表
+wsl --set-version centos001 2		切换版本
+wsl --terminate centos001			卸载子系统
+wsl --unregister centos001			注销子系统
+wsl --export centos001 D:\rootfs.tar导出系统镜像
+wsl --shutdown          			关闭
+wsl --list --running
+wsl -u g							指定启动的用户
+
+wslconfig /setdefault centos001		设置当前子系统为默认子系统
+wslconfig /l
+
+net stop LxssManager				关闭子系统
 
 ```
 
-## development
+### centos
+
+##### 安装
+
+> [github](https://github.com/CentOS/sig-cloud-instance-images/)
+
+```bash
+# 在分支中找对应的版本, 下载 tar.xz 包 (如果不能下载在其他服务器下载)
+> wget https://raw.githubusercontent.com/CentOS/sig-cloud-instance-images/CentOS-7.8.2003-x86_64/docker/centos-7.8.2003-x86_64-docker.tar.xz
+
+# 将 centos 安装到 C:\opt\linux, 并且命名为 centos001
+> LxRunOffline.exe install -n centos001 -d C:\opt\linux -f .\centos-7.8.2003-x86_64-docker.tar.xz
+
+# 启动
+> LxRunOffline run -n centos001
+或
+> wsl -d centos001
+```
+
+##### 关闭 swap
+
+```
+新建 C:\Users\xxx\.wslconfig 增加
+
+[wsl2]
+swap=0
+```
+
+##### wsl.conf
+
+```
+1. 进入 wsl
+2. 创建编辑 /etc/wsl.conf
+
+
+[network]					# hostname
+hostname = centos001
+[user]						# 启动 wsl 默认用户
+default = g
+```
+
+##### software
+
+```bash
+$ dnf install sudo
+```
+
+
+
+### ubuntu
+
+##### ssh
+
+```
+1. 必须先删除重新安装
+aptitude remove openssh-server
+aptitude install openssh-server
+
+2.编辑sshd_config文件
+
+sudo vim /etc/ssh/sshd_config
+
+Port 22
+PermitRootLogin yes
+PasswordAuthentication yes
+
+3. 重新启动
+service ssh restart
+
+4. 命令
+service ssh status
+/etc/init.d/ssh start
+update-rc.d ssh enable              设为开机启动
+```
+
+
+
+# env
 
 ##### pyenv
 
@@ -283,15 +472,29 @@ PAUSE
 choco install pyenv-win
 ```
 
+##### windows python 环境管理
+
+```shell
+$ pip install virtualenvwrapper-win
+$ mkvirtualenv --python=python3.9.13 p3913_learn
+
+# 虚拟环境列表
+$ workon
+$ workon p3913_learn
+# 退出环境
+$ deactivate
+# 删除环境
+$ rmvirtualenv venv
+
+
+虚拟环境安装在用户 Envs 路径下
+```
 
 
 
 
 
-
-
-
-## 效率软件
+# 效率软件
 
 ##### wox
 
@@ -302,6 +505,21 @@ github: https://github.com/Wox-launcher/Wox/releases
 
 使用: https://zhuanlan.zhihu.com/p/68383315/
 ```
+
+```
+教程 https://sspai.com/post/33460
+
+1. 直接输入数字当做计算器使用
+2. 安装插件
+3. 剪切板历史插件
+    安装 wpm install Clipboard History
+    触发命令 cb
+4. 弹出 USB 设备
+    安装 wpm install Remove USB
+    触发命令 reu
+```
+
+
 
 ##### LoveString
 
@@ -355,4 +573,6 @@ ofview-x64.zip
 Website IP 
 查看访问网页的ip
 ```
+
+
 

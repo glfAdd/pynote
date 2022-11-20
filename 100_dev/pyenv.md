@@ -17,9 +17,8 @@ $ which pip3
 ##### 依赖 - centos
 
 ```bash
-$ dnf install gcc gcc-c++ glibc glibc-devel libffi-devel sqlite-devel bzip2-devel bzip2 readline-devel openssl-devel bzip2-devel sqlite-devel 
-$ dnf install zlib zlib-devel
-$ dnf install patch
+$ dnf install gcc gcc-c++ glibc glibc-devel libffi-devel sqlite-devel bzip2-devel bzip2 readline-devel openssl-devel bzip2-devel sqlite-devel make
+$ dnf install zlib zlib-devel patch
 ```
 
 ##### 依赖 - mac
