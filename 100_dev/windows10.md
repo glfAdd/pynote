@@ -429,7 +429,7 @@ default = g
 ##### software
 
 ```bash
-$ dnf install sudo
+$ dnf install sudo vim htop tree zsh git wget
 ```
 
 
