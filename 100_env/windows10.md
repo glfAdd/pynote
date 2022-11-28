@@ -434,6 +434,21 @@ $ dnf install sudo vim htop tree zsh git wget
 
 
 
+### fedora
+
+[home page](https://getfedora.org/)
+
+
+
+```
+
+
+
+
+```
+
+
+
 ### ubuntu
 
 ##### ssh

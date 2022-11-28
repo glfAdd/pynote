@@ -1,25 +1,20 @@
-# 文档
-
 ##### 参考案例
 
 ```
 Tmux + vim
 https://kxcblog.com/post/terminal/2.tmux-tutorial/
 
-知乎方案 1
+知乎方案 neovim
 https://zhuanlan.zhihu.com/p/382092667
 https://github.com/ayamir/nvimdots/wiki/Plugins
 
-知乎方案 2
-https://zhuanlan.zhihu.com/p/434727338?utm_source=wechat_session&utm_medium=social&s_r=0
+知乎方案 2 neovim
 https://github.com/nshen/learn-neovim-lua
 
 知乎方案 3
 https://zhuanlan.zhihu.com/p/388397656?utm_source=wechat_session&utm_medium=social&utm_oi=1269928803658530816
-https://github.com/HeWenJin/config/blob/main/nvim/lua/plugins/init.lua
 
 新方案用到的插件1 : 
-https://github.com/HeWenJin/config/blob/main/nvim/lua/plugins/init.lua
 
 todo
 https://github.com/saadparwaiz1/cmp_luasnip
@@ -39,51 +34,71 @@ quickfix
 
 ```
 
-##### 命令
-
-```
-:set filetype					查看编码
-:h key-notation				查看键盘映射
-```
-
 ##### [neovim map](https://neovim.io/doc/user/map.html)
 
 ##### [neovim lua document](https://github.com/glepnir/nvim-lua-guide-zh)
 
-# 命令
+# 安装
 
-##### neovim 日志目录
+[homepage](http://neovim.io/)
 
-```
-:lua print(vim.fn.stdpath('cache'))
-```
+[github](https://github.com/neovim/neovim/releases)
 
-##### neovim 命令行显示的消息
-
-```
-:messages
-```
-
-# 安装 - neovim
-
-##### install - linux
+##### linux - 编译
 
 ```bash
-$ wget https://github.com/neovim/neovim/releases/download/v0.6.0/nvim-linux64.tar.gz
-$ tar zxvf nvim-linux64.tar.gz
-$ mkdir -p /opt/neovim-0.6.0
-# 移动到 opt
-$ ln -s /opt/neovim-0.6.0/bin/nvim /usr/bin/nvim
+$ dnf install python3 bison
+$ wget https://github.com/neovim/neovim/releases/download/v0.8.1/nvim-linux64.tar.gz
+$ tar xvf nvim-linux64.tar.gz
+$ ln -s /opt/nvim-linux64/bin/nvim /usr/bin/nvim
+# 安装 python3 支持
+$ dnf install libevent-devel python-gevent python-devel python3-devel
+$ python3 -m pip install --upgrade pip
+$ pip3 install neovim
+
+# 查看是是否有 python3 支持
 ```
 
-##### install - mac
+##### install GLIBC_2.29
+
+> 提示失败是可能安装, 详细看提示
+>
+> ```
+> ./nvim: /lib64/libc.so.6: version `GLIBC_2.28' not found (required by ./nvim)
+> ./nvim: /lib64/libm.so.6: version `GLIBC_2.29' not found (required by ./nvim)
+> ```
+
+[download](https://ftp.gnu.org/gnu/glibc/)
 
 ```bash
-$ wget https://github.com/neovim/neovim/releases/download/v0.6.1/nvim-macos.tar.gz
-
-# mac 系统不允许修改 /usr/bin/ 目录
-$ ln -s /opt/nvim-osx64/bin/nvim /usr/local/bin/nvim
+$ wget https://ftp.gnu.org/gnu/glibc/glibc-2.29.tar.gz
+$ cd glibc-2.29
+$ mkdir build
+$ cd build
+$ ../configure --prefix=/usr --disable-profile --enable-add-ons --with-headers=/usr/include --with-binutils=/usr/bin
+$ make
+$ make install
+	
+# 查看版本
+$ strings /lib64/libc.so.6 |grep GLIBC_2.29
 ```
+
+##### 
+
+> gcc 版本太旧, 安装时需要临时切换到新版本的gcc, 否则编译失败
+>
+> ```
+> configure: error:
+> *** These critical programs are missing or too old: make bison compiler
+> *** Check the INSTALL file for required versions.
+> ```
+
+```bash
+$ dnf install bison
+
+```
+
+
 
 ##### 配置文件
 
@@ -102,6 +117,15 @@ $ ln -s /opt/nvim-osx64/bin/nvim /usr/local/bin/nvim
 2. 安装插件
 $ pip install neovim
 $ pip3 install neovim
+```
+
+# 命令
+
+##### neovim 命令行显示的消息
+
+```
+:messages							neovim 命令行显示的消息
+:lua print(vim.fn.stdpath('cache'))	neovim 日志目录
 ```
 
 # 快捷键
@@ -353,16 +377,9 @@ end)
 ##### 命令
 
 ```
--- Regenerate compiled loader file
 :PackerCompile
-
--- Remove any disabled or unused plugins
 :PackerClean
-
--- Clean, then install missing plugins
 :PackerInstall
-
--- Clean, then update and install plugins
 :PackerUpdate
 
 -- Perform `PackerUpdate` and then `PackerCompile` ( 安装 / 更新)
@@ -462,7 +479,7 @@ $ aptiotude install xsel
 
 ```bash
 $ aptitude install ripgrep
-$ dnf insteall ripgrep
+$ dnf install ripgrep
 ```
 
 ##### fd
@@ -1062,8 +1079,6 @@ $ pip install pytest debugpy
 
 ```
 https://github.com/PyCQA/isort
-
-
 ```
 
 
