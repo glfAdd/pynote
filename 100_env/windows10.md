@@ -383,6 +383,11 @@ wslconfig /l
 
 net stop LxssManager				关闭子系统
 
+wslconfig
+    /l, /list [/all] 列出已注册的发行版
+    /s, /setdefault <DistroName> 将该发行版设为默认
+    /t, /terminate <DistroName> 终止该发行版
+    /u, /unregister <DistroName> 取消注册该发行版
 ```
 
 ### centos
@@ -429,23 +434,23 @@ default = g
 ##### software
 
 ```bash
-$ dnf install sudo vim htop tree zsh git wget
+$ dnf install sudo vim htop tree zsh git wget passwd
 ```
-
-
 
 ### fedora
 
-[home page](https://getfedora.org/)
+[github](https://github.com/fedora-cloud/docker-brew-fedora)
 
+```bash
+# fedora 37
+$ wget https://raw.githubusercontent.com/fedora-cloud/docker-brew-fedora/37/x86_64/fedora-37-x86_64.tar.xz
+```
 
-
+```
+dnf install git vim neovim tree wget htop zsh util-linux-user python2 python python3-pip
 ```
 
 
-
-
-```
 
 
 
@@ -504,10 +509,6 @@ $ rmvirtualenv venv
 
 虚拟环境安装在用户 Envs 路径下
 ```
-
-
-
-
 
 # 效率软件
 
