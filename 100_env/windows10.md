@@ -390,6 +390,14 @@ wslconfig
     /u, /unregister <DistroName> 取消注册该发行版
 ```
 
+##### 导入导出
+
+```
+wsl --export Ubuntu D:\Ubuntu.tar
+wsl --unregister Ubuntu
+wsl --import Ubuntu D:\Ubuntu D:\Ubuntu.tar --version 2
+```
+
 ### centos
 
 ##### 安装
