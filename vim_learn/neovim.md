@@ -107,7 +107,7 @@ $ dnf install neovim
 
 ```
 ~/.config/nvim/init.vim
-~/.config/nvim/init.lua
+~/.config/nvim/init.lua （推荐）
 ```
 
 ##### 支持 python2 / 3
@@ -313,7 +313,7 @@ $ dnf install tmux
 
 #####  gruvbox.nvim (主题配色)
 
-> [github](https://giters.com/ellisonleao/gruvbox.nvim)
+> [github](https://github.com/ellisonleao/gruvbox.nvim)
 
 ##### vim-startify (启动画面)
 

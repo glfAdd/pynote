@@ -1,11 +1,74 @@
+```
+;; ----------------------------------------------
+;; 图标
+;; 其他插件依赖这个
+;; ----------------------------------------------
+(use-package all-the-icons
+  :if (display-graphic-p))
+
+
+;; ----------------------------------------------
+;; 欢迎页面
+;; ----------------------------------------------
+(use-package dashboard
+    :config
+        (dashboard-setup-startup-hook)
+        (setq dashboard-banner-logo-title "Welcome to Emacs Dashboard") ; 签名
+        (setq dashboard-center-content t) ; 居中
+        (setq dashboard-set-heading-icons t)
+        (setq dashboard-set-file-icons t)
+        (setq dashboard-items '((recents  . 5) ; 最近文件
+                                (bookmarks . 5) ; 书签
+                                (projects . 5) ; 最近项目
+                                (agenda . 5)
+                                (registers . 5)))
+)
+
+
+;; ----------------------------------------------
+;; 主题
+;; ----------------------------------------------
+(use-package gruvbox-theme
+    :init (load-theme 'gruvbox-dark-soft t))
+
+
+(provide 'init-ui)
+```
+
+```
+;; 加载配置文件
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "site-lisp" user-emacs-directory))
+
+
+
+(require 'init-basic)
+(require 'init-package)
+(require 'init-ui)
+
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages '(solarized-theme use-package)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+```
+
+
+
 ##### 参考
 
 ```
-https://github.com/cabins/.emacs.d
-
-
 Emacs高手修炼手册: 
 https://www.jianshu.com/p/42ef1b18d959
+
 
 插件整理
 https://www.zhihu.com/question/21943533
@@ -13,12 +76,9 @@ https://zhuanlan.zhihu.com/p/441612281
 https://www.zhangjiee.com/topic/emacs/package.html
 
 
-
 推荐1
 https://huadeyu.tech/tools/emacs-setup-notes.html#orga1adbf9
 ```
-
-
 
 [emacs wiki](https://www.emacswiki.org)
 
@@ -27,6 +87,8 @@ https://huadeyu.tech/tools/emacs-setup-notes.html#orga1adbf9
 [插件作者 abo-abo ](https://github.com/abo-abo)
 
 # 安装
+
+### linux
 
 > [官网](http://www.gnu.org/software/emacs/emacs.html)
 >
@@ -75,70 +137,186 @@ $ emacs -nw
 $ emacs
 ```
 
-# 概念
-
-##### 功能区
-
-![emacs区域](./image/emacs区域.jpg)
-
-- Frame: 如果用图形界面打开 Emacs 程序，那么一整个程序窗口被称为 Frame
-- Menu bar: 即菜单栏，在 Frame 的最上方
-- Tool bar: 即工具栏
-- Echo Area: 回显区, 整个界面下方的一行
-- Window: Tool bar 以下, Echo area 以上这一整个区域
-- Mode line: 模式行, Window 最下方,Echo Area 上方
-- Scroll bar: 图形界面时 Window 的最右侧滚动条
-- Cursor: 光标
-- Point: 光标所在的位置称为 Point. 光标有且只有一个，但 Point 是针对 Buffer 的，每个 Buffer 都有一个 Point
-
-##### buffer
+### windows
 
 ```
+1. 安装完成后运行 C:\Program Files\Emacs\emacs-28.1\bin\addpm.exe 在开始菜单添加快捷方式
+
+2. 配置文件路径 %AppData% 下 创建 .emacs 文件
 ```
 
-##### mini-buffer
+# 配置
 
-最下面的框, 并不是全屏的
+> 使用语法 elisp
 
-![mini-buffer](./image/mini-buffer.png)
+> 参考
+>
+> https://www.jianshu.com/p/e9f9a5df96c2
+>
+> https://www.scanbuf.net/post/manual/basic-config/
+>
+> 
+>
+> https://blog.csdn.net/neo_liukun/article/details/115189475?spm=1035.2023.3001.6557&utm_medium=distribute.pc_relevant_bbs_down.none-task-blog-2~default~OPENSEARCH~Rate-5.nonecase&depth_1-utm_source=distribute.pc_relevant_bbs_down.none-task-blog-2~default~OPENSEARCH~Rate-5.nonecase
+>
+> 
+>
+> https://www.cnblogs.com/eat-and-die/p/10309681.html !!!!!!!
 
+### 快捷键设置
 
+##### 按键说明
 
-##### mode
+| Emacs 功能键 | 缩写 | 对应键盘按键(PC/Mac) |
+| ------------ | ---- | -------------------- |
+| Control      | C    | Ctrl / Control       |
+| Meta         | M    | Alt / Option         |
+| Shift        | S    | Shift / Shift        |
+| Super        | s    | Win / Command        |
+| Hyper        | H    | 无                   |
+| DEL          |      | backspace            |
 
-- 主模式
+##### 快捷键
 
-  ```
-  一个 Buffer 只能对应一个主模式
-  最基本的主模式是 Fundamental mode, 没有进行任何配置的模式 
-  主模式默认根据 Buffer 的文件类型来选择, 例如
-      打开 .cpp 文件, buffer 自动设置成 c++-mode
-      打开 .py 文件，buffer 自动设置为 python-mode
-  
-  
-  手动切换
-  	M-x 输入模式名
-  ```
+| 操作描述                             | 快捷键                 | 命令名                         |
+| ------------------------------------ | ---------------------- | ------------------------------ |
+| 输入命令                             | M-x                    | execute-extended-command       |
+| 退出程序                             | C-x C-c                | save-buffers-kill-terminal     |
+| 放弃当前输入                         | C-g                    | keyboard-quit                  |
+| 光标向上一行（方向键上）             | C-p                    | previous-line                  |
+| 光标向下一行（方向键下）             | C-n                    | next-line                      |
+| 光标向左一个字符（方向键左）         | C-b                    | backward-char                  |
+| 光标向右一个字符（方向键右）         | C-f                    | forward-char                   |
+| 光标向左移动一个词                   | M-b                    | backward-word                  |
+| 光标向右移动一个词                   | M-f                    | forward-word                   |
+| 光标移至行首                         | C-a                    | move-beginning-of-line         |
+| 光标移至行尾                         | C-e                    | move-end-of-line               |
+| 光标移动到一行缩进的开头             | M-m                    | back-to-indentation            |
+| 光标移至句首                         | M-a                    | backward-sentence              |
+| 光标移至句尾                         | M-e                    | forward-sentence               |
+| 光标移至文件开头                     | M-<                    | beginning-of-buffer            |
+| 光标移至文件结尾                     | M->                    | end-of-buffer                  |
+| 光标移动至窗口的中间、最上、最下     | M-r                    | move-to-window-line-top-bottom |
+| 删除光标右侧字符                     | C-d                    | delete-char                    |
+| 移除光标右侧词                       | M-d                    | kill-word                      |
+| 移除光标左侧词                       | M-                     | backward-kill-word             |
+| 移除右侧直到句子结尾                 | M-k                    | kill-sentence                  |
+| 移除右侧直到行尾                     | C-k                    | kill-line                      |
+| 设置标记以选择区域                   | C-SPC                  | set-mark-command               |
+| 复制区域                             | M-w                    | kill-region-save               |
+| 移除区域                             | C-w                    | kill-region                    |
+| 插入已移除文本                       | C-y                    | yank                           |
+| 插入历史移除文本                     | M-y                    | yank-pop                       |
+| 撤回                                 | C-/ 或 C-_ 或 C-x u    | undo                           |
+| 跳转到上一标记                       | C-x C-SPC 或 C-u C-SPC | pop-global-mark                |
+| 跳转到行号                           | M-g M-g                | goto-line                      |
+| 重复                                 | C-u                    | universal-argument             |
+| 向下一页                             | C-v                    | scroll-up-command              |
+| 向上一页                             | M-v                    | scroll-down-command            |
+| 移动页面使得光标在中央/最上方/最下方 | C-l                    | recenter-top-bottom            |
+| 向后搜索                             | C-s                    | isearch-forward                |
+| 向前搜索                             | C-r                    | isearch-backward               |
+| 交换前后字符                         | C-t                    | transpose-chars                |
+| 交换前后词                           | M-t                    | transpose-words                |
+| 交换前后两行                         | C-x C-t                | transpose-lines                |
+| 在下方新建一行                       | C-o                    | open-line                      |
+| 删除连续空行为一个空行               | C-x C-o                | delete-blank-lines             |
+| 将后面的词变为小写                   | M-l                    | downcase-word                  |
+| 将后面的词变为大写                   | M-u                    | upcase-word                    |
+| 将后面的词变为首字母大写             | M-c                    | capitalize-word                |
+| 简要描述快捷键功能                   | C-h c                  | describe-key-briefly           |
+| 描述快捷键功能                       | C-h k                  | describe-key                   |
+| 描述函数功能                         | C-h f                  | describe-function              |
+| 描述变量                             | C-h v                  | describe-variable              |
+| 列出含某一关键词的命令               | C-h a                  | apropos-command                |
+| 列出含某一关键词的符号的文档         | C-h d                  | apropos-documentation          |
+| 帮助的帮助                           | C-h ?                  | help-for-help                  |
 
-- 次模式
-
-  ```
-  同一个 Buffer 可以有多个次模式
-  ```
-
-##### mode hook
+##### 常用
 
 ```
-1. Mode hook 的作用就是当启动一个主模式时，自动执行一些已经“挂钩”到这个主模式的函数或次模式, 可以自由地向一个主模式上挂上各种功能，在启动这个主模式时就可以自动跟随着一起启动。
+C-x C-c		退出
+C-x C-s		保存
+C-x C-f		emacs 内打开文件
+C-x C-r		emacs 内打开文件(只读)
 
-2. 主模式名-hook
+C-x C-q		已打开文件切换到只读模式
 
-主模式“文本文件模式” text-mode 时启动次模式“检查拼写” flyspell-mode
-	(add-hook 'text-mode-hook 'flyspell-mode)
 
-编程模式 prog-mode 启动时, 添加代码块折叠功能
-	(add-hook 'prog-mode-hook #'hs-minor-mode)
+
+C-S-<mouse-1> 表达“同时按下 Control 键和 Shift 键，然后鼠标左键点击“
+
+M-x
+	安装 M 和 x
+	Esc 松开, 再按 x
+
+C-a
+C-x b
+C-S-<mouse-1>  同时按下 Control 键和 Shift 键, 然后鼠标左键点击
 ```
+
+### 配置
+
+##### 配置文件路径
+
+```
+优先级从高到低
+    ~/.emacs
+    ~/.emacs.el
+    ~/.emacs.d/init.el
+    ~/.config/emacs/init.el
+    
+
+default.el: 位于 Emacs 的任何标准的 package 搜索目录下，其中 Emacs 的 package 搜索目录由 load-path 变量定义
+site-start.el: 位于 Emacs 的任何标准的 package 搜索目录下, 加载 package 中的配置是优先加载 site-start.el , 最后加载 default.el 
+early-init.el: 在初始化 package 系统和 GUI 之前加载
+
+–no-init-file		Emacs 启动时, 选项来阻止 Emacs 加载初始化文件
+-q					Emacs 启动时, 选项来阻止 Emacs 加载初始化文件
+–no-site-file		禁止 Emacs 加载 site-start.el 配置文件
+
+初始化文件中将 inhibit-default-init 设置为 t ,那么 Emacs 不会加载 default.el
+```
+
+```lisp
+;; Emacs 启动时自动调用 package-initialize 导入已经安装了的包
+(package-initialize)
+;; 禁用 package-initialize 调用
+(setq package-enable-at-startup nil)
+```
+
+##### 目录
+
+```
+.
+├── auto-save-list
+├── eln-cache
+├── elpa
+├── history
+├── init.el			配置文件
+├── lisp			插件配置文件目录, 配置文件命名格式为init-xxx.el
+└── site-lisp		自定义配置
+```
+
+##### 全局快捷键
+
+- 格式
+
+  ```
+  (global-set-key (kbd <KEY>) <FUNCTION>)
+      <key>: 快捷键
+      <FUNCTION>: 功能	
+  ```
+
+##### 源分类
+
+| 类型         | 说明                                                         |
+| ------------ | ------------------------------------------------------------ |
+| gnu          | 一般是必备的，其它的 elpa 中的包会依赖 gnu 中的包            |
+| melpa        | 滚动升级，收录了的包的数量最大                               |
+| melpa-stable | 依据源码的 Tag （Git）升级，数量比 melpa 少，因为很多包作者根本不打 Tag |
+| org          | 仅仅为了 org-plus-contrib 这一个包，org 重度用户使用         |
+| marmalade    | 似乎已经不维护了，个人不推荐                                 |
 
 ##### melpa
 
@@ -171,75 +349,6 @@ Emacs 插件都放在了一些固定的仓库网站上, 最大的插件仓库就
   package-install <插件名> 安装插件
   package-delete <插件名> 删除插件  
   ```
-
-# 配置
-
-> 使用语法 elisp
-
-> 参考
->
-> https://www.jianshu.com/p/e9f9a5df96c2
->
-> https://www.scanbuf.net/post/manual/basic-config/
->
-> 
->
-> https://blog.csdn.net/neo_liukun/article/details/115189475?spm=1035.2023.3001.6557&utm_medium=distribute.pc_relevant_bbs_down.none-task-blog-2~default~OPENSEARCH~Rate-5.nonecase&depth_1-utm_source=distribute.pc_relevant_bbs_down.none-task-blog-2~default~OPENSEARCH~Rate-5.nonecase
->
-> 
->
-> https://www.cnblogs.com/eat-and-die/p/10309681.html !!!!!!!
-
-##### 配置文件路径
-
-```bash
-~/.emacs
-~/.emacs.el
-~/.emacs.d/init.el
-~/.config/emacs/init.el
-```
-
-##### 源分类
-
-| 类型         | 说明                                                         |
-| ------------ | ------------------------------------------------------------ |
-| gnu          | 一般是必备的，其它的 elpa 中的包会依赖 gnu 中的包            |
-| melpa        | 滚动升级，收录了的包的数量最大                               |
-| melpa-stable | 依据源码的 Tag （Git）升级，数量比 melpa 少，因为很多包作者根本不打 Tag |
-| org          | 仅仅为了 org-plus-contrib 这一个包，org 重度用户使用         |
-| marmalade    | 似乎已经不维护了，个人不推荐                                 |
-
-##### ~/.emacs.d 目录结构
-
-```
-~/.emacs.d/lisp
-插件配置文件目录，配置文件命名格式为init-xxx.el
-~/.emacs.d/site-lisp
-放置无法从elpa或其它仓库获取的第三方插件，本目录及其子目录须在启动时添加到load-path
-~/.emacs.d/init.el
-初始化load-path，初始化elpa，加载各插件配置文件等
-
-
-mkdir -p ~/.emacs.d/lisp
-mkdir -p ~/.emacs.d/site-lisp
-```
-
-##### 配置文件分类
-
-```
-Emacs 还可以有一个默认的初始化文件 default.el ，位于 Emacs 的任何标准的 package 搜索目录下
-
-Emacs 还有配置文件 (site-wide startup file)，称为 site-start.el ，也位于 Emacs 的任何标准的 package 搜索目录下
-
-Emacs 加载 package 中的配置是优先加载 site-start.el , 最后加载 default.el
-Emacs 启动时，可以使用 -q 或 –no-init-file 选项来阻止 Emacs 加载初始化文件
-
-inhibit-default-init 设置为 t ，那么 Emacs 不会加载 default.el
-可以使用 –no-site-file 来禁止 Emacs 加载 site-start.el 配置文件
-
-early-init.el 特殊的初始化配置文件.该配置文件在初始化 package 系统和 GUI 之前加载。
-
-```
 
 ##### ~/.emacs.d/early-init.el
 
@@ -469,10 +578,6 @@ early-init.el 特殊的初始化配置文件.该配置文件在初始化 package
                                    :name "Python :: flask-graphql"
                                    :hostName "localhost"
                                    :host "localhost"))
-
-
-
-
 ```
 
 ##### 导出模块
@@ -566,6 +671,26 @@ d - 选择要删除的包
 >
 > (require 'xxx) 可以理解为 “导入并执行”，类似于 Python 的 import
 
+##### 安装
+
+```lisp
+;; 使用 use-package 管理扩展
+(unless (package-installed-p 'use-package) 
+    (package-refresh-contents) 
+    (package-install 'use-package))
+
+
+;; use-package 全局设置
+(eval-and-compile 
+    (setq use-package-always-ensure t) ;不用每个包都手动添加:ensure t关键字 
+    (setq use-package-always-defer t) ;默认都是延迟加载，不用每个包都手动添加:defer t 
+    (setq use-package-always-demand nil) 
+    (setq use-package-expand-minimally t) 
+    (setq use-package-verbose t))
+
+(require 'use-package)
+```
+
 ##### 参数示例
 
 ```lisp
@@ -583,35 +708,11 @@ d - 选择要删除的包
 )
 ```
 
-##### 安装
-
-```lisp
-;; 使用 use-package 管理扩展
-(unless (package-installed-p 'use-package) 
-    (package-refresh-contents) 
-    (package-install 'use-package))
-
-
-;; use-package 全局设置
-(eval-and-compile 
-    (setq use-package-always-ensure t)
-    (setq use-package-always-defer t)
-    (setq use-package-always-demand nil) 
-    (setq use-package-expand-minimally t) 
-    (setq use-package-verbose t))
-
-(require 'use-package)
-```
-
 # package
 
 ##### all-the-icons
 
 > [github](https://github.com/domtronn/all-the-icons.el)
-
-```
-
-```
 
 ##### gruvbox-theme
 
@@ -670,7 +771,6 @@ d - 选择要删除的包
     (setq dashboard-items '((recents  . 5)   ;; 显示多少个最近文件
   			  (bookmarks . 5)  ;; 显示多少个最近书签
   			  (projects . 10))) ;; 显示多少个最近项目
-  
   ```
 
 ##### benchmark-init
@@ -757,6 +857,7 @@ d - 选择要删除的包
   b   水平分割
   o   最大化当前
   ?   显示命令绑定
+  ```
 
 ##### undo-tree
 
@@ -823,6 +924,7 @@ d - 选择要删除的包
 - java
 
   ```
+  
   ```
 
   
@@ -845,6 +947,7 @@ d - 选择要删除的包
 - install
 
   ```
+  
   ```
 
 ##### centaur-tabs 标签切换(弃用)
@@ -865,6 +968,7 @@ https://amitp.blogspot.com/2020/06/emacs-prettier-tab-line.html
 ##### shell
 
 ```
+
 ```
 
 ##### buffer
@@ -887,16 +991,15 @@ https://jdhao.github.io/2021/09/30/emacs_custom_tabline/
 
 ```
 
+
+
 ##### yasnippet 代码片段
 
 > [github](https://github.com/joaotavora/yasnippet)
 
 ```
 
-
 ```
-
-
 
 ##### crux 一些快捷操作
 
@@ -1016,6 +1119,7 @@ https://github.com/palantir/python-language-server
 - setting
 
   ```
+  
   ```
 
 - use
@@ -1037,11 +1141,13 @@ https://github.com/palantir/python-language-server
 - install
 
   ```
+  
   ```
 
 - setting
 
   ```
+  
   ```
 
 - use
@@ -1075,7 +1181,6 @@ https://github.com/python-lsp/python-lsp-server
 
 
 Debug session process exited with status: exited abnormally with code 1                                              
-
 ```
 
 # dap-mode
@@ -1099,8 +1204,6 @@ Debug session process exited with status: exited abnormally with code 1
 >flask 的问题 https://github.com/emacs-lsp/dap-mode/issues/234
 >
 >​	问题视频 https://www.youtube.com/watch?v=ffS7DHbSpVc&ab_channel=Jorge%28%40shackraonGab%29
->
->
 >
 
 ### 通用
@@ -1133,6 +1236,7 @@ dap-ui-breakpoints
 - setting
 
   ```
+  
   ```
 
 - use
@@ -1159,39 +1263,9 @@ pip install ptvsd pytest debugpy
 
 [document](https://www.spacemacs.org/doc/DOCUMENTATION.html)
 
-```
-
-
-```
-
-
-
 # 快捷键
 
 > https://aifreedom.com/technology/112
-
-##### 按键说明
-
-| Emacs 功能键 | 缩写 | 对应键盘按键(PC/Mac) |
-| ------------ | ---- | -------------------- |
-| Control      | C    | Ctrl / Control       |
-| Meta         | M    | Alt / Option         |
-| Shift        | S    | Shift / Shift        |
-| Super        | s    | Win / Command        |
-| Hyper        | H    | 无                   |
-| DEL          |      | backspace            |
-
-```
-C-a
-C-x b
-C-S-<mouse-1>  同时按下 Control 键和 Shift 键, 然后鼠标左键点击
-```
-
-|      |                          |                           |
-| ---- | ------------------------ | ------------------------- |
-| M-x  | execute-extended-command | 输入命令, 单词用 - 或空格 |
-| C-g  |                          | 取消命令输入或运行卡住时  |
-|      | previouse-line           | 上移一行                  |
 
 ##### 移动
 
@@ -1212,7 +1286,6 @@ M-r		移动光标到窗口中 / 上 / 下
 C-l	 	光标所在行位于窗口中 / 上 / 下
 C-v		下一页
 M-v 	上一页
-
 
 标记跳转
 	1. 不选中文本, 按 2 次 C-SPC
@@ -1286,17 +1359,12 @@ M-c		光标所在字符大写, 后面的字符全小写\
 	C-r
 ```
 
-
-
 ##### 插件
 
 ```
 swiper 搜索列表
 counsel 剪贴板历史
 which-key 命令帮助
-
-
-
 ```
 
 ##### 文件
@@ -1314,15 +1382,13 @@ M-x 输入 kill-emacs不保存关闭
 
 ##### buffer
 
-参考 https://emacs-china.org/t/topic/2940/26
+参考
+
+https://emacs-china.org/t/topic/2940/26
 
 https://www.gnu.org/software/emacs/manual/html_node/emacs/Buffers.html
 
 http://ecb.sourceforge.net/
-
-
-
-
 
 ```
 C-x b		buffer 切换
@@ -1354,13 +1420,9 @@ C-x 4 f		在另一个 window 打开新的文件，如果只有一个窗口就分
 C-x 4 b 	在另一个 window 切换到另一 Buffer，如果只有一个窗口就分割成两个
 C-x 4 d 	在另一个 window 打开目录，如果只有一个窗口就分割成两个
 
-
-
 增加/减少宽度
 C-x {
 C-x }
-
-
 ```
 
 ##### tab
@@ -1387,43 +1449,7 @@ C-x 5 f		打开新 Frame 并打开文件
 
 mac 改键盘按键
 https://karabiner-elements.pqrs.org/
-
 ```
-
-
-
-| 快捷键  | 说明       |
-| ------- | ---------- |
-| C-x C-s | 保存文件   |
-| C-x C-w | 另存为     |
-| C-x C-c | 关闭emacs  |
-| C-f     | l          |
-| C-b     | h          |
-| C-p     | k          |
-| C-n     | j          |
-| M-f     | 后一个单词 |
-| M-b     | 前一个单词 |
-| C-a     | 行首       |
-| C-e     | 行尾       |
-| C-v     | 向下翻一页 |
-| M-v     | 向上翻一页 |
-| M-<     | 到文件开头 |
-| M->     | 到文件末尾 |
-
-```
-C-o 光标下插入空白行
-C-e 回车
-C-x C-o 删除1个 / 删除多个只剩1个
-
-C-y 粘贴
-
-C-a 行首
-C-e 行尾
-C-k 删除光标后所有
-C-/ 撤销
-```
-
-
 
 # 优化
 
@@ -1431,28 +1457,24 @@ C-/ 撤销
 
 ##### 启动速度
 
-##### 加载 顺序
+##### 加载顺序
 
 # 游戏
 
 ##### 内置游戏
 
-> M-x 游戏名
->
-> q 		推出
-
 ```
-doctor		机器人对话
-snake		贪吃蛇
-gomoku		五子棋
-bubbles		消消乐
+M-x 游戏名
+q			退出
+    doctor		机器人对话
+    snake		贪吃蛇
+    gomoku		五子棋
+    bubbles		消消乐
 ```
-
-```
-
-```
-
-
 
 ##### 俄罗斯方块
+
+```
+
+```
 
