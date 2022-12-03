@@ -1,80 +1,12 @@
-```
-;; ----------------------------------------------
-;; 图标
-;; 其他插件依赖这个
-;; ----------------------------------------------
-(use-package all-the-icons
-  :if (display-graphic-p))
-
-
-;; ----------------------------------------------
-;; 欢迎页面
-;; ----------------------------------------------
-(use-package dashboard
-    :config
-        (dashboard-setup-startup-hook)
-        (setq dashboard-banner-logo-title "Welcome to Emacs Dashboard") ; 签名
-        (setq dashboard-center-content t) ; 居中
-        (setq dashboard-set-heading-icons t)
-        (setq dashboard-set-file-icons t)
-        (setq dashboard-items '((recents  . 5) ; 最近文件
-                                (bookmarks . 5) ; 书签
-                                (projects . 5) ; 最近项目
-                                (agenda . 5)
-                                (registers . 5)))
-)
-
-
-;; ----------------------------------------------
-;; 主题
-;; ----------------------------------------------
-(use-package gruvbox-theme
-    :init (load-theme 'gruvbox-dark-soft t))
-
-
-(provide 'init-ui)
-```
-
-```
-;; 加载配置文件
-(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-(add-to-list 'load-path (expand-file-name "site-lisp" user-emacs-directory))
-
-
-
-(require 'init-basic)
-(require 'init-package)
-(require 'init-ui)
-
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages '(solarized-theme use-package)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-```
-
-
-
 ##### 参考
 
 ```
 Emacs高手修炼手册: 
 https://www.jianshu.com/p/42ef1b18d959
 
-
 插件整理
 https://www.zhihu.com/question/21943533
 https://zhuanlan.zhihu.com/p/441612281
-https://www.zhangjiee.com/topic/emacs/package.html
-
 
 推荐1
 https://huadeyu.tech/tools/emacs-setup-notes.html#orga1adbf9
@@ -118,7 +50,7 @@ $ ln -s /opt/emacs/bin/emacs /usr/bin/emacs
 
 ##### install - ubuntu
 
-```
+```bash
 $ apt-get install emacs
 $ apt-get remove emacs
 
@@ -143,6 +75,12 @@ $ emacs
 1. 安装完成后运行 C:\Program Files\Emacs\emacs-28.1\bin\addpm.exe 在开始菜单添加快捷方式
 
 2. 配置文件路径 %AppData% 下 创建 .emacs 文件
+```
+
+### 字体
+
+```
+https://github.com/lxbrtsch/Menlo-for-Powerline
 ```
 
 # 配置
@@ -665,7 +603,7 @@ d - 选择要删除的包
   M-x 输入 eval-buffer
   ```
 
-# 包管理
+# use-package
 
 > [github](https://github.com/jwiegley/use-package)
 >
@@ -710,15 +648,22 @@ d - 选择要删除的包
 
 # package
 
-##### all-the-icons
+##### all-the-icons (图标字体)
 
 > [github](https://github.com/domtronn/all-the-icons.el)
 
-##### gruvbox-theme
+```
+1. use-package 安装 all-the-icons
+2. M-x all-the-icons-install-fonts 下载字体, 选择一个路径 .emacs.d/fonts
+3. 如果下载速度慢, 下载 https://github.com/domtronn/all-the-icons.el.git, 将里面的 fonts 拷贝到这个目录下
+4. 进入 fonts 目录, 安装字体
+```
 
-> 主题
->
+##### gruvbox-theme (主题)
+
 > [github](https://github.com/greduan/emacs-theme-gruvbox)
+>
+> [docs](https://www.5axxw.com/wiki/content/fnsh6j)
 
 - install
 
@@ -727,38 +672,15 @@ d - 选择要删除的包
       :init (load-theme 'gruvbox-dark-soft t))
   ```
 
+##### doom-modeline (底部状态栏)
 
-##### smart-mode-line
-
-> 底部状态栏美化
->
-> [github](https://github.com/Malabarba/smart-mode-line)
-
-- install
-
-  ```
-  (use-package smart-mode-line 
-      :init 
-      (setq sml/no-confirm-load-theme t) 
-      (setq sml/theme 'respectful) 
-      (sml/setup))
-  ```
-
-##### doom-modeline
-
-> 底部状态栏美化
->
 > [github](https://github.com/seagle0128/doom-modeline)
-
-```
-
-```
-
-##### dashboard
-
->  启动页面
 >
-> [github](https://github.com/emacs-dashboard/emacs-dashboard)
+> [docs](https://www.5axxw.com/wiki/content/ywi4vx#doom-modeline)
+
+##### dashboard (启动页)
+
+>  [github](https://github.com/emacs-dashboard/emacs-dashboard)
 
 - install
 
