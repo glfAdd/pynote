@@ -10,6 +10,13 @@ https://zhuanlan.zhihu.com/p/441612281
 
 推荐1
 https://huadeyu.tech/tools/emacs-setup-notes.html#orga1adbf9
+
+
+新配置 
+https://huadeyu.tech/tools/emacs-setup-notes.html
+1. https://phenix3443.github.io/notebook/emacs/modes/lsp-mode.html
+
+3. https://github.com/Imymirror/imy-emacs.d/blob/main/configure-emacs-from-scratch.org
 ```
 
 [emacs wiki](https://www.emacswiki.org)
@@ -100,6 +107,21 @@ https://github.com/lxbrtsch/Menlo-for-Powerline
 > 
 >
 > https://www.cnblogs.com/eat-and-die/p/10309681.html !!!!!!!
+
+##### 命令
+
+```
+查看版本
+M-x emacs-version
+
+
+
+
+
+
+```
+
+
 
 ### 快捷键设置
 
@@ -195,6 +217,25 @@ C-S-<mouse-1>  同时按下 Control 键和 Shift 键, 然后鼠标左键点击
 
 ### 配置
 
+##### 环境变量
+
+```
+# 获取PATH变量
+M-x getenv  --> PATH
+
+
+# 设置变量
+
+
+
+插件 exec-path-from-shell
+
+
+
+```
+
+
+
 ##### 配置文件路径
 
 ```
@@ -245,6 +286,12 @@ early-init.el: 在初始化 package 系统和 GUI 之前加载
       <key>: 快捷键
       <FUNCTION>: 功能	
   ```
+
+##### 国内源
+
+```
+https://mirrors.ustc.edu.cn/elpa/
+```
 
 ##### 源分类
 
@@ -719,11 +766,11 @@ d - 选择要删除的包
   M-x benchmark-init/show-durations-tabulated
   ```
 
-##### which-key
+##### which-key (快捷键提示)
 
-> 快捷键提示
->
 > [github](https://github.com/justbur/emacs-which-key)
+>
+> [docs](https://www.5axxw.com/wiki/content/ablyvl)
 
 - install
 
@@ -733,10 +780,8 @@ d - 选择要删除的包
   ```
 
 
-##### neotree
+##### neotree (文件树)
 
-> 文件树
->
 > [github](https://github.com/jaypei/emacs-neotree)
 
 - keybind
@@ -927,7 +972,11 @@ https://jdhao.github.io/2021/09/30/emacs_custom_tabline/
 
 ##### format-all 代码格式化
 
+##### 远程访问
 
+```
+tramp
+```
 
 # ivy
 
@@ -940,9 +989,18 @@ https://jdhao.github.io/2021/09/30/emacs_custom_tabline/
 > [document](https://oremacs.com/swiper/#key-bindings)
 >
 > https://emacs-china.org/t/ivy/12091
+>
 
 ```
 使用模糊查询 ivy--regex-plus 需要系统安装 fzf
+```
+
+##### avy
+
+> [github](https://github.com/abo-abo/avy)
+
+```
+
 ```
 
 ##### ivy-avy
@@ -987,25 +1045,50 @@ https://jdhao.github.io/2021/09/30/emacs_custom_tabline/
 (global-set-key (kbd "C-c F") 'counsel-org-file)
 ```
 
-# lsp-mode
+# company-mode 
 
-> 知乎文档: https://zhuanlan.zhihu.com/p/59043305 内容过时
+```
+https://github.com/company-mode/company-mode
+
+
+```
+
+
+
+# lsp
+
+[home page](https://emacs-lsp.github.io/lsp-mode/)
 
 ```
 lsp-mode 是 emacs 基于 LSP 的客户端
 
-https://github.com/emacs-lsp/lsp-mode
-
-
-
 pyhton
 https://github.com/palantir/python-language-server
+
+
+https://emacs-lsp.github.io/lsp-mode/page/languages
+
+
+
+
+
+
+
+
+
+
+安装 lsp-ui 以。
+安装 company-lsp 以使用 company-mode。
+安装 lsp-treemacs 以获得项目范围的错误概述。
+安装 helm-lsp 为 xref-apropos 提供类型完成功能。
+如果调试器支持您的语言，请安装 dap-mode。
+
+
+
 ```
 
-##### lsp-mode
+##### lsp-mode (Emacs LSP 协议库)
 
-> Emacs 下 LSP 协议库
->
 > [github](https://github.com/emacs-lsp/lsp-mode)
 
 - install
@@ -1016,17 +1099,11 @@ https://github.com/palantir/python-language-server
     :commands lsp)
   ```
 
-##### company-lsp(停止维护弃用)
-
-> [github](https://github.com/tigersoldier/company-lsp)
-
 ##### lsp-ui
 
-> lsp 弹匡
->
 > [github](https://github.com/emacs-lsp/lsp-ui)
 >
-> [文档](https://github.com/emacs-lsp/lsp-ui/blob/master/lsp-ui-doc.el)
+> [docs](https://github.com/emacs-lsp/lsp-ui/blob/master/lsp-ui-doc.el)
 
 - install
 
@@ -1038,17 +1115,138 @@ https://github.com/palantir/python-language-server
   )
   ```
 
-- setting
+
+### python
+
+```bash
+$ pip3 install virtualenv
+
+$ mkdir -p ~/.emacs.d/.python-environments
+
+
+$ virtualenv -p /usr/local/bin/python3 --prompt="<venv:jedi>" jedi
+
+$ virtualenv -p python3 --prompt="<venv:jedi>" jedi
+
+
+
+
+M-x jedi:install-server
+
+https://emacs-lsp.github.io/lsp-python-ms/
+```
+
+
+
+```bash
+$ pip install 'python-language-server[all]'
+$ pip install python-lsp-server
+$ pip install jedi flake8 importmagic autopep8 rope
+# 查看包信息
+$ pip show python-language-server
+
+
+
+
+
+# 1. Python mode
+M-x package-install python-mode
+
+# 2. IPython（如果你的 Emacs 版本是 24.2 以上，此步骤省略）
+M-x package-install ipython-shell-send
+
+# 3. Jedi（Python 自动补全插件）
+M-x package-install jedi
+
+# 4. elpy
+https://elpy.readthedocs.io/en/latest/introduction.html
+
+
+```
+
+##### 报错1
+
+打开 py 文件时提示, 打开日志信息如下
+
+```
+Command "pyls" is not present on the path.
+Command "pylsp" is not present on the path.
+Command "pyls" is not present on the path.
+Command "pylsp" is not present on the path.
+```
+
+原因
+
+```
+Emacs无法找到pyls的可执行文件，因为该文件的目录不在Emacs的环境变量中
+```
+
+解决办法
+
+- 方式1
 
   ```
+  配置文件添加:
+  	(setq lsp-pyls-server-command "~/.local/bin/pyls")
+  	(setq lsp-pyls-server-command "~/.local/bin/pylsp")
   
-  ```
-
-- use
-
-  ```
   
+  提示:
+  1. lsp-clients-python-command 被 lsp-pyls-server-command 代替了
+  2. 不能使用 /home/gong/.local/lib/python3.11/site-packages/pyls, 会提示报错
+      Command "/home/gong/.local/lib/python3.11/site-packages/pyls" is not present on the path.
+      Command "pylsp" is not present on the path.
+      Command "/home/gong/.local/lib/python3.11/site-packages/pyls" is not present on the path.
+      Command "pylsp" is not present on the path.
   ```
+
+- 方式2
+
+  ```
+  M-x setenv RET PATH 然后设置环境变量
+  
+  这个是临时的 ????
+  ```
+
+  
+
+
+
+
+
+##### elpy (弃用)
+
+[emacs lsp python](https://emacs-lsp.github.io/lsp-mode/page/lsp-pylsp/)
+
+https://www.jiansluhu.com/p/cd55e171ee94
+
+> [github](https://github.com/jorgenschaefer/elpy)
+>
+> [docs](https://elpy.readthedocs.io/en/latest/index.html)
+
+
+
+```
+pip install 'python-lsp-server[all]'
+
+
+更新package列表
+M-x package-refresh-contents <RET>
+
+M-x package-install <RET> use-package <RET>
+M-x package-install <RET> python-mode <RET>
+M-x package-install <RET> lsp-mode <RET>
+M-x package-install <RET> company-lsp <RET>
+
+
+$ pip install -U setuptools
+$ pip install 'python-language-server[all]'
+$ pip show python-language-server
+```
+
+##### company-lsp(停止维护弃用)
+
+> [github](https://github.com/tigersoldier/company-lsp)
 
 ##### company-capf
 
@@ -1372,14 +1570,6 @@ C-x 5 f		打开新 Frame 并打开文件
 mac 改键盘按键
 https://karabiner-elements.pqrs.org/
 ```
-
-# 优化
-
-##### 目录结构
-
-##### 启动速度
-
-##### 加载顺序
 
 # 游戏
 
