@@ -17,6 +17,11 @@ https://huadeyu.tech/tools/emacs-setup-notes.html
 1. https://phenix3443.github.io/notebook/emacs/modes/lsp-mode.html
 
 3. https://github.com/Imymirror/imy-emacs.d/blob/main/configure-emacs-from-scratch.org
+
+
+
+可用插件整理
+https://zhuanlan.zhihu.com/p/467681146
 ```
 
 [emacs wiki](https://www.emacswiki.org)
@@ -90,12 +95,8 @@ $ emacs
 https://github.com/lxbrtsch/Menlo-for-Powerline
 ```
 
-# 配置
+# 按键
 
-> 使用语法 elisp
-
-> 参考
->
 > https://www.jianshu.com/p/e9f9a5df96c2
 >
 > https://www.scanbuf.net/post/manual/basic-config/
@@ -110,20 +111,13 @@ https://github.com/lxbrtsch/Menlo-for-Powerline
 
 ##### 命令
 
-```
-查看版本
-M-x emacs-version
-
-
-
-
-
-
-```
-
-
-
-### 快捷键设置
+|                   |          |
+| ----------------- | -------- |
+| M-x emacs-version | 查看版本 |
+|                   |          |
+|                   |          |
+|                   |          |
+|                   |          |
 
 ##### 按键说明
 
@@ -215,7 +209,181 @@ C-x b
 C-S-<mouse-1>  同时按下 Control 键和 Shift 键, 然后鼠标左键点击
 ```
 
-### 配置
+
+
+> https://aifreedom.com/technology/112
+
+##### 移动
+
+```
+C-p
+C-n
+C-b
+C-f
+M-b 	前一个词
+M-f 	后一个词
+M-a 	句首 
+M-e 	句尾
+C-a 	行首
+C-e 	行尾
+M-< 	文件开头
+M->		文件末尾
+M-r		移动光标到窗口中 / 上 / 下
+C-l	 	光标所在行位于窗口中 / 上 / 下
+C-v		下一页
+M-v 	上一页
+
+标记跳转
+	1. 不选中文本, 按 2 次 C-SPC
+    2. 移动到其他地方
+    3. C-u C-SPC 回刚刚的位置
+```
+
+##### 帮助信息
+
+```
+C-h c	查看快捷键对应的命令
+C-h k	查询快捷键
+C-h f	查询函数
+C-h v	查询变量
+C-h a	查询关键字
+C-h d	列出含某一关键词的符号的文档
+```
+
+##### 编辑
+
+```
+C-d		delete
+M-<DEL>	删除上边词
+M-d		删除下边词
+M-k		删至句尾
+C-k		删至行尾
+M-w 	复制
+C-w 	剪切
+C-SPC   选择模式
+C-/		撤销
+C-_		撤销
+C-x u	撤销
+C-g C-/	重做一次
+
+C-u 12 C-n		向下 12 行, 默认是 4 次
+
+C-t		光标所在字符和前一个字符互换
+M-t		光标所在词和下一个互换
+C-x C-t	光标所在行和上一行互换
+C-o		光标所在行插入空行
+C-x C-o 删除连续空行
+
+M-l		光标后单词小写
+M-u		光标后单词大写
+M-c		光标所在字符大写, 后面的字符全小写\
+
+
+标记与跳转
+    1. 按下两次 C-SPC
+    2. 光标移动到别的位置
+    3. C-x C-SPC 或 C-u C-SPC，即可立刻跳转回刚刚的位置
+
+
+想要跳到特定的行
+	M-g M-g 加行号
+	回车即可
+```
+
+##### 搜索
+
+```
+向下搜索
+    C-s
+    输入搜索得内容, 此时会自动跳到第一个符合的位置
+    按 C-s 光标跳到下一个
+    按 C-r 光标跳到上一个
+    按回车光标停留在当前位置, 并结束搜索
+
+
+向上搜索
+	C-r
+```
+
+##### 文件
+
+```
+C-x C-c		保存(保存选择 y, 不保存选择 n)
+C-x C-s		保存buffer
+C-x C-f		打开文件
+C-x C-v		打开文件(默认显示当前文件目录)
+C-x C-r		只读打开文件
+C-x C-q		已打开文件切为只读
+
+M-x 输入 kill-emacs不保存关闭
+```
+
+##### buffer
+
+参考
+
+https://emacs-china.org/t/topic/2940/26
+
+https://www.gnu.org/software/emacs/manual/html_node/emacs/Buffers.html
+
+http://ecb.sourceforge.net/
+
+```
+C-x b		buffer 切换
+C-x k		关闭当前 buffer
+
+C-x C-b		buffer list window
+	说明
+		* 开头结尾的是 Emacs 用于输出一些信息的 Buffer，不是打开文件产生
+		% 开头的没保存
+	操作
+        ?	可以显示帮助
+        q 	退出
+        d 	标记一个 Buffer 打算关闭
+        s 	标记一个 Buffer 打算保存
+        u 	取消标记
+        x 	执行刚刚标记过的删除和保存操作
+```
+
+##### window
+
+```
+C-x 2		上下分割 window
+C-x 3		左右分割 window
+C-x 0		关闭当前 window
+C-x 1		关闭其它 window, Buffer 没有关闭
+C-x o		切换到下一个 window
+
+C-x 4 f		在另一个 window 打开新的文件，如果只有一个窗口就分割成两个
+C-x 4 b 	在另一个 window 切换到另一 Buffer，如果只有一个窗口就分割成两个
+C-x 4 d 	在另一个 window 打开目录，如果只有一个窗口就分割成两个
+
+增加/减少宽度
+C-x {
+C-x }
+```
+
+##### tab
+
+```
+C-x t 2 ;; 新建Tab 
+      1 ;; 关闭其它Tab 
+      0 ;; 关闭当前Tab 
+      b ;; 在新Tab中打开Buffer
+```
+
+##### Frame
+
+```
+C-x 5 2		打开新 Frame
+C-x 5 f		打开新 Frame 并打开文件
+```
+
+
+
+
+
+# 配置
 
 ##### 环境变量
 
@@ -226,15 +394,8 @@ M-x getenv  --> PATH
 
 # 设置变量
 
-
-
 插件 exec-path-from-shell
-
-
-
 ```
-
-
 
 ##### 配置文件路径
 
@@ -364,7 +525,6 @@ Emacs 插件都放在了一些固定的仓库网站上, 最大的插件仓库就
 
 (add-hook 'prog-mode-hook #'show-paren-mode) ; 编程模式下，光标在括号上时高亮另一个括号
 (add-hook 'prog-mode-hook #'hs-minor-mode)   ; 编程模式下，可以折叠代码块
-
 ```
 
 ##### ~/.emacs.d/init.el
@@ -565,13 +725,6 @@ Emacs 插件都放在了一些固定的仓库网站上, 最大的插件仓库就
                                    :host "localhost"))
 ```
 
-##### 导出模块
-
-```lisp
-; 意为“导出本模块，名为 hello”。这样就可以在其它地方进行 require 
-(provide 'hello)
-```
-
 ##### 安装包
 
 ```
@@ -618,10 +771,6 @@ d - 选择要删除的包
   1. 配置文件中使用 (setq name value) 
   3. 运行过程中临时修改 M-x set-variable 
   ```
-
-  
-
-  ![变量管理](./image/变量管理.png)
 
 - 3. 运行过程中临时修改 M-x set-variable 
 
@@ -859,10 +1008,8 @@ d - 选择要删除的包
   ```
 
 
-##### flycheck
+##### flycheck (语法检测)
 
-> 语法检测
->
 > [github](https://github.com/flycheck/flycheck)
 >
 > [document](https://www.flycheck.org/en/latest/)
@@ -875,9 +1022,8 @@ d - 选择要删除的包
 
   ```
   
-  
   ```
-
+  
 - python
 
   > [语法检查器](https://github.com/msherry/flycheck-pycheckers)
@@ -894,8 +1040,6 @@ d - 选择要删除的包
   
   ```
 
-  
-
 - use
 
   ```
@@ -903,19 +1047,13 @@ d - 选择要删除的包
   C-c ! l
   ```
 
-##### evil
+##### evil (vim)
 
 > [github](https://github.com/emacs-evil/evil)
 
 ##### general.el
 
 > [github](https://github.com/noctuid/general.el)
-
-- install
-
-  ```
-  
-  ```
 
 ##### centaur-tabs 标签切换(弃用)
 
@@ -955,18 +1093,11 @@ ibuffer
 
 tab line
 https://jdhao.github.io/2021/09/30/emacs_custom_tabline/
-
 ```
-
-
 
 ##### yasnippet 代码片段
 
 > [github](https://github.com/joaotavora/yasnippet)
-
-```
-
-```
 
 ##### crux 一些快捷操作
 
@@ -977,6 +1108,24 @@ https://jdhao.github.io/2021/09/30/emacs_custom_tabline/
 ```
 tramp
 ```
+
+##### swiper (搜索列表)
+
+##### counsel (剪贴板历史)
+
+### 弃用
+
+##### elpy (弃用)
+
+##### company-lsp(停止维护弃用)
+
+> [github](https://github.com/tigersoldier/company-lsp)
+
+
+
+
+
+
 
 # ivy
 
@@ -1051,53 +1200,23 @@ tramp
 https://github.com/company-mode/company-mode
 
 
+
 ```
-
-
 
 # lsp
 
 [home page](https://emacs-lsp.github.io/lsp-mode/)
 
 ```
-lsp-mode 是 emacs 基于 LSP 的客户端
-
 pyhton
+
 https://github.com/palantir/python-language-server
-
-
 https://emacs-lsp.github.io/lsp-mode/page/languages
-
-
-
-
-
-
-
-
-
-
-安装 lsp-ui 以。
-安装 company-lsp 以使用 company-mode。
-安装 lsp-treemacs 以获得项目范围的错误概述。
-安装 helm-lsp 为 xref-apropos 提供类型完成功能。
-如果调试器支持您的语言，请安装 dap-mode。
-
-
-
 ```
 
 ##### lsp-mode (Emacs LSP 协议库)
 
 > [github](https://github.com/emacs-lsp/lsp-mode)
-
-- install
-
-  ```
-  (use-package lsp-mode
-    :hook (python-mode . lsp)
-    :commands lsp)
-  ```
 
 ##### lsp-ui
 
@@ -1105,38 +1224,22 @@ https://emacs-lsp.github.io/lsp-mode/page/languages
 >
 > [docs](https://github.com/emacs-lsp/lsp-ui/blob/master/lsp-ui-doc.el)
 
-- install
-
-  ```
-  (use-package lsp-ui
-    :ensure t
-    :commands lsp-ui-mode
-    :init
-  )
-  ```
-
-
 ### python
+
+##### 虚拟环境 (选做)
 
 ```bash
 $ pip3 install virtualenv
-
 $ mkdir -p ~/.emacs.d/.python-environments
-
-
 $ virtualenv -p /usr/local/bin/python3 --prompt="<venv:jedi>" jedi
-
 $ virtualenv -p python3 --prompt="<venv:jedi>" jedi
-
-
-
-
-M-x jedi:install-server
-
-https://emacs-lsp.github.io/lsp-python-ms/
 ```
 
+##### server
 
+> https://github.com/emacs-lsp/lsp-python-ms
+> https://emacs-lsp.github.io/lsp-python-ms
+> https://github.com/python-lsp/python-lsp-server
 
 ```bash
 $ pip install 'python-language-server[all]'
@@ -1146,22 +1249,8 @@ $ pip install jedi flake8 importmagic autopep8 rope
 $ pip show python-language-server
 
 
-
-
-
-# 1. Python mode
-M-x package-install python-mode
-
-# 2. IPython（如果你的 Emacs 版本是 24.2 以上，此步骤省略）
-M-x package-install ipython-shell-send
-
-# 3. Jedi（Python 自动补全插件）
-M-x package-install jedi
-
-# 4. elpy
-https://elpy.readthedocs.io/en/latest/introduction.html
-
-
+安装 lsp-treemacs 以获得项目范围的错误概述。
+安装 helm-lsp 为 xref-apropos 提供类型完成功能。
 ```
 
 ##### 报错1
@@ -1187,8 +1276,8 @@ Emacs无法找到pyls的可执行文件，因为该文件的目录不在Emacs的
 
   ```
   配置文件添加:
-  	(setq lsp-pyls-server-command "~/.local/bin/pyls")
-  	(setq lsp-pyls-server-command "~/.local/bin/pylsp")
+      (setq lsp-pyls-server-command "~/.local/bin/pyls")
+      (setq lsp-pylsp-server-command "~/.local/bin/pylsp")
   
   
   提示:
@@ -1200,53 +1289,14 @@ Emacs无法找到pyls的可执行文件，因为该文件的目录不在Emacs的
       Command "pylsp" is not present on the path.
   ```
 
-- 方式2
+- 方式2 (临时的)
 
   ```
   M-x setenv RET PATH 然后设置环境变量
-  
-  这个是临时的 ????
   ```
-
   
 
 
-
-
-
-##### elpy (弃用)
-
-[emacs lsp python](https://emacs-lsp.github.io/lsp-mode/page/lsp-pylsp/)
-
-https://www.jiansluhu.com/p/cd55e171ee94
-
-> [github](https://github.com/jorgenschaefer/elpy)
->
-> [docs](https://elpy.readthedocs.io/en/latest/index.html)
-
-
-
-```
-pip install 'python-lsp-server[all]'
-
-
-更新package列表
-M-x package-refresh-contents <RET>
-
-M-x package-install <RET> use-package <RET>
-M-x package-install <RET> python-mode <RET>
-M-x package-install <RET> lsp-mode <RET>
-M-x package-install <RET> company-lsp <RET>
-
-
-$ pip install -U setuptools
-$ pip install 'python-language-server[all]'
-$ pip show python-language-server
-```
-
-##### company-lsp(停止维护弃用)
-
-> [github](https://github.com/tigersoldier/company-lsp)
 
 ##### company-capf
 
@@ -1258,50 +1308,9 @@ $ pip show python-language-server
 >
 > 参考 https://ithelp.ithome.com.tw/articles/10200533
 
-- install
+### C
 
-  ```
-  
-  ```
-
-- setting
-
-  ```
-  
-  ```
-
-- use
-
-  ```
-  
-  ```
-
-##### python-language-server
-
-> [github](https://github.com/palantir/python-language-server)
-
-- rely on
-
-  ```
-  $ pip install 'python-language-server[all]'
-  $ pip install python-lsp-server
-  $ pip show python-language-server
-  $ pyls
-  
-  
-  $ pip install flake8 autopep8
-  ```
-
-```emacs-lisp
-pyvenv
-
-https://github.com/emacs-lsp/lsp-python-ms
-https://emacs-lsp.github.io/lsp-python-ms
-https://github.com/python-lsp/python-lsp-server
-
-
-Debug session process exited with status: exited abnormally with code 1                                              
-```
+### go
 
 # dap-mode
 
@@ -1326,11 +1335,7 @@ Debug session process exited with status: exited abnormally with code 1
 >​	问题视频 https://www.youtube.com/watch?v=ffS7DHbSpVc&ab_channel=Jorge%28%40shackraonGab%29
 >
 
-### 通用
-
 ##### 安装
-
-
 
 ##### 命令
 
@@ -1345,26 +1350,6 @@ dap-breakpoint-add
 dap-ui-breakpoints	
 ```
 
-
-
-- install
-
-  ```
-  
-  ```
-
-- setting
-
-  ```
-  
-  ```
-
-- use
-
-  ```
-  
-  ```
-
 ### python
 
 ```
@@ -1375,200 +1360,6 @@ pip install ptvsd pytest debugpy
 
 ```
 是否需要安装 node
-```
-
-# spacemacs
-
-[github](https://github.com/syl20bnr/spacemacs)
-
-[document](https://www.spacemacs.org/doc/DOCUMENTATION.html)
-
-# 快捷键
-
-> https://aifreedom.com/technology/112
-
-##### 移动
-
-```
-C-p
-C-n
-C-b
-C-f
-M-b 	前一个词
-M-f 	后一个词
-M-a 	句首 
-M-e 	句尾
-C-a 	行首
-C-e 	行尾
-M-< 	文件开头
-M->		文件末尾
-M-r		移动光标到窗口中 / 上 / 下
-C-l	 	光标所在行位于窗口中 / 上 / 下
-C-v		下一页
-M-v 	上一页
-
-标记跳转
-	1. 不选中文本, 按 2 次 C-SPC
-    2. 移动到其他地方
-    3. C-u C-SPC 回刚刚的位置
-```
-
-##### 帮助信息
-
-```
-C-h c	查看快捷键对应的命令
-C-h k	查询快捷键
-C-h f	查询函数
-C-h v	查询变量
-C-h a	查询关键字
-C-h d	列出含某一关键词的符号的文档
-```
-
-##### 编辑
-
-```
-C-d		delete
-M-<DEL>	删除上边词
-M-d		删除下边词
-M-k		删至句尾
-C-k		删至行尾
-M-w 	复制
-C-w 	剪切
-C-SPC   选择模式
-C-/		撤销
-C-_		撤销
-C-x u	撤销
-C-g C-/	重做一次
-
-C-u 12 C-n		向下 12 行, 默认是 4 次
-
-C-t		光标所在字符和前一个字符互换
-M-t		光标所在词和下一个互换
-C-x C-t	光标所在行和上一行互换
-C-o		光标所在行插入空行
-C-x C-o 删除连续空行
-
-M-l		光标后单词小写
-M-u		光标后单词大写
-M-c		光标所在字符大写, 后面的字符全小写\
-
-
-标记与跳转
-    1. 按下两次 C-SPC
-    2. 光标移动到别的位置
-    3. C-x C-SPC 或 C-u C-SPC，即可立刻跳转回刚刚的位置
-
-
-想要跳到特定的行
-	M-g M-g 加行号
-	回车即可
-```
-
-##### 搜索
-
-```
-向下搜索
-    C-s
-    输入搜索得内容, 此时会自动跳到第一个符合的位置
-    按 C-s 光标跳到下一个
-    按 C-r 光标跳到上一个
-    按回车光标停留在当前位置, 并结束搜索
-
-
-向上搜索
-	C-r
-```
-
-##### 插件
-
-```
-swiper 搜索列表
-counsel 剪贴板历史
-which-key 命令帮助
-```
-
-##### 文件
-
-```
-C-x C-c		保存(保存选择 y, 不保存选择 n)
-C-x C-s		保存buffer
-C-x C-f		打开文件
-C-x C-v		打开文件(默认显示当前文件目录)
-C-x C-r		只读打开文件
-C-x C-q		已打开文件切为只读
-
-M-x 输入 kill-emacs不保存关闭
-```
-
-##### buffer
-
-参考
-
-https://emacs-china.org/t/topic/2940/26
-
-https://www.gnu.org/software/emacs/manual/html_node/emacs/Buffers.html
-
-http://ecb.sourceforge.net/
-
-```
-C-x b		buffer 切换
-C-x k		关闭当前 buffer
-
-C-x C-b		buffer list window
-	说明
-		* 开头结尾的是 Emacs 用于输出一些信息的 Buffer，不是打开文件产生
-		% 开头的没保存
-	操作
-        ?	可以显示帮助
-        q 	退出
-        d 	标记一个 Buffer 打算关闭
-        s 	标记一个 Buffer 打算保存
-        u 	取消标记
-        x 	执行刚刚标记过的删除和保存操作
-```
-
-##### window
-
-```
-C-x 2		上下分割 window
-C-x 3		左右分割 window
-C-x 0		关闭当前 window
-C-x 1		关闭其它 window, Buffer 没有关闭
-C-x o		切换到下一个 window
-
-C-x 4 f		在另一个 window 打开新的文件，如果只有一个窗口就分割成两个
-C-x 4 b 	在另一个 window 切换到另一 Buffer，如果只有一个窗口就分割成两个
-C-x 4 d 	在另一个 window 打开目录，如果只有一个窗口就分割成两个
-
-增加/减少宽度
-C-x {
-C-x }
-```
-
-##### tab
-
-```
-C-x t 2 ;; 新建Tab 
-      1 ;; 关闭其它Tab 
-      0 ;; 关闭当前Tab 
-      b ;; 在新Tab中打开Buffer
-```
-
-##### Frame
-
-```
-C-x 5 2		打开新 Frame
-C-x 5 f		打开新 Frame 并打开文件
-```
-
-##### evil
-
-```
-可以在 Emacs 上使用 Vi 的操作
-
-
-mac 改键盘按键
-https://karabiner-elements.pqrs.org/
 ```
 
 # 游戏
@@ -1587,6 +1378,7 @@ q			退出
 ##### 俄罗斯方块
 
 ```
+
 
 ```
 
