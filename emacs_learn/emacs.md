@@ -5,23 +5,19 @@ Emacs高手修炼手册:
 https://www.jianshu.com/p/42ef1b18d959
 
 插件整理
-https://www.zhihu.com/question/21943533
 https://zhuanlan.zhihu.com/p/441612281
 
 推荐1
 https://huadeyu.tech/tools/emacs-setup-notes.html#orga1adbf9
 
-
 新配置 
 https://huadeyu.tech/tools/emacs-setup-notes.html
-1. https://phenix3443.github.io/notebook/emacs/modes/lsp-mode.html
-
-3. https://github.com/Imymirror/imy-emacs.d/blob/main/configure-emacs-from-scratch.org
+https://phenix3443.github.io/notebook/emacs/modes/lsp-mode.html
 
 
 
-可用插件整理
-https://zhuanlan.zhihu.com/p/467681146
+基础设置   
+https://blog.csdn.net/neo_liukun/article/details/115189475?spm=1035.2023.3001.6557&utm_medium=distribute.pc_relevant_bbs_down.none-task-blog-2~default~OPENSEARCH~Rate-5.nonecase&depth_1-utm_source=distribute.pc_relevant_bbs_down.none-task-blog-2~default~OPENSEARCH~Rate-5.nonecase
 ```
 
 [emacs wiki](https://www.emacswiki.org)
@@ -97,27 +93,14 @@ https://github.com/lxbrtsch/Menlo-for-Powerline
 
 # 按键
 
-> https://www.jianshu.com/p/e9f9a5df96c2
->
-> https://www.scanbuf.net/post/manual/basic-config/
->
-> 
->
-> https://blog.csdn.net/neo_liukun/article/details/115189475?spm=1035.2023.3001.6557&utm_medium=distribute.pc_relevant_bbs_down.none-task-blog-2~default~OPENSEARCH~Rate-5.nonecase&depth_1-utm_source=distribute.pc_relevant_bbs_down.none-task-blog-2~default~OPENSEARCH~Rate-5.nonecase
->
-> 
->
 > https://www.cnblogs.com/eat-and-die/p/10309681.html !!!!!!!
 
-##### 命令
-
-|                   |          |
-| ----------------- | -------- |
-| M-x emacs-version | 查看版本 |
-|                   |          |
-|                   |          |
-|                   |          |
-|                   |          |
+| M-x                            |                      |
+| ------------------------------ | -------------------- |
+| emacs-version                  | 查看版本             |
+| package-list-packages          | 列出仓库中的所有插件 |
+| package-install <RET> <插件名> | 安装插件             |
+| package-delete <RET> <插件名>  | 删除插件             |
 
 ##### 按键说明
 
@@ -196,8 +179,6 @@ C-x C-r		emacs 内打开文件(只读)
 
 C-x C-q		已打开文件切换到只读模式
 
-
-
 C-S-<mouse-1> 表达“同时按下 Control 键和 Shift 键，然后鼠标左键点击“
 
 M-x
@@ -208,10 +189,6 @@ C-a
 C-x b
 C-S-<mouse-1>  同时按下 Control 键和 Shift 键, 然后鼠标左键点击
 ```
-
-
-
-> https://aifreedom.com/technology/112
 
 ##### 移动
 
@@ -320,14 +297,6 @@ M-x 输入 kill-emacs不保存关闭
 
 ##### buffer
 
-参考
-
-https://emacs-china.org/t/topic/2940/26
-
-https://www.gnu.org/software/emacs/manual/html_node/emacs/Buffers.html
-
-http://ecb.sourceforge.net/
-
 ```
 C-x b		buffer 切换
 C-x k		关闭当前 buffer
@@ -379,10 +348,6 @@ C-x 5 2		打开新 Frame
 C-x 5 f		打开新 Frame 并打开文件
 ```
 
-
-
-
-
 # 配置
 
 ##### 环境变量
@@ -393,7 +358,6 @@ M-x getenv  --> PATH
 
 
 # 设置变量
-
 插件 exec-path-from-shell
 ```
 
@@ -425,19 +389,6 @@ early-init.el: 在初始化 package 系统和 GUI 之前加载
 (setq package-enable-at-startup nil)
 ```
 
-##### 目录
-
-```
-.
-├── auto-save-list
-├── eln-cache
-├── elpa
-├── history
-├── init.el			配置文件
-├── lisp			插件配置文件目录, 配置文件命名格式为init-xxx.el
-└── site-lisp		自定义配置
-```
-
 ##### 全局快捷键
 
 - 格式
@@ -448,53 +399,15 @@ early-init.el: 在初始化 package 系统和 GUI 之前加载
       <FUNCTION>: 功能	
   ```
 
-##### 国内源
-
-```
-https://mirrors.ustc.edu.cn/elpa/
-```
-
 ##### 源分类
 
 | 类型         | 说明                                                         |
 | ------------ | ------------------------------------------------------------ |
 | gnu          | 一般是必备的，其它的 elpa 中的包会依赖 gnu 中的包            |
-| melpa        | 滚动升级，收录了的包的数量最大                               |
+| melpa        | 滚动升级，收录了的包的数量最大<br />默认插件安装到 `~/.emacs.d/elpa/` |
 | melpa-stable | 依据源码的 Tag （Git）升级，数量比 melpa 少，因为很多包作者根本不打 Tag |
 | org          | 仅仅为了 org-plus-contrib 这一个包，org 重度用户使用         |
 | marmalade    | 似乎已经不维护了，个人不推荐                                 |
-
-##### melpa
-
-Emacs 插件都放在了一些固定的仓库网站上, 最大的插件仓库就是 MELPA, 还有默认库 GNU ELPA
-
-默认插件安装到 `~/.emacs.d/elpa/` 
-
-- 添加代码库
-
-  ```
-  ; 把仓库地址 https://melpa.org/packages/ 存储到 package-archives 列表中，并命名为 melpa
-  (require 'package)
-  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-  (package-initialize)
-  ```
-
-- 设置代理
-
-  ```
-    (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3") ; 不加这一句可能有问题，建议读者尝试一下
-    (setq url-proxy-services '(("no_proxy" . "^\\(192\\.168\\..*\\)")
-                               ("http" . "<代理 IP>:<代理端口号>")
-    			   ("https" . "<代理 IP>:<代理端口号>")))
-  ```
-
-- 命令
-
-  ```
-  package-list-packages	列出仓库中的所有插件
-  package-install <插件名> 安装插件
-  package-delete <插件名> 删除插件  
-  ```
 
 ##### ~/.emacs.d/early-init.el
 
@@ -532,68 +445,6 @@ Emacs 插件都放在了一些固定的仓库网站上, 最大的插件仓库就
 > 配置文件入口
 
 ```lisp
-(setq package-archives '( ; 添加源
-    ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
-    ("gnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-    ("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/"))
-)
-
-
-(setq package-check-signature nil) ; 签名校验
-(require 'package) ; 初始化包管理器
-
-(package-initialize)
-(package-refresh-contents)
-; (unless (bound-and-true-p package--initialized)
-;     (package-initialize)
-; )
-; (unless package-archive-contents ; 刷新软件源
-;     (package-refresh-contents)
-; )
-
-
-(unless (package-installed-p 'use-package) ; 使用 use-package 管理扩展
-    (package-refresh-contents) 
-    (package-install 'use-package)
-)
-
-(eval-and-compile ; use-package 全局设置
-    (setq use-package-always-ensure t)
-    (setq use-package-always-defer t)
-    (setq use-package-always-demand nil) 
-    (setq use-package-expand-minimally t) 
-    (setq use-package-verbose t)
-)
-
-(require 'use-package)
-
-
-(use-package gruvbox-theme ; 主题
-    :init (load-theme 'gruvbox-dark-soft t)
-)
-
-
-(use-package smart-mode-line ; 底部状态栏
-    :init 
-    (setq sml/no-confirm-load-theme t) 
-    (setq sml/theme 'respectful) 
-    (sml/setup)
-)
-
-
-(use-package benchmark-init ; 测试启动耗时
-  :init (benchmark-init/activate) 
-  :hook (after-init . benchmark-init/deactivate)
-)
-
-
-(use-package which-key ; 快捷键提示
-  :defer nil 
-  :config 
-  (which-key-mode)
-)
-
-
 (use-package ace-window ; window 跳转
   :bind (("C-x o" . 'ace-window))
 )
@@ -601,29 +452,6 @@ Emacs 插件都放在了一些固定的仓库网站上, 最大的插件仓库就
 
 (use-package undo-tree ; 撤销命令树
   :init (global-undo-tree-mode)
-)
-
-
-(use-package neotree ; 文件目录
-  :init
-  :custom
-  (neo-theme 'nerd2)
-  :config
-  (progn
-    (setq neo-smart-open t)
-    (setq neo-theme (if (display-graphic-p) 'icons 'nerd))
-    (setq neo-window-fixed-size nil)
-    ;; (setq-default neo-show-hidden-files nil)
-    (global-set-key [f2] 'neotree-toggle)
-    (global-set-key [f8] 'neotree-dir))
-)
-
-
-(use-package lsp-mode ; Emacs 下 LSP 协议库
-  :init
-  (setq lsp-keymap-prefix "C-c l")
-  :hook
-  ((python-mode . lsp))
 )
 
 (use-package lsp-ui 
@@ -691,7 +519,6 @@ Emacs 插件都放在了一些固定的仓库网站上, 最大的插件仓库就
 
 
 
-(require 'dap-python)
 
 ; (dap-register-debug-template "My flask"
 ;   (list :type "python"
@@ -844,56 +671,9 @@ d - 选择要删除的包
 
 # package
 
-##### all-the-icons (图标字体)
+##### x benchmark-init (启动耗时)
 
-> [github](https://github.com/domtronn/all-the-icons.el)
-
-```
-1. use-package 安装 all-the-icons
-2. M-x all-the-icons-install-fonts 下载字体, 选择一个路径 .emacs.d/fonts
-3. 如果下载速度慢, 下载 https://github.com/domtronn/all-the-icons.el.git, 将里面的 fonts 拷贝到这个目录下
-4. 进入 fonts 目录, 安装字体
-```
-
-##### gruvbox-theme (主题)
-
-> [github](https://github.com/greduan/emacs-theme-gruvbox)
->
-> [docs](https://www.5axxw.com/wiki/content/fnsh6j)
-
-- install
-
-  ```lisp
-  (use-package gruvbox-theme 
-      :init (load-theme 'gruvbox-dark-soft t))
-  ```
-
-##### doom-modeline (底部状态栏)
-
-> [github](https://github.com/seagle0128/doom-modeline)
->
-> [docs](https://www.5axxw.com/wiki/content/ywi4vx#doom-modeline)
-
-##### dashboard (启动页)
-
->  [github](https://github.com/emacs-dashboard/emacs-dashboard)
-
-- install
-
-  ```
-  (use-package dashboard
-    :config
-    (setq dashboard-banner-logo-title "Welcome to Emacs!") ;; 个性签名，随读者喜好设置
-    ;; (setq dashboard-projects-backend 'projectile) ;; 读者可以暂时注释掉这一行，等安装了 projectile 后再使用
-    (setq dashboard-startup-banner 'official) ;; 也可以自定义图片
-    (setq dashboard-items '((recents  . 5)   ;; 显示多少个最近文件
-  			  (bookmarks . 5)  ;; 显示多少个最近书签
-  			  (projects . 10))) ;; 显示多少个最近项目
-  ```
-
-##### benchmark-init
-
-> 启动耗时工具
+>  [github](https://github.com/dholm/benchmark-init-el)
 >
 > 自带的  `M-x emacs-init-time` 显示信息少
 
@@ -915,6 +695,36 @@ d - 选择要删除的包
   M-x benchmark-init/show-durations-tabulated
   ```
 
+##### all-the-icons (图标字体)
+
+> [github](https://github.com/domtronn/all-the-icons.el)
+
+```
+1. use-package 安装 all-the-icons
+2. M-x all-the-icons-install-fonts 下载字体, 选择一个路径 .emacs.d/fonts
+3. 如果下载速度慢, 下载 https://github.com/domtronn/all-the-icons.el.git, 将里面的 fonts 拷贝到这个目录下
+4. 进入 fonts 目录, 安装字体
+```
+
+##### doom-modeline (底部状态栏)
+
+> [github](https://github.com/seagle0128/doom-modeline)
+>
+> [docs](https://www.5axxw.com/wiki/content/ywi4vx#doom-modeline)
+
+##### gruvbox-theme (主题)
+
+> [github](https://github.com/greduan/emacs-theme-gruvbox)
+>
+> [docs](https://www.5axxw.com/wiki/content/fnsh6j)
+
+- install
+
+  ```lisp
+  (use-package gruvbox-theme 
+      :init (load-theme 'gruvbox-dark-soft t))
+  ```
+
 ##### which-key (快捷键提示)
 
 > [github](https://github.com/justbur/emacs-which-key)
@@ -927,6 +737,32 @@ d - 选择要删除的包
   (use-package which-key
     :config (which-key-mode))
   ```
+
+##### dashboard (启动页)
+
+>  [github](https://github.com/emacs-dashboard/emacs-dashboard)
+
+- install
+
+  ```
+  (use-package dashboard
+    :config
+    (setq dashboard-banner-logo-title "Welcome to Emacs!") ;; 个性签名，随读者喜好设置
+    ;; (setq dashboard-projects-backend 'projectile) ;; 读者可以暂时注释掉这一行，等安装了 projectile 后再使用
+    (setq dashboard-startup-banner 'official) ;; 也可以自定义图片
+    (setq dashboard-items '((recents  . 5)   ;; 显示多少个最近文件
+  			  (bookmarks . 5)  ;; 显示多少个最近书签
+  			  (projects . 10))) ;; 显示多少个最近项目
+  ```
+
+##### 
+
+```
+speedbar 是 emacs 自带
+M-x speedbar
+sr-speedbar
+```
+
 
 
 ##### neotree (文件树)
@@ -950,12 +786,17 @@ d - 选择要删除的包
   C-c C-r		重命名文件后目录
   C-c C-c		设置当前目录为展示的根目录
   C-c C-p		复制文件或目录
+  
+  
+  (global-set-key [f5] 'neotree-toggle)
+  (global-set-key [f8] 'neotree-refresh)
+  (global-set-key [f8] 'neotree-dir)
+  
+  
   ```
 
-#####  ace-window
+#####  ace-window (window 切换)
 
-> window 切换, 关闭
->
 > [github](https://github.com/abo-abo/ace-window)
 
 - key
@@ -1072,15 +913,9 @@ https://amitp.blogspot.com/2020/06/emacs-prettier-tab-line.html
 
 ##### shell
 
-```
-
-```
-
 ##### buffer
 
 ```
-https://github.com/emacs-mirror/emacs/blob/master/lisp/speedbar.el
-
 Speedbar and imenu
 speedbar/sr-speedbar 倒是又 buffer list，但它不能同时显示文件树。buffer 与树不可兼得，只能在两种状态下切换，跟 VSCode 这些编辑器还是有些不同：
 ace-jump-buffer
@@ -1090,9 +925,6 @@ ace-jump-buffer
 (global-set-key (kbd "s-<right>") 'next-buffer)
 ibuffer
 
-
-tab line
-https://jdhao.github.io/2021/09/30/emacs_custom_tabline/
 ```
 
 ##### yasnippet 代码片段
@@ -1115,19 +947,28 @@ tramp
 
 ### 弃用
 
-##### elpy (弃用)
+##### elpy
 
 ##### company-lsp(停止维护弃用)
 
 > [github](https://github.com/tigersoldier/company-lsp)
 
+##### x smart-mode-line (底部状态栏)
 
-
-
-
-
+> [github](https://github.com/Malabarba/smart-mode-line)
+>
+> 不好看
 
 # ivy
+
+```
+helm，ivy
+
+
+https://github.com/emacs-lsp/lsp-ivy
+```
+
+
 
 > 交互式补全工具, 用来补全系统、部分常用命令、搜索功能
 >
@@ -1207,16 +1048,9 @@ https://github.com/company-mode/company-mode
 
 [home page](https://emacs-lsp.github.io/lsp-mode/)
 
-```
-pyhton
-
-https://github.com/palantir/python-language-server
-https://emacs-lsp.github.io/lsp-mode/page/languages
-```
-
 ##### lsp-mode (Emacs LSP 协议库)
 
-> [github](https://github.com/emacs-lsp/lsp-mode)
+>  [github](https://github.com/emacs-lsp/lsp-mode)
 
 ##### lsp-ui
 
@@ -1225,6 +1059,16 @@ https://emacs-lsp.github.io/lsp-mode/page/languages
 > [docs](https://github.com/emacs-lsp/lsp-ui/blob/master/lsp-ui-doc.el)
 
 ### python
+
+##### elpy (弃用)
+
+##### lsp-python-ms (弃用)
+
+>  [github](https://github.com/emacs-lsp/lsp-python-ms)
+
+```
+https://github.com/Microsoft/python-language-server
+```
 
 ##### 虚拟环境 (选做)
 
@@ -1235,22 +1079,80 @@ $ virtualenv -p /usr/local/bin/python3 --prompt="<venv:jedi>" jedi
 $ virtualenv -p python3 --prompt="<venv:jedi>" jedi
 ```
 
+##### pyvenv (虚拟环境)
+
+> [github](https://github.com/jorgenschaefer/pyvenv)
+
+```
+M-x pyvenv-workon		激活具体虚拟环境(~/.pyenv/versions 下的环境)
+M-x pyvenv-activate 	其他的虚拟环境
+M-x pyvenv-deactivate	退出当前的虚拟环境
+```
+
 ##### server
 
 > https://github.com/emacs-lsp/lsp-python-ms
 > https://emacs-lsp.github.io/lsp-python-ms
-> https://github.com/python-lsp/python-lsp-server
+> [python-lsp-server](https://github.com/python-lsp/python-lsp-server)
 
 ```bash
 $ pip install 'python-language-server[all]'
 $ pip install python-lsp-server
-$ pip install jedi flake8 importmagic autopep8 rope
 # 查看包信息
 $ pip show python-language-server
+
+$ pip install jedi flake8 importmagic autopep8 rope pylint ipython 
+	jedi		自动补全
+	pylint		语法检测
+	importmagic 自动导入工具
+	
+$ yum install python-lsp-server
+
+
+https://www.bilibili.com/read/cv12938972/
+
 
 
 安装 lsp-treemacs 以获得项目范围的错误概述。
 安装 helm-lsp 为 xref-apropos 提供类型完成功能。
+
+
+pylsp
+
+
+elpy					
+flycheck				语法检测
+company-jedi			python 补全
+virtualenvwrapper		python 虚拟环境
+
+
+https://www.cnblogs.com/ibgo/p/4529050.html
+https://segmentfault.com/a/1190000039793511?utm_source=tag-newest
+
+刷新 package 包
+M-x package-refresh-contents <RET>
+
+
+
+
+
+
+
+
+语法检测
+elpy默认使用 flymake检查语法，替换为 flycheck
+(use-package elpy
+  :hook
+  (elpy-mode . flycheck-mode) ;; 添加flycheck, 替换flymake
+  :config
+  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+)
+
+
+
+
+python虚拟环境
+pip install virtualenvwrapper
 ```
 
 ##### 报错1
