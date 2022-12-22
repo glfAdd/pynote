@@ -1,18 +1,10 @@
 ##### 参考案例
 
 ```
-Tmux + vim
-https://kxcblog.com/post/terminal/2.tmux-tutorial/
+https://www.zhihu.com/column/c_1527964562929893376
 
-知乎方案 neovim
-https://zhuanlan.zhihu.com/p/382092667
 https://github.com/ayamir/nvimdots/wiki/Plugins
 
-知乎方案 2 neovim
-https://github.com/nshen/learn-neovim-lua
-
-知乎方案 3
-https://zhuanlan.zhihu.com/p/388397656?utm_source=wechat_session&utm_medium=social&utm_oi=1269928803658530816
 
 
 https://github.com/saadparwaiz1/cmp_luasnip
@@ -20,8 +12,8 @@ https://github.com/L3MON4D3/LuaSnip
 https://github.com/rafamadriz/friendly-snippets
 
 
-新方案
-https://github.com/NvChad/NvChad/blob/main/lua/plugins/init.lua
+单词拼写 待验证
+https://github.com/octaltree/cmp-look
 
 
 (不好用)右边的图片: https://github.com/edluffy/hologram.nvim
@@ -118,21 +110,22 @@ $ pip install neovim
 $ pip3 install neovim
 ```
 
-##### 字体
+##### nerd fonts
 
-- powerline fonts [github](https://github.com/powerline/fonts)
-
-  ```bash
-  $ apt-get install fonts-powerline
-  $ dnf install powerline-fonts
-  
-  # source
-  $ git clone https://github.com/powerline/fonts.git --depth=1
-  $ cd fonts
-  $ ./install.sh
-  ```
+[homepage](https://www.nerdfonts.com/)
 
 # 依赖
+
+##### python 3 支持
+
+```bash
+$ pip install pynvim
+
+
+
+(未使用这个命令安装)
+$ /usr/bin/python3 -m pip install pynvim
+```
 
 ##### lua
 
@@ -164,34 +157,7 @@ $ sudo dnf copr enable atim/lazygit
 $ sudo dnf install lazygit 
 ```
 
-##### devicons 字体
-
-> [homepage](https://www.nerdfonts.com/)
->
-> [devicons](https://github.com/vorillaz/devicons)
-
-- mac
-
-  ```bash
-  $ brew tap homebrew/cask-fonts
-  $ brew install --cask font-hack-nerd-font
-  
-  在终端中选择安装的字体, 字体的名字包含 "Nerd"
-  ```
-
-- ubuntu
-
-  ```
-  $ npm install devicons
-  ```
-
-- Centos / fedora
-
-  ```
-  $ npm install devicons
-  ```
-
-##### clipboard 支持
+##### lipboard 支持
 
 > Vim 与系统共用剪切板
 
@@ -205,6 +171,7 @@ $ sudo dnf install lazygit
 
 ```bash
 $ aptiotude install xsel
+$ ndf install xsel
 ```
 
 ##### rg
@@ -221,11 +188,32 @@ $ aptitude install fd-find
 $ dnf install fd-find
 ```
 
+##### ranger
+
+```bash
+$ dnf install ranger
+```
+
+##### ueberzug (失败)
+
+```bash
+安装依赖
+$ sudo aptitude install libx11-dev libxext-dev python-dev python3-dev
+
+pip install ueberzug
+```
+
 ##### tmux
 
 ```bash
 $ aptitude install tmux
 $ dnf install tmux
+```
+
+##### words (cmp-look 使用)
+
+```
+dnf install words
 ```
 
 # package
@@ -234,7 +222,7 @@ $ dnf install tmux
 
 > [github](https://github.com/wbthomason/packer.nvim)
 >
-> 包保存在 `~/.local/share/nvim/site/pack/packer/start/`
+> 包保存在 ~/.local/share/nvim/site/pack/packer/start/
 
 - install
 
@@ -302,11 +290,9 @@ $ dnf install tmux
 
 > [github](https://github.com/ellisonleao/gruvbox.nvim)
 
-##### vim-startify (启动画面)
+#####  alpha-nvim (启动画面)
 
-> [github](https://github.com/mhinz/vim-startify)
->
-> [开始画面顶部图片](https://github.com/glepnir/dashboard-nvim/wiki/Ascii-Header-Text)
+> [github](https://github.com/goolord/alpha-nvim)
 
 ##### bufferline (上)
 
@@ -319,6 +305,10 @@ $ dnf install tmux
 ##### trouble.nvim (语法错误列表)
 
 > [github](https://github.com/folke/trouble.nvim)
+
+##### undotree
+
+> [github](https://github.com/mbbill/undotree)
 
 ##### lazygit
 
@@ -387,10 +377,6 @@ d 删除
   `gc` - Toggles the region using linewise comment
   `gb` - Toggles the region using blockwise comment
 
-
-
-
-
 ##### symbols-outline.nvim (边栏显示函数对象)
 
 > [github](https://github.com/simrat39/symbols-outline.nvim)
@@ -412,13 +398,9 @@ d 删除
 :Neoformat! python yapf
 ```
 
-
-
 ```
 https://github.com/vim-autoformat/vim-autoformat 2k
 ```
-
-
 
 ##### vim-easy-align
 
@@ -535,14 +517,18 @@ https://github.com/vim-autoformat/vim-autoformat 2k
     打开的文件不是 .md
     ```
 
+##### nvim-notify (通知栏)
+
+[github](https://github.com/rcarriga/nvim-notify)
+
+
+
 
 
 ### window
 
-##### vim-floaterm
+##### vim-floaterm (终端模式)
 
-> 终端模式
->
 > [github](https://github.com/voldikss/vim-floaterm)
 
 use
@@ -551,11 +537,11 @@ use
 :FloatermNew lazygit
 ```
 
-##### toggleterm.nvim
+##### toggleterm.nvim (终端模式)
 
-> 终端模式
->
 > [github](https://github.com/akinsho/toggleterm.nvim)
+>
+> 一个窗口多个终端切换
 
 ```
 :ToggleTerm size=40 dir=~/Desktop direction=horizontal
@@ -575,9 +561,6 @@ use
 > [github](https://github.com/nvim-telescope/telescope-media-files.nvim)
 
 ```bash
-$ pip3 install ueberzug
-
-
 $ pip3 install Pillow
 ```
 
@@ -618,10 +601,8 @@ map <C-W>K :YodeLayoutShiftWinTop<CR>
 :HopLineStart: 跳转到缓冲区中每一行的任何可见的第一个非空白字符。:q
 ```
 
-##### rnvimr
+##### rnvimr (ranger)
 
-> neovim ranger
->
 > [github](https://github.com/kevinhwang91/rnvimr)
 
 - Install Ranger
@@ -667,33 +648,14 @@ nnoremap <silent> <M-o> :RnvimrToggle<CR>
 tnoremap <silent> <M-o> <C-\><C-n>:RnvimrToggle<CR>
 ```
 
-问题 1:
-
-- 描述
-
-  ```
-  pip3 install ueberzug 安装失败
-  ```
-
-- 解决办法
-
-  ```
-  安装依赖
-  
-  ubuntu
-  $ sudo aptitude install libx11-dev libxext-dev python-dev python3-dev
-  ```
-
 ### lsp
 
-##### nvim-lspconfig
+##### nvim-lspconfig (核心)
 
 > [github](https://github.com/neovim/nvim-lspconfig)
 
-##### nvim-lsp-installer
+##### nvim-lsp-installer (lsp 安装工具)
 
-> 依赖 nvim-lspconfig
->
 > [github](https://github.com/williamboman/nvim-lsp-installer)
 >
 > [github](https://github.com/williamboman/nvim-lsp-installer#available-lsps)
@@ -798,11 +760,9 @@ $ pip install pytest debugpy
 
 ### cpm
 
-##### nvim-cmp
+##### nvim-cmp (自动补全)
 
 > [github](https://github.com/hrsh7th/nvim-cmp)
->
-> 自动补全
 
 ```
 :COQdeps
@@ -843,7 +803,13 @@ $ pip install pytest debugpy
 >
 > 符号配对 []{}()''""
 
+##### vim-startify (启动画面)
 
+> [github](https://github.com/mhinz/vim-startify)
+
+##### dashboard-nvim
+
+[开始画面顶部图片](https://github.com/glepnir/dashboard-nvim/wiki/Ascii-Header-Text)
 
 
 # python
