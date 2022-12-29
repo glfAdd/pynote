@@ -2,15 +2,11 @@
 
 ```
 https://www.zhihu.com/column/c_1527964562929893376
-
 https://github.com/ayamir/nvimdots/wiki/Plugins
-
-
 
 https://github.com/saadparwaiz1/cmp_luasnip
 https://github.com/L3MON4D3/LuaSnip
 https://github.com/rafamadriz/friendly-snippets
-
 
 单词拼写 待验证
 https://github.com/octaltree/cmp-look
@@ -25,9 +21,35 @@ quickfix
 
 ##### [neovim lua document](https://github.com/glepnir/nvim-lua-guide-zh)
 
-# 问题
+# 安装
 
-##### install GLIBC_2.29
+[homepage](http://neovim.io/)
+
+[github](https://github.com/neovim/neovim/releases)
+
+##### linux - 编译
+
+```bash
+$ dnf install python3 bison
+$ wget https://github.com/neovim/neovim/releases/download/v0.8.1/nvim-linux64.tar.gz
+$ tar xvf nvim-linux64.tar.gz
+$ ln -s /opt/nvim-linux64/bin/nvim /usr/bin/nvim
+```
+
+##### linux
+
+```bash
+$ dnf install neovim
+```
+
+##### 配置文件
+
+```
+~/.config/nvim/init.vim
+~/.config/nvim/init.lua （推荐）
+```
+
+##### 问题1: install GLIBC_2.29
 
 > 提示失败是可能安装, 详细看提示
 >
@@ -51,7 +73,7 @@ $ make install
 $ strings /lib64/libc.so.6 |grep GLIBC_2.29
 ```
 
-##### gcc  版本低
+##### 问题2: gcc  版本低
 
 > gcc 版本太旧, 安装时需要临时切换到新版本的gcc, 否则编译失败
 >
@@ -65,69 +87,29 @@ $ strings /lib64/libc.so.6 |grep GLIBC_2.29
 $ dnf install bison
 ```
 
-# 安装
-
-[homepage](http://neovim.io/)
-
-[github](https://github.com/neovim/neovim/releases)
-
-##### linux - 编译
-
-```bash
-$ dnf install python3 bison
-$ wget https://github.com/neovim/neovim/releases/download/v0.8.1/nvim-linux64.tar.gz
-$ tar xvf nvim-linux64.tar.gz
-$ ln -s /opt/nvim-linux64/bin/nvim /usr/bin/nvim
-# 安装 python3 支持
-$ dnf install libevent-devel python-gevent python-devel python3-devel
-$ python3 -m pip install --upgrade pip
-$ pip3 install neovim
-
-# 查看是是否有 python3 支持
-```
-
-##### linux
-
-```bash
-$ dnf install neovim
-```
-
-##### 配置文件
-
-```
-~/.config/nvim/init.vim
-~/.config/nvim/init.lua （推荐）
-```
-
-##### 支持 python2 / 3
-
-```bash
-1. 查看是否支持 python
-:checkhealth
-
-2. 安装插件
-$ pip install neovim
-$ pip3 install neovim
-```
-
-##### nerd fonts
-
-[homepage](https://www.nerdfonts.com/)
-
 # 依赖
 
 ##### python 3 支持
 
 ```bash
+1. 查看是否支持 python
+:checkhealth
+
 $ pip install pynvim
 
 
 
 (未使用这个命令安装)
 $ /usr/bin/python3 -m pip install pynvim
-```
 
-##### lua
+(未使用这个命令安装)
+$ pip install neovim
+$ pip3 install neovim
+
+
+# 安装 python3 支持
+$ dnf install libevent-devel python-gevent python-devel python3-devel
+```
 
 ##### python 环境
 
@@ -137,6 +119,8 @@ $ pyenv activate p-3.9.2-neovim
 $ pip install --upgrade pip
 $ pip install neovim pynvim pytest debugpy isort ueberzug ranger-fm
 ```
+
+##### lua
 
 ##### java (lsp 需要)
 
@@ -399,13 +383,13 @@ d 删除
 ```
 
 ```
-https://github.com/vim-autoformat/vim-autoformat 2k
+https://github.com/vim-autoformat/vim-autoformat
+
+2k
 ```
 
-##### vim-easy-align
+##### vim-easy-align (文本对齐)
 
-> 文本对齐
->
 > [github](https://github.com/junegunn/vim-easy-align)
 
 - install
@@ -521,12 +505,6 @@ https://github.com/vim-autoformat/vim-autoformat 2k
 
 [github](https://github.com/rcarriga/nvim-notify)
 
-
-
-
-
-### window
-
 ##### vim-floaterm (终端模式)
 
 > [github](https://github.com/voldikss/vim-floaterm)
@@ -637,16 +615,6 @@ map <C-W>K :YodeLayoutShiftWinTop<CR>
   看 Ranger 和 Ueberzug
   ```
 
-  
-
-```
-打开文件后设置窗口尺寸
-tnoremap <silent> <M-i> <C-\><C-n>:RnvimrResize<CR>
-
-
-nnoremap <silent> <M-o> :RnvimrToggle<CR>
-tnoremap <silent> <M-o> <C-\><C-n>:RnvimrToggle<CR>
-```
 
 ### lsp
 
@@ -692,6 +660,12 @@ tnoremap <silent> <M-o> <C-\><C-n>:RnvimrToggle<CR>
 >
 > [Debug-Adapter-installation](https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation)
 
+```
+https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation
+```
+
+
+
 help
 
 ```
@@ -708,6 +682,12 @@ help
 ```
 
 ```
+
+##### DAPInstall.nvim
+
+> [github](https://github.com/ravenxrz/DAPInstall.nvim)
+
+
 
 ##### nvim-dap-python
 
@@ -764,11 +744,6 @@ $ pip install pytest debugpy
 
 > [github](https://github.com/hrsh7th/nvim-cmp)
 
-```
-:COQdeps
-:COQnow
-```
-
 ### telescope
 
 > [github](https://github.com/nvim-telescope/telescope.nvim)
@@ -783,7 +758,7 @@ $ pip install pytest debugpy
 
 ### 未使用
 
-##### [代码运行](https://github.com/skywind3000/asyncrun.vim)
+##### [asyncrun.vim 代码运行](https://github.com/skywind3000/asyncrun.vim)
 
 ##### [滚动条](https://github.com/Xuyuanp/scrollbar.nvim)
 
@@ -795,7 +770,7 @@ $ pip install pytest debugpy
 
 > [github](https://github.com/Pocco81/DAPInstall.nvim)
 >
-> python 支持, java 不支持, 暂时不用
+> 不好用
 
 ##### nvim-autopairs
 
