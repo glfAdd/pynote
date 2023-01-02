@@ -118,6 +118,8 @@ $ pyenv virtualenv 3.9.2 p-3.9.2-neovim
 $ pyenv activate p-3.9.2-neovim
 $ pip install --upgrade pip
 $ pip install neovim pynvim pytest debugpy isort ueberzug ranger-fm
+
+$ pip install autopep8
 ```
 
 ##### lua
@@ -347,6 +349,12 @@ d 删除
 
 > [github](https://github.com/numToStr/Comment.nvim)
 
+```
+
+```
+
+
+
 - normal
 
   `gcc` - Toggles the current line using linewise comment
@@ -364,29 +372,6 @@ d 删除
 ##### symbols-outline.nvim (边栏显示函数对象)
 
 > [github](https://github.com/simrat39/symbols-outline.nvim)
-
-##### formatter.nvim(未使用)
-
-> 代码格式化
->
-> [github](https://github.com/mhartington/formatter.nvim)
->
-> [config](https://github.com/mhartington/formatter.nvim/blob/master/CONFIG.md)
-
-#####  neoformat
-
-> [github](https://github.com/sbdchd/neoformat)
-
-```
-:Neoformat! python
-:Neoformat! python yapf
-```
-
-```
-https://github.com/vim-autoformat/vim-autoformat
-
-2k
-```
 
 ##### vim-easy-align (文本对齐)
 
@@ -564,7 +549,7 @@ map <C-W>K :YodeLayoutShiftWinTop<CR>
 
 ##### nvim-window (编号选择 window)
 
-> [github](https://gitlab.com/yorickpeterse/nvim-window)
+> [gitlab](https://gitlab.com/yorickpeterse/nvim-window)
 
 ##### hop.nvim (单词跳转)
 
@@ -615,6 +600,30 @@ map <C-W>K :YodeLayoutShiftWinTop<CR>
   看 Ranger 和 Ueberzug
   ```
 
+##### formatter.nvim(代码格式化)
+
+> [github](https://github.com/mhartington/formatter.nvim)
+>
+> 不同语言格式化方式参考 https://github.com/sbdchd/neoformat
+
+- json
+
+  ```
+  打开 json 文件后输入
+  :%!python -m json.tool
+  ```
+
+- yaml
+
+  ```bash
+  $ pip install pyaml
+  
+  # 格式化
+  python -m pyaml ~/111.yaml
+  
+  # 格式化并覆盖原来的文件
+  python -m pyaml -r ~/111.yaml
+  ```
 
 ### lsp
 
@@ -651,6 +660,10 @@ map <C-W>K :YodeLayoutShiftWinTop<CR>
 #####  lsp_signature.nvim
 
 > [github](https://github.com/ray-x/lsp_signature.nvim)
+
+##### lspsaga.nvim(页面增强)
+
+> [github](https://github.com/glepnir/lspsaga.nvim)
 
 ### dap
 
@@ -786,6 +799,16 @@ $ pip install pytest debugpy
 
 [开始画面顶部图片](https://github.com/glepnir/dashboard-nvim/wiki/Ascii-Header-Text)
 
+#####  neoformat (代码格式化)
+
+> [github](https://github.com/sbdchd/neoformat)
+
+```
+:Neoformat! python
+:Neoformat! python yapf
+```
+
+##### 
 
 # python
 
