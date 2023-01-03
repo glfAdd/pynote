@@ -103,7 +103,88 @@ systemctl disable firewalld
 systemctl stop firewalld
 ```
 
+# 新项目必备操作
+
+##### 编译
+
+```bash
+# 这 3 个须都是 su 权限, 否则有时会失败
+# 例如安装时 go 会下载新的包, 包的安装目录需要权限, 否则失败
+$ ../src/config/configure
+$ make
+$ make install 
+
+
+编译失败后删除 build 里面的所有内容, 重新执行
+```
+
+##### cfg.json 文件
+
+```
+执行 
+/sdwan/script/prepare.sh 生成 /sdwan/py-service/public_config/cfg.json 文件
+将这个文件拷贝到 代码下的 public_config/cfg.json 中
+```
+
+##### media
+
+```
+手动创建 Aquila/src/py-service/mgt_portal/media 目录, 用于暂存上传的文件和其他临时文件
+```
+
+##### pg 表添加字段
+
+```
+例如 admin_user_db 添加 lang 字段
+
+需要修改下面两个脚本
+Aquila/src/database/manager/config_create.sql/config_create.sql
+CREATE TABLE IF NOT EXISTS admin_user_db (
+    id SERIAL PRIMARY KEY,
+    customer_id INTEGER DEFAULT '0',
+    customer_name varchar(128) DEFAULT '',
+    name varchar(128) NOT NULL,
+    description varchar(128) DEFAULT '',
+    role varchar(128) DEFAULT '',
+    password varchar(128) DEFAULT '',
+    create_time DATE NOT NULL DEFAULT '1970-01-01',
+    login_time DATE NOT NULL DEFAULT '1970-01-01',
+    ispredefine INTEGER DEFAULT '0',
+    issuper INTEGER DEFAULT '0',
+    time_out INTEGER DEFAULT '15',
+    phone varchar(128) DEFAULT '',
+    mail varchar(128) DEFAULT '',
+    wechat_state INTEGER DEFAULT 0,
+    wechat_qr_code_url text,
+    wechat_qr_code_time VARCHAR(32) DEFAULT '',
+    lang VARCHAR(32) DEFAULT '',
+    UNIQUE (name)
+);
+
+
+
+Aquila/src/database/manager/config_create.sql/update.sql
+alter table admin_user_db ADD COLUMN IF NOT EXISTS lang VARCHAR(32) DEFAULT '';
+```
+
+
+
 ## 问题
+
+##### 问题编译
+
+```bash
+
+```
+
+##### 问题: run.sh restart 卡住
+
+```
+停止所有进程, 脚本无法停止的手动 kill, 否则锁表, sql 脚本无法执行, 例如
+	alter table business_define drop constraint IF EXISTS business_define_customer_id_name_net_name_net_type_key;
+```
+
+
 
 ##### 问题1
 
@@ -313,12 +394,14 @@ nohup: failed to run command ‘venv/bin/python’: Permission denied
 
 
 原因 /sdwan/py-server 下面 venv/bin 里面的 python 没有可执行权限
+
+
+解决办法, 修改文件权限
+$ chmod -R 777 py-server
 ```
 
 ```
-执行 
-/sdwan/script/prepare.sh 生成 /sdwan/py-service/public_config/cfg.json 文件
-将这个文件拷贝到 代码下的 public_config/cfg.json 中
+
 
 
 docker 连接时使用 172.17.0.2 不是 127.0.0.1
@@ -371,6 +454,51 @@ ctl许可生产 -> 运营许可 -> 导出 license
 	客户名称: 租户的名称
 	
 3. 运营管理员登陆管控 -> 运维 -> 许可管理 -> 运营许可 -> 导入
+```
+
+##### dev-6
+
+```
+数据库连接池 (dev-6 需要安装后才能正常启动)
+
+
+yum install libevent-devel
+rpm -ivh pgbouncer-1.17.0-1.el7.x86_64.rpm
+```
+
+##### 编译 dev-6 后再编译 dev-5 后启动失败
+
+```
+网页启动失败
+查看日志 /sdwan/debug/logs/mgt_portal.log
+
+
+报错如下
+.127.0.0.1 6432 Can Not Be Connected. Is Waiting 127.0.0.1 6432 To Be Connected...
+.127.0.0.1 5672 Can Not Be Connected. Is Waiting 127.0.0.1 5672 To Be Connected...
+
+
+原因:
+6432 和 5672 这两个端口是 dev-6 的
+编译 dev-6 后再编辑 dev-5 的项目后 /sdwan/py-service/public_config/wait_service.list 文件会有残留, 将这两个删除
+127.0.0.1 5672
+127.0.0.1 6432
+
+
+或者删除 py-service 重新编译
+```
+
+```
+127.0.0.1 6379
+127.0.0.1 2181
+127.0.0.1 9092
+127.0.0.1 5672
+127.0.0.1 5433
+172.17.0.2 5432
+127.0.0.1 6432
+
+
+
 ```
 
 
