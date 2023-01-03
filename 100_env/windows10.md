@@ -18,21 +18,6 @@ DejaVuSansMono Nerd Font
 Cousine Nerd Font
 ```
 
-
-
-##### 工具 - LxRunOffline
-
-> [github](https://github.com/DDoSolitary/LxRunOffline)
-
-```
-下载
-wget https://github.com/DDoSolitary/LxRunOffline/releases/download/v3.5.0/LxRunOffline-v3.5.0-msvc.zip
-
-解压
-
-环境变量 -> 系统变量 -> Path -> 添加"文件的目录"
-```
-
 ##### 包管理工具(弃用)
 
 > 命令安装在: C:\Users\lg\scoop\apps
@@ -345,6 +330,19 @@ C:\Users\xxx\AppData\Local\Docker\wsl\data
 
 # wsl
 
+##### LxRunOffline
+
+> [github](https://github.com/DDoSolitary/LxRunOffline)
+
+```
+下载
+wget https://github.com/DDoSolitary/LxRunOffline/releases/download/v3.5.0/LxRunOffline-v3.5.0-msvc.zip
+
+解压
+
+环境变量 -> 系统变量 -> Path -> 添加"文件的目录"
+```
+
 ##### 安装
 
 - 管理员运行powershell
@@ -383,26 +381,60 @@ wslconfig /l
 
 net stop LxssManager				关闭子系统
 
+wslconfig
+    /l, /list [/all] 列出已注册的发行版
+    /s, /setdefault <DistroName> 将该发行版设为默认
+    /t, /terminate <DistroName> 终止该发行版
+    /u, /unregister <DistroName> 取消注册该发行版
 ```
 
-### centos
+##### 导入导出
 
-##### 安装
+```
+wsl --export Ubuntu D:\Ubuntu.tar
+wsl --unregister Ubuntu
+wsl --import Ubuntu D:\Ubuntu D:\Ubuntu.tar --version 2
+```
+
+##### 安装 - centos
 
 > [github](https://github.com/CentOS/sig-cloud-instance-images/)
 
 ```bash
-# 在分支中找对应的版本, 下载 tar.xz 包 (如果不能下载在其他服务器下载)
+# 1. 在分支中找对应的版本
 > wget https://raw.githubusercontent.com/CentOS/sig-cloud-instance-images/CentOS-7.8.2003-x86_64/docker/centos-7.8.2003-x86_64-docker.tar.xz
 
-# 将 centos 安装到 C:\opt\linux, 并且命名为 centos001
-> LxRunOffline.exe install -n centos001 -d C:\opt\linux -f .\centos-7.8.2003-x86_64-docker.tar.xz
 
-# 启动
+# 2. 创建子系统, 名为 centos7-02, 安装在 D:\linux\centos7-02, 使用镜像 centos-7.8.2003-x86_64-docker.tar.xz
+> LxRunOffline.exe install -n centos7-02 -d D:\linux\centos7-02 -f D:\software-wsl2\centos-7.8.2003-x86_64-docker.tar.xz
+
+
+# 3. 启动
 > LxRunOffline run -n centos001
 或
 > wsl -d centos001
 ```
+
+##### 安装 - fedora
+
+[github](https://github.com/fedora-cloud/docker-brew-fedora)
+
+```bash
+# 1. fedora 37 下载地址
+https://raw.githubusercontent.com/fedora-cloud/docker-brew-fedora/37/x86_64/fedora-37-x86_64.tar.xz
+
+
+# 2. 创建子系统, 名为 fedora37-02, 安装在 D:\linux\fedora37-02, 使用镜像 fedora-37-x86_64.tar.xz
+> LxRunOffline.exe install -n fedora37-02 -d D:\linux\fedora37-02 -f D:\software-wsl2\fedora-37-x86_64.tar.xz
+```
+
+```bash
+dnf install sudo git vim neovim tree wget htop zsh passwd util-linux-user python2 python python3-pip 
+```
+
+##### 安装 - ubuntu
+
+
 
 ##### 关闭 swap
 
@@ -425,42 +457,6 @@ hostname = centos001
 [user]						# 启动 wsl 默认用户
 default = g
 ```
-
-##### software
-
-```bash
-$ dnf install sudo
-```
-
-
-
-### ubuntu
-
-##### ssh
-
-```
-1. 必须先删除重新安装
-aptitude remove openssh-server
-aptitude install openssh-server
-
-2.编辑sshd_config文件
-
-sudo vim /etc/ssh/sshd_config
-
-Port 22
-PermitRootLogin yes
-PasswordAuthentication yes
-
-3. 重新启动
-service ssh restart
-
-4. 命令
-service ssh status
-/etc/init.d/ssh start
-update-rc.d ssh enable              设为开机启动
-```
-
-
 
 # env
 
@@ -489,10 +485,6 @@ $ rmvirtualenv venv
 
 虚拟环境安装在用户 Envs 路径下
 ```
-
-
-
-
 
 # 效率软件
 

@@ -17,8 +17,7 @@ $ which pip3
 ##### 依赖 - centos
 
 ```bash
-$ dnf install gcc gcc-c++ glibc glibc-devel libffi-devel sqlite-devel bzip2-devel bzip2 readline-devel openssl-devel bzip2-devel sqlite-devel make
-$ dnf install zlib zlib-devel patch
+$ dnf install gcc gcc-c++ glibc glibc-devel libffi-devel sqlite-devel bzip2-devel bzip2 readline-devel openssl-devel bzip2-devel make zlib zlib-devel patch lzma xz-devel
 ```
 
 ##### 依赖 - mac
@@ -153,6 +152,7 @@ pyenv versions
 ```
 阿里源下载 https://registry.npmmirror.com/binary.html?path=python/
 wget https://registry.npmmirror.com/-/binary/python/3.7.10/Python-3.7.10.tar.xz
+wget https://registry.npmmirror.com/-/binary/python/3.9.10/Python-3.9.10.tar.xz
 *.tar.xz
 创建目录放安装文件 ~/.pyenv/cache
 使用pyenv install 2.7.16 查看下载文件的目录, 并用wget下载
@@ -212,7 +212,7 @@ trusted-host = https://pypi.mirrors.ustc.edu.cn/
 
   ```bash
   # 安装时使用 -v 查看详细信息, 缺少哪个依赖安装哪个
-  $ pyenv install -v 3.9.2~~~~
+  $ pyenv install -v 3.9.2
   ```
 
 ##### 安装 psycopg2 失败

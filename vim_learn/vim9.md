@@ -1,108 +1,58 @@
-# 文档
+##### 编译安装
 
-##### 参考案例
+| 配置选项                                            | 解释                                               |
+| --------------------------------------------------- | -------------------------------------------------- |
+| –with-features=huge                                 | 支持最大特性                                       |
+| –enable-pythoninterp                                | 打开对python编写的插件的支持                       |
+| –enable-python3interp                               | 打开对python3编写的插件的支持                      |
+| –enable-rubyinterp                                  | 打开对ruby编写的插件的支持                         |
+| –enable-luainterp                                   | 打开对lua编写的插件的支持                          |
+| –enable-perlinterp                                  | 打开对perl编写的插件的支持                         |
+| –enable-multibyte                                   | 打开多字节支持，可以在Vim中输入中文                |
+| –enable-cscope                                      | 打开对cscope的支持，cscope是一款优秀的代码浏览工具 |
+| –with-python-config-dir=/usr/lib/python2./config*/  | 指定python 路径                                    |
+| –with-python3-config-dir=/usr/lib/python3./config*/ | 指定python3路径                                    |
+| –prefix=/usr/local/vim                              | 指定将要安装到的路径(默认 /usr/local/bin/vim)      |
+| –enable-fontset                                     | 支持字体设置                                       |
+| –enable-gui=gtk2                                    | gtk2支持,也可以使用gnome，表示生成gvim             |
+| –with-compiledby                                    | 编译者                                             |
 
-```
-Tmux + vim
-https://kxcblog.com/post/terminal/2.tmux-tutorial/
-
-知乎方案 1
-https://zhuanlan.zhihu.com/p/382092667
-https://github.com/ayamir/nvimdots/wiki/Plugins
-
-知乎方案 2
-https://zhuanlan.zhihu.com/p/434727338?utm_source=wechat_session&utm_medium=social&s_r=0
-https://github.com/nshen/learn-neovim-lua
-
-知乎方案 3
-https://zhuanlan.zhihu.com/p/388397656?utm_source=wechat_session&utm_medium=social&utm_oi=1269928803658530816
-https://github.com/HeWenJin/config/blob/main/nvim/lua/plugins/init.lua
-
-新方案用到的插件1 : 
-https://github.com/HeWenJin/config/blob/main/nvim/lua/plugins/init.lua
-
-todo
-https://github.com/saadparwaiz1/cmp_luasnip
-https://github.com/L3MON4D3/LuaSnip
-https://github.com/rafamadriz/friendly-snippets
-
-
-
-新方案
-https://github.com/NvChad/NvChad/blob/main/lua/plugins/init.lua
-
-
-
-(不好用)右边的图片: https://github.com/edluffy/hologram.nvim
-quickfix
-数据库支持: https://github.com/tpope/vim-dadbod
-
+```sh
+$ dnf install libevent-devel python-gevent python-devel python3-devel
+$ wget https://github.com/vim/vim/archive/refs/tags/v9.0.0954.tar.gz
+$ ./configure --with-features=huge \
+                --enable-pythoninterp=yes \
+                --with-python-config-dir=/usr/lib64/python2.7/config \
+                --enable-cscope \
+                --enable-fontset \
+                --enable-python3interp=yes \
+                --with-python3-config-dir=/usr/lib64/python3.6/config-3.6m-x86_64-linux-gnu \
+                --with-python3-command=/usr/bin/python3 \
+                --enable-multibyte\
+                --prefix=/opt/vim9
+$ make 
+$ make install
+$ ln -s /opt/vim9/bin/vim /usr/bin/vim
 ```
 
 ##### 命令
 
-```
-:set filetype					查看编码
-:h key-notation				查看键盘映射
-```
-
-##### [neovim map](https://neovim.io/doc/user/map.html)
-
-##### [neovim lua document](https://github.com/glepnir/nvim-lua-guide-zh)
-
-# 命令
-
-##### neovim 日志目录
-
-```
-:lua print(vim.fn.stdpath('cache'))
-```
-
-##### neovim 命令行显示的消息
-
-```
-:messages
-```
-
-# 安装 - neovim
-
-##### install - linux
-
 ```bash
-$ wget https://github.com/neovim/neovim/releases/download/v0.6.0/nvim-linux64.tar.gz
-$ tar zxvf nvim-linux64.tar.gz
-$ mkdir -p /opt/neovim-0.6.0
-# 移动到 opt
-$ ln -s /opt/neovim-0.6.0/bin/nvim /usr/bin/nvim
+$ vim --version
+
+
+
+:set filetype			查看编码
+:h key-notation			查看键盘映射
 ```
 
-##### install - mac
+##### 配置
 
-```bash
-$ wget https://github.com/neovim/neovim/releases/download/v0.6.1/nvim-macos.tar.gz
-
-# mac 系统不允许修改 /usr/bin/ 目录
-$ ln -s /opt/nvim-osx64/bin/nvim /usr/local/bin/nvim
-```
-
-##### 配置文件
-
-```
-~/.config/nvim/init.vim
-~/.config/nvim/init.lua
-```
-
-##### 支持 python2 / 3
-
-```bash
-1. 查看是否支持 python
-:checkhealth
+文件路径 ~/.vimrc
 
 
-2. 安装插件
-$ pip install neovim
-$ pip3 install neovim
-```
+
+
 
 # 快捷键
 
@@ -325,52 +275,77 @@ $ cd fonts
 $ ./install.sh
 ```
 
+# 插件
+
+##### vim-plug 包管理
+
+[github](https://github.com/junegunn/vim-plug)
+
+- install - linux
+
+```
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+```
+
+- 命令
+
+| Command                             | Description                                                  |
+| ----------------------------------- | ------------------------------------------------------------ |
+| `PlugInstall [name ...] [#threads]` | Install plugins                                              |
+| `PlugUpdate [name ...] [#threads]`  | Install or update plugins                                    |
+| `PlugClean[!]`                      | Remove unlisted plugins (bang version will clean without prompt) |
+| `PlugUpgrade`                       | Upgrade vim-plug itself                                      |
+| `PlugStatus`                        | Check the status of plugins                                  |
+| `PlugDiff`                          | Examine changes from the previous update and the pending changes |
+| `PlugSnapshot[!] [output path]`     | Generate script for restoring the current snapshot of the plugins |
+
+- 选项
+
+| Option                  | Description                                      |
+| ----------------------- | ------------------------------------------------ |
+| `branch`/`tag`/`commit` | Branch/tag/commit of the repository to use       |
+| `rtp`                   | Subdirectory that contains Vim plugin            |
+| `dir`                   | Custom directory for the plugin                  |
+| `as`                    | Use different name for the plugin                |
+| `do`                    | Post-update hook (string or funcref)             |
+| `on`                    | On-demand loading: Commands or `<Plug>`-mappings |
+| `for`                   | On-demand loading: File types                    |
+| `frozen`                | Do not update unless explicitly specified        |
+
+- 全局选项
+
+| Flag                | Default                           | Description                                                  |
+| ------------------- | --------------------------------- | ------------------------------------------------------------ |
+| `g:plug_threads`    | 16                                | Default number of threads to use                             |
+| `g:plug_timeout`    | 60                                | Time limit of each task in seconds (*Ruby & Python*)         |
+| `g:plug_retries`    | 2                                 | Number of retries in case of timeout (*Ruby & Python*)       |
+| `g:plug_shallow`    | 1                                 | Use shallow clone                                            |
+| `g:plug_window`     | `vertical topleft new`            | Command to open plug window                                  |
+| `g:plug_pwindow`    | `above 12new`                     | Command to open preview window in `PlugDiff`                 |
+| `g:plug_url_format` | `https://git::@github.com/%s.git` | `printf` format to build repo URL (Only applies to the subsequent `Plug` commands) |
 
 
-# packer.nvim
 
-> [github](https://github.com/wbthomason/packer.nvim)
+##### vim-startify 启动画面
+
+> [github](https://github.com/mhinz/vim-startify)
 >
-> 包保存在 `~/.local/share/nvim/site/pack/packer/start/`
+> [开始画面顶部图片](https://github.com/glepnir/dashboard-nvim/wiki/Ascii-Header-Text)
 
-##### install
+##### nerdtree
 
-```bash
-$ git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
-```
-
-##### setting
-
-创建文件 `/.config/nvim/lua/plugins.lua`
+[github](https://github.com/preservim/nerdtree)
 
 ```
-return require('packer').startup(function()
-  -- Packer can manage itself
-  use 'wbthomason/packer.nvim'
-end)
+:NERDTree
+
+使用
+https://blog.huati365.com/dcfb9b6d48bac807
+
+coc-explorer
 ```
 
-##### 命令
 
-```
--- Regenerate compiled loader file
-:PackerCompile
-
--- Remove any disabled or unused plugins
-:PackerClean
-
--- Clean, then install missing plugins
-:PackerInstall
-
--- Clean, then update and install plugins
-:PackerUpdate
-
--- Perform `PackerUpdate` and then `PackerCompile` ( 安装 / 更新)
-:PackerSync
-
--- Loads opt plugin immediately
-:PackerLoad completion-nvim ale
-```
 
 # 依赖
 
@@ -462,7 +437,7 @@ $ aptiotude install xsel
 
 ```bash
 $ aptitude install ripgrep
-$ dnf insteall ripgrep
+$ dnf install ripgrep
 ```
 
 ##### fd
@@ -488,13 +463,7 @@ $ aptitude install tmux
 >
 > [github](https://giters.com/ellisonleao/gruvbox.nvim)
 
-##### vim-startify
 
-> 启动画面
->
-> [github](https://github.com/mhinz/vim-startify)
->
-> [开始画面顶部图片](https://github.com/glepnir/dashboard-nvim/wiki/Ascii-Header-Text)
 
 #####  lualine.nvim
 
