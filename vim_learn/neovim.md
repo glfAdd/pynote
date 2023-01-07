@@ -45,8 +45,8 @@ $ dnf install neovim
 ##### 配置文件
 
 ```
-~/.config/nvim/init.vim
-~/.config/nvim/init.lua （推荐）
+~/.config/nvim/init.vim (弃用)
+~/.config/nvim/init.lua (推荐)
 ```
 
 ##### 问题1: install GLIBC_2.29
@@ -57,8 +57,8 @@ $ dnf install neovim
 > ./nvim: /lib64/libc.so.6: version `GLIBC_2.28' not found (required by ./nvim)
 > ./nvim: /lib64/libm.so.6: version `GLIBC_2.29' not found (required by ./nvim)
 > ```
-
-[download](https://ftp.gnu.org/gnu/glibc/)
+>
+> [download](https://ftp.gnu.org/gnu/glibc/)
 
 ```bash
 $ wget https://ftp.gnu.org/gnu/glibc/glibc-2.29.tar.gz
@@ -97,8 +97,6 @@ $ dnf install bison
 
 $ pip install pynvim
 
-
-
 (未使用这个命令安装)
 $ /usr/bin/python3 -m pip install pynvim
 
@@ -119,7 +117,7 @@ $ pyenv activate p-3.9.2-neovim
 $ pip install --upgrade pip
 $ pip install neovim pynvim pytest debugpy isort ueberzug ranger-fm
 
-$ pip install autopep8
+$ pip install autopep8 yapf black
 ```
 
 ##### lua
@@ -141,6 +139,11 @@ $ dnf install nodejs npm
 ```
 $ sudo dnf copr enable atim/lazygit
 $ sudo dnf install lazygit 
+
+
+git clone https://github.com/jesseduffield/lazygit.git
+cd lazygit
+go install
 ```
 
 ##### lipboard 支持
@@ -425,10 +428,8 @@ d 删除
   PersonAction , 2201     , HHKI!HA
   ```
 
-##### vim-translator
+##### vim-translator (词典)
 
-> 词典(功能不全)
->
 > [github](https://github.com/voldikss/vim-translator)
 
 - 翻译句子
@@ -625,6 +626,32 @@ map <C-W>K :YodeLayoutShiftWinTop<CR>
   python -m pyaml -r ~/111.yaml
   ```
 
+- c
+
+  ```bash
+  
+  ```
+
+- sql
+
+  ```
+  sql = {
+          -- sqlformat
+          -- 安装方法:pip3 install --upgrade sqlparse
+          function()
+            return {
+              exe = "sqlformat",
+              -- upper|lower
+              args = {"-k", "lower", "-i", "lower", "-r", "-"},
+              stdin = true
+            }
+          end
+        }
+  
+  ```
+
+  
+
 ### lsp
 
 ##### nvim-lspconfig (核心)
@@ -657,11 +684,11 @@ map <C-W>K :YodeLayoutShiftWinTop<CR>
 :LspInfo
 ```
 
-#####  lsp_signature.nvim
+#####  lsp_signature.nvim (参数提示)
 
 > [github](https://github.com/ray-x/lsp_signature.nvim)
 
-##### lspsaga.nvim(页面增强)
+##### lspsaga.nvim (ui 增强)
 
 > [github](https://github.com/glepnir/lspsaga.nvim)
 
