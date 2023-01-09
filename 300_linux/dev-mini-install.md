@@ -501,5 +501,12 @@ rpm -ivh pgbouncer-1.17.0-1.el7.x86_64.rpm
 
 ```
 
+##### 任务一直不执行
+
+```
+supervisor 重启 
+base:task_worker 和 base:task_main 
+```
+
 
 
