@@ -629,7 +629,13 @@ map <C-W>K :YodeLayoutShiftWinTop<CR>
 - c
 
   ```bash
+  接下来安装 clang:
   
+  sudo yum install clang
+  
+   安装clang-format:
+  
+  npm install -g clang-format
   ```
 
 - sql
@@ -650,7 +656,11 @@ map <C-W>K :YodeLayoutShiftWinTop<CR>
   
   ```
 
-  
+##### mason.nvim (lsp 和 dap 安装管理工具)
+
+```
+https://github.com/williamboman/mason.nvim
+```
 
 ### lsp
 
@@ -692,6 +702,21 @@ map <C-W>K :YodeLayoutShiftWinTop<CR>
 
 > [github](https://github.com/glepnir/lspsaga.nvim)
 
+##### c
+
+```
+ccls
+https://github.com/MaskRay/ccls/wiki/Build
+3.3k
+
+
+
+clangd (用这个)
+背后有大公司
+```
+
+
+
 ### dap
 
 ##### nvim-dap
@@ -703,8 +728,6 @@ map <C-W>K :YodeLayoutShiftWinTop<CR>
 ```
 https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation
 ```
-
-
 
 help
 
@@ -719,15 +742,9 @@ help
 
 > [github](https://github.com/rcarriga/nvim-dap-ui)
 
-```
-
-```
-
 ##### DAPInstall.nvim
 
 > [github](https://github.com/ravenxrz/DAPInstall.nvim)
-
-
 
 ##### nvim-dap-python
 
