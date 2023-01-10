@@ -46,6 +46,8 @@ yum list postgresql11*
 
 ##### go 
 
+> go1.19.1
+
 ##### pgkconfig 文件指定
 
 ##### 编译成功
@@ -103,235 +105,6 @@ systemctl disable firewalld
 systemctl stop firewalld
 ```
 
-# 新项目必备操作
-
-##### 编译
-
-```bash
-# 这 3 个须都是 su 权限, 否则有时会失败
-# 例如安装时 go 会下载新的包, 包的安装目录需要权限, 否则失败
-$ ../src/config/configure
-$ make
-$ make install 
-
-
-编译失败后删除 build 里面的所有内容, 重新执行
-```
-
-##### cfg.json 文件
-
-```
-执行 
-/sdwan/script/prepare.sh 生成 /sdwan/py-service/public_config/cfg.json 文件
-将这个文件拷贝到 代码下的 public_config/cfg.json 中
-```
-
-##### media
-
-```
-手动创建 Aquila/src/py-service/mgt_portal/media 目录, 用于暂存上传的文件和其他临时文件
-```
-
-##### pg 表添加字段
-
-```
-例如 admin_user_db 添加 lang 字段
-
-需要修改下面两个脚本
-Aquila/src/database/manager/config_create.sql/config_create.sql
-CREATE TABLE IF NOT EXISTS admin_user_db (
-    id SERIAL PRIMARY KEY,
-    customer_id INTEGER DEFAULT '0',
-    customer_name varchar(128) DEFAULT '',
-    name varchar(128) NOT NULL,
-    description varchar(128) DEFAULT '',
-    role varchar(128) DEFAULT '',
-    password varchar(128) DEFAULT '',
-    create_time DATE NOT NULL DEFAULT '1970-01-01',
-    login_time DATE NOT NULL DEFAULT '1970-01-01',
-    ispredefine INTEGER DEFAULT '0',
-    issuper INTEGER DEFAULT '0',
-    time_out INTEGER DEFAULT '15',
-    phone varchar(128) DEFAULT '',
-    mail varchar(128) DEFAULT '',
-    wechat_state INTEGER DEFAULT 0,
-    wechat_qr_code_url text,
-    wechat_qr_code_time VARCHAR(32) DEFAULT '',
-    lang VARCHAR(32) DEFAULT '',
-    UNIQUE (name)
-);
-
-
-
-Aquila/src/database/manager/config_create.sql/update.sql
-alter table admin_user_db ADD COLUMN IF NOT EXISTS lang VARCHAR(32) DEFAULT '';
-```
-
-
-
-## 问题
-
-##### 问题编译
-
-```bash
-
-```
-
-##### 问题: run.sh restart 卡住
-
-```
-停止所有进程, 脚本无法停止的手动 kill, 否则锁表, sql 脚本无法执行, 例如
-	alter table business_define drop constraint IF EXISTS business_define_customer_id_name_net_name_net_type_key;
-```
-
-
-
-##### 问题1
-
-- 描述
-
-  ```
-  /bin/ld: cannot find -lsqlite3
-  collect2: error: ld returned 1 exit status
-  make[2]: *** [libsg_db.so] Error 1
-  ```
-
-- 解决办法
-
-  ```bash
-  $ dnf install sqlite-devel
-  ```
-
-##### 问题2
-
-- 描述
-
-  ```
-  sg_py_call.c:1:20: fatal error: Python.h: No such file or directory
-   #include <Python.h>
-  ```
-
-- 解决办法 (不能安装这个)
-
-  ```
-  # python2
-  $ dnf install python-devel 
-  
-  # python3
-  $ dnf install python3-devel
-  ```
-
-##### 问题3
-
-- 描述
-
-  ```
-  sg_postgresql.c:4:22: fatal error: libpq-fe.h: No such file or directory
-   #include <libpq-fe.h>
-  ```
-
-- 解决办法
-
-  ```bash
-  $ dnf install postgresql-devel
-  ```
-
-##### 问题4
-
-- 描述
-
-  ```
-  sg_postgresql.c:4:22: fatal error: libpq-fe.h: No such file or directory
-   #include <libpq-fe.h>
-  ```
-
-- 解决办法
-
-  ```bash
-  $ dnf install postgresql-devel postgresql postgresql-libs
-  ```
-
-##### 问题5
-
-- 描述
-
-  ```
-  /bin/ld: cannot find -lsg_ssl
-  collect2: error: ld returned 1 exit status
-  make[2]: *** [libfm.so] Error 1
-  ```
-
-- 解决办法
-
-  ```
-  dnf install libinput-devel mesa-libgbm-devel libfm  sg3_utils
-  
-  dnf install libevent libevent-devel
-  ```
-
-
-
-##### 问题6
-
-```
-sh run-postgres.sh check 失败提示
-docker does not exist, skip !!!
-
-
-原因:
-脚本问题, 必须设置卡机启动才可以正常运行
-
-(其他脚本可能也存在这个问题)
-systemctl enable nginx
-systemctl enable redis
-
-
-```
-
-
-
-##### 启动失败
-
-```
-需要运行
-sh src/script/run.sh start
-```
-
-
-
-```
-ln -s /usr/lib/pipelinedb/bin/pg_isready /usr/bin/pg_isready
-
-
-pg_config
-
-mkdir /media/sys /media/config /media/data /media/sig /media/stats /media/store 
-ln -s /media/sys /sdwan
-ln -s /media/config /sdwan/config
-
-```
-
-
-
-```
-终止home文件进程（切换到非home路径下执行这个命令）：fuser -km /home
-
-        3.1、如果没有fuser，在线安装
-
-               3.1.1、yum安装： yum install -y psmisc
-
-                3.1.2、终止home文件进程（切换到非home路径下执行这个命令）：fuser -km /home
-
-        3.2、如果没有fuser，离线安装
-
-                    3.2.1、下砸地址：https://developer.aliyun.com/packageSearch?word=psmisc
-
-                    3.2.2、下载对应架构离线包（lscpu看centos架构）：
-
-https://blog.csdn.net/u011627218/article/details/121994098
-
-```
-
 ##### vmware 扩容
 
 > 成功 https://www.cnblogs.com/friendwang1001/p/15725732.html
@@ -369,6 +142,221 @@ https://blog.csdn.net/u011627218/article/details/121994098
 
 ```
 
+
+
+# 新项 clone 项目
+
+##### cfg.json 文件
+
+```
+执行 
+/sdwan/script/prepare.sh 生成 /sdwan/py-service/public_config/cfg.json 文件
+将这个文件拷贝到 代码下的 public_config/cfg.json 中
+```
+
+##### media
+
+```
+手动创建 Aquila/src/py-service/mgt_portal/media 目录, 用于暂存上传的文件和其他临时文件
+```
+
+# 问题
+
+### 编译问题
+
+##### deploy-sh 失败
+
+```
+[root@CTL py-service]# sh deploy-sh 
+++++++++++++++++++++++++++++++++++++++++++++++++
+taskd
+[taskd] venv/bin/pip install -q -r requirement.txt --no-index --find-links=file:///opt/pypi
+ERROR: Could not find a version that satisfies the requirement certifi==2022.12.7 (from versions: 2020.12.5)
+ERROR: No matching distribution found for certifi==2022.12.7
+
+
+方法1
+重命名 /opt/pypi 这个文件, 会从服务器下载, 速度慢
+
+方法2 (未使用)
+下载文件到路径下
+```
+
+##### 前置
+
+```bash
+# 这 3 个须都是 su 权限, 否则有时会失败
+# 例如安装时 go 会下载新的包, 包的安装目录需要权限, 否则失败
+$ ../src/config/configure
+$ make
+$ make install 
+
+
+编译失败后删除 build 里面的所有内容, 重新执行
+```
+
+##### sg_py_call.c:1:20
+
+- 描述
+
+  ```
+  sg_py_call.c:1:20: fatal error: Python.h: No such file or directory
+   #include <Python.h>
+  ```
+
+- 解决办法 (不能安装这个)
+
+  ```
+  # python2
+  $ dnf install python-devel 
+  
+  # python3
+  $ dnf install python3-devel
+  ```
+
+##### sg_postgresql.c:4:22
+
+- 描述
+
+  ```
+  sg_postgresql.c:4:22: fatal error: libpq-fe.h: No such file or directory
+   #include <libpq-fe.h>
+  ```
+
+- 解决办法
+
+  ```bash
+  $ dnf install postgresql-devel
+  ```
+
+##### libsg_db.so
+
+- 描述
+
+  ```
+  /bin/ld: cannot find -lsqlite3
+  collect2: error: ld returned 1 exit status
+  make[2]: *** [libsg_db.so] Error 1
+  ```
+
+- 解决办法
+
+  ```bash
+  $ dnf install sqlite-devel
+  
+  (没用这个)
+  $ dnf install postgresql-devel postgresql postgresql-libs
+  ```
+
+##### libfm.so
+
+- 描述
+
+  ```
+  /bin/ld: cannot find -lsg_ssl
+  collect2: error: ld returned 1 exit status
+  make[2]: *** [libfm.so] Error 1
+  ```
+
+- 解决办法
+
+  ```
+  (为了安装 libfm)
+  yum install epel-release
+  
+  dnf install libinput-devel mesa-libgbm-devel libfm  sg3_utils libevent
+  ```
+
+##### 编译失败 autoreconf
+
+```
+autoreconf: command not found
+
+
+yum install autoconf automake libtool
+```
+
+### 运行问题
+
+##### 前置
+
+```
+所有环境刚刚安装好时执行
+sh src/script/run.sh start
+以后执行
+sh src/script/run.sh restart
+```
+
+##### 问题: run.sh restart 卡住
+
+```
+停止所有进程, 脚本无法停止的手动 kill, 否则锁表, sql 脚本无法执行, 例如
+	alter table business_define drop constraint IF EXISTS business_define_customer_id_name_net_name_net_type_key;
+```
+
+##### 请求卡死
+
+```
+运行到 state, src_ip, peer_ip = ext.get_ha_config() 时卡死
+
+调用封装的 .so 库时不同用户没有权限
+
+让 pycharm 启动时用使用 sudo 权限的 python 启动项目
+https://zhuanlan.zhihu.com/p/296715567
+```
+
+##### 问题6
+
+```
+sh run-postgres.sh check 失败提示
+docker does not exist, skip !!!
+
+
+原因:
+脚本问题, 必须设置开机启动 nginx和redis 才可以正常运行
+
+(其他脚本可能也存在这个问题)
+systemctl enable nginx
+systemctl enable redis
+```
+
+
+
+```
+ln -s /usr/lib/pipelinedb/bin/pg_isready /usr/bin/pg_isready
+
+
+pg_config
+
+mkdir /media/sys /media/config /media/data /media/sig /media/stats /media/store 
+ln -s /media/sys /sdwan
+ln -s /media/config /sdwan/config
+
+```
+
+
+
+```
+终止home文件进程（切换到非home路径下执行这个命令）：fuser -km /home
+
+        3.1、如果没有fuser，在线安装
+
+               3.1.1、yum安装： yum install -y psmisc
+
+                3.1.2、终止home文件进程（切换到非home路径下执行这个命令）：fuser -km /home
+
+        3.2、如果没有fuser，离线安装
+
+                    3.2.1、下砸地址：https://developer.aliyun.com/packageSearch?word=psmisc
+
+                    3.2.2、下载对应架构离线包（lscpu看centos架构）：
+
+https://blog.csdn.net/u011627218/article/details/121994098
+
+```
+
+
+
 ##### pip 安装报错
 
 ```
@@ -400,61 +388,17 @@ nohup: failed to run command ‘venv/bin/python’: Permission denied
 $ chmod -R 777 py-server
 ```
 
+
+
+
+
 ```
-
-
-
 docker 连接时使用 172.17.0.2 不是 127.0.0.1
 ```
 
-- 启动时会报很多错
-
-  ```
-  设置 /sdwan 的权限 777
-  ```
-
-##### sdwan/script/run.sh 问题
-
-```
-所有环境刚刚安装好时执行 sh run.sh start 
-以后执行 sh run.sh restart
-```
-
-##### 日志路径
-
-```
-/sdwan/debug/site.log
-```
-
-##### 请求卡死
-
-```
-运行到 state, src_ip, peer_ip = ext.get_ha_config() 时卡死
-
-调用封装的 .so 库时不同用户没有权限
-
-让 pycharm 启动时用使用 sudo 权限的 python 启动项目
-https://zhuanlan.zhihu.com/p/296715567
-```
-
-##### 添加设备后无法上线
-
-```
-租户许可过期
 
 
-cpe调试命令
-    cpe4> debug sdwan-agent 
-    cpe4> debug to terminal 
-1. 项目运行 Aquila/src/py-service/mgt_portal/ 目录下创建 media 临时存储文件
 
-2. 登陆 https://https://10.48.112.88/ 创建许可
-ctl许可生产 -> 运营许可 -> 导出 license
-	机器序列号: 只用运营管理员登陆 -> 账号 -> 关于 -> 软件序列号
-	客户名称: 租户的名称
-	
-3. 运营管理员登陆管控 -> 运维 -> 许可管理 -> 运营许可 -> 导入
-```
 
 ##### dev-6
 
@@ -496,9 +440,26 @@ rpm -ivh pgbouncer-1.17.0-1.el7.x86_64.rpm
 127.0.0.1 5433
 172.17.0.2 5432
 127.0.0.1 6432
+```
+
+##### 
+
+```bash
+问题: pg_config
+[root@CTL software]# cat /opt/monitor/postgresql.conf
+cat: /opt/monitor/postgresql.conf: No such file or directory
 
 
+解决办法
+$ ln -sf /usr/lib/pipelinedb/bin/pg_config /usr/bin/pg_config 
+```
 
+### 使用问题
+
+##### 日志路径
+
+```
+/sdwan/debug/site.log
 ```
 
 ##### 任务一直不执行
@@ -506,6 +467,60 @@ rpm -ivh pgbouncer-1.17.0-1.el7.x86_64.rpm
 ```
 supervisor 重启 
 base:task_worker 和 base:task_main 
+```
+
+##### 添加设备后无法上线
+
+```
+租户许可过期
+
+
+cpe调试命令
+    cpe4> debug sdwan-agent 
+    cpe4> debug to terminal 
+1. 项目运行 Aquila/src/py-service/mgt_portal/ 目录下创建 media 临时存储文件
+
+2. 登陆 https://https://10.48.112.88/ 创建许可
+ctl许可生产 -> 运营许可 -> 导出 license
+	机器序列号: 只用运营管理员登陆 -> 账号 -> 关于 -> 软件序列号
+	客户名称: 租户的名称
+	
+3. 运营管理员登陆管控 -> 运维 -> 许可管理 -> 运营许可 -> 导入
+```
+
+##### pg 表添加字段
+
+```
+例如 admin_user_db 添加 lang 字段
+
+需要修改下面两个脚本
+Aquila/src/database/manager/config_create.sql/config_create.sql
+CREATE TABLE IF NOT EXISTS admin_user_db (
+    id SERIAL PRIMARY KEY,
+    customer_id INTEGER DEFAULT '0',
+    customer_name varchar(128) DEFAULT '',
+    name varchar(128) NOT NULL,
+    description varchar(128) DEFAULT '',
+    role varchar(128) DEFAULT '',
+    password varchar(128) DEFAULT '',
+    create_time DATE NOT NULL DEFAULT '1970-01-01',
+    login_time DATE NOT NULL DEFAULT '1970-01-01',
+    ispredefine INTEGER DEFAULT '0',
+    issuper INTEGER DEFAULT '0',
+    time_out INTEGER DEFAULT '15',
+    phone varchar(128) DEFAULT '',
+    mail varchar(128) DEFAULT '',
+    wechat_state INTEGER DEFAULT 0,
+    wechat_qr_code_url text,
+    wechat_qr_code_time VARCHAR(32) DEFAULT '',
+    lang VARCHAR(32) DEFAULT '',
+    UNIQUE (name)
+);
+
+
+
+Aquila/src/database/manager/config_create.sql/update.sql
+alter table admin_user_db ADD COLUMN IF NOT EXISTS lang VARCHAR(32) DEFAULT '';
 ```
 
 
