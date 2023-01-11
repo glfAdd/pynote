@@ -495,8 +495,6 @@ d 删除
 
 > [github](https://github.com/voldikss/vim-floaterm)
 
-use
-
 ```
 :FloatermNew lazygit
 ```
@@ -629,13 +627,26 @@ map <C-W>K :YodeLayoutShiftWinTop<CR>
 - c
 
   ```bash
-  接下来安装 clang:
+  # 安装 clang 
+  $ sudo dnf install clang
   
-  sudo yum install clang
   
-   安装clang-format:
+  # 安装 clang-format
+  $ dnf search clang-format
+  $ dnf install git-clang-format
   
-  npm install -g clang-format
+  # 使用
+  $ clang-format -version
+  
+  # 格式化(不修改源文件)
+  $ clang-format main.cpp
+  
+  # 格式化(修改源文件)
+  $ clang-format -i main.cpp
+  
+  # 设置格式化代码的风格
+  #  LLVM, GNU, Google, Chromium, Microsoft, Mozilla, WebKit
+  $ clang-format -style=google main.cpp
   ```
 
 - sql
@@ -658,9 +669,15 @@ map <C-W>K :YodeLayoutShiftWinTop<CR>
 
 ##### mason.nvim (lsp 和 dap 安装管理工具)
 
+> [github](https://github.com/williamboman/mason.nvim)
+
 ```
-https://github.com/williamboman/mason.nvim
+
 ```
+
+##### asyncrun.vim (执行系统 shell)
+
+> [github](https://github.com/skywind3000/asyncrun.vim)
 
 ### lsp
 
@@ -711,11 +728,8 @@ https://github.com/MaskRay/ccls/wiki/Build
 
 
 
-clangd (用这个)
-背后有大公司
+clangd (用这个, 背后有大公司)
 ```
-
-
 
 ### dap
 
@@ -727,15 +741,6 @@ clangd (用这个)
 
 ```
 https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation
-```
-
-help
-
-```
-:help dap.txt
-:help dap-adapter
-:help dap-configuration
-:help dap-api
 ```
 
 ##### nvim-dap-ui
@@ -815,8 +820,6 @@ $ pip install pytest debugpy
 
 ### 未使用
 
-##### [asyncrun.vim 代码运行](https://github.com/skywind3000/asyncrun.vim)
-
 ##### [滚动条](https://github.com/Xuyuanp/scrollbar.nvim)
 
 ##### [coq](https://github.com/ms-jpq/coq_nvim)
@@ -852,15 +855,9 @@ $ pip install pytest debugpy
 :Neoformat! python yapf
 ```
 
-##### 
-
 # python
 
 ##### import 管理
-
-```
-https://github.com/PyCQA/isort
-```
 
 >  [github](https://github.com/PyCQA/isort)
 >
@@ -909,8 +906,6 @@ https://github.com/PyCQA/isort
 ```
 :messages								neovim 命令行显示的消息
 :lua print(vim.fn.stdpath('cache'))		neovim 日志目录
-
-
 ```
 
 ##### 分屏幕
@@ -1102,6 +1097,17 @@ e       ：  忽略执行过程中的错误。
 
 退出终端模式
 <c-\><c-n>C-w
+
+
+# 纵向分屏
+:vs term://$SHELL
+
+# 横向分屏
+:split term://$SHELL
+
+# 新标签打开
+:tabe term://$SHELL
+
 ```
 
 ##### 查看命令行历史
