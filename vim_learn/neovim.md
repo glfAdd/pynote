@@ -352,12 +352,6 @@ d 删除
 
 > [github](https://github.com/numToStr/Comment.nvim)
 
-```
-
-```
-
-
-
 - normal
 
   `gcc` - Toggles the current line using linewise comment
@@ -675,9 +669,7 @@ map <C-W>K :YodeLayoutShiftWinTop<CR>
 
 ```
 
-##### asyncrun.vim (执行系统 shell)
 
-> [github](https://github.com/skywind3000/asyncrun.vim)
 
 ### lsp
 
@@ -854,6 +846,12 @@ $ pip install pytest debugpy
 :Neoformat! python
 :Neoformat! python yapf
 ```
+
+##### asyncrun.vim (执行系统 shell)
+
+> [github](https://github.com/skywind3000/asyncrun.vim)
+
+
 
 # python
 
