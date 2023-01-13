@@ -523,5 +523,17 @@ Aquila/src/database/manager/config_create.sql/update.sql
 alter table admin_user_db ADD COLUMN IF NOT EXISTS lang VARCHAR(32) DEFAULT '';
 ```
 
+##### modify url 问题
+
+```
+登陆后页面显示 Oops! 我们遇到了一些小问题...
+
+
+重启服务, 看 site.log 输出的错误
+
+原因
+	1. 新增加了 pip 包
+```
+
 
 
