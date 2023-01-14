@@ -520,10 +520,6 @@ d 删除
 $ pip3 install Pillow
 ```
 
-##### winshift.nvim (移动窗口)
-
-> [github](https://github.com/sindrets/winshift.nvim)
-
 #####  yode-nvim (window内的悬浮终端)
 
 > [github](https://github.com/hoschi/yode-nvim)
@@ -812,9 +808,13 @@ $ pip install pytest debugpy
 
 ### 未使用
 
-##### [滚动条](https://github.com/Xuyuanp/scrollbar.nvim)
+##### scrollbar.nvim (滚动条)
 
-##### [coq](https://github.com/ms-jpq/coq_nvim)
+> [github](https://github.com/Xuyuanp/scrollbar.nvim)
+
+##### coq
+
+> [github](https://github.com/ms-jpq/coq_nvim)
 
 ##### [git]([github](https://github.com/tpope/vim-fugitive))
 
@@ -850,6 +850,12 @@ $ pip install pytest debugpy
 ##### asyncrun.vim (执行系统 shell)
 
 > [github](https://github.com/skywind3000/asyncrun.vim)
+
+##### winshift.nvim (移动窗口)
+
+> [github](https://github.com/sindrets/winshift.nvim)
+>
+> 不好用
 
 
 
