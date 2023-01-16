@@ -56,19 +56,6 @@ $ apt-get install build-essential zlib1g-dev
   $ echo 'eval "$(pyenv init -)"' >> ~/.zshrc
   ```
 
-##### pycharm 用 sudo 权限启动 python
-
-- 创建脚本一定以 python 开头, 不然后面 Pycharm 无法识别 python_sudo.sh
-
-  ```shell
-  #!/bin/bash
-  sudo /home/glfadd/.pyenv/versions/p3710-dev/bin/python "$@"
-  ```
-
-- 可执行权限
-
-- pycharm 选择这个脚本
-
 ##### pyenv-virtualenv
 
 > [github](https://github.com/pyenv/pyenv-virtualenv)
@@ -90,6 +77,21 @@ $ apt-get install build-essential zlib1g-dev
 ```
 exec $SHELL -l
 ```
+
+##### pycharm 用 sudo 权限启动 python
+
+- 创建脚本一定以 python 开头, 不然后面 Pycharm 无法识别 python_sudo.sh
+
+  ```shell
+  #!/bin/bash
+  sudo /home/glfadd/.pyenv/versions/p3710-dev/bin/python "$@"
+  ```
+
+- 可执行权限
+
+- pycharm 选择这个脚本
+
+
 
 ##### 问题
 

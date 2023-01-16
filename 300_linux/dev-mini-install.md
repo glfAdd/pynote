@@ -1,15 +1,43 @@
+# 新的
+
+```bash
+$ yum install epel-release
+$ yum update -y
+$ yum makecache
+$ yum install vim git tree wget htop supervisor redis nginx net-tools zsh gcc lvm2 libcurl-devel glibc-devel lrzsz ncurses-devel gdbm-devel libffi-devel krb5-devel glibc zlib-devel bzip2-devel readline-devel gcc-c++ bzip2 tcpdump sqlite-devel openssl-devel keyutils-libs-devel python-3 bison
+
+
+
+
+# 失败
+$ systemctl stop firewalld
+$ systemctl disable firewalld
+
+
+
+
+1）	关闭selinux
+将/etc/selinux/config中SELINUX= enforcing改为SELINUX=disabled
+执行setenforce 0
+
+最终可通过getenforce查看selinux状态
+
+```
+
+
+
+# 旧的
+
 ##### 依赖库
 
 ```bash
 $ yum reinstall openssh-server openssh
 $ yum install epel-release
 $ yum install dnf
-$ yum install lrzsz tcpdump lvm2 gcc gcc-c++ glibc glibc-devel libffi-devel sqlite-devel bzip2-devel bzip2 readline-devel openssl-devel bzip2-devel
-
-$ yum install gcc ncurses-devel readline-devel openssl-devel zlib-devel krb5-devel keyutils-libs-devel libcurl-devel sqlite-devel gdbm-devel bzip2-devel libffi-devel
-
-$ yum install vim git tree wget htop supervisor redis nginx net-tools
-$ yum install samba
+$ yum update -y
+$ yum install epel-release
+$ yum install vim git tree wget htop supervisor redis nginx net-tools zsh
+$ yum install gcc lvm2 libcurl-devel glibc-devel lrzsz ncurses-devel gdbm-devel libffi-devel krb5-devel glibc zlib-devel bzip2-devel readline-devel gcc-c++ bzip2 tcpdump sqlite-devel openssl-devel keyutils-libs-devel
 
 
 $ yum install postgresql11-contrib postgresql11-llvmjit postgresql11-odbc postgresql11-plperl postgresql11-pltcl postgresql11-tcl postgresql11 postgresql11-libs postgresql11-libs
@@ -31,10 +59,6 @@ yum list postgresql11*
 ##### docker
 
 ##### java
-
-##### redis
-
-##### nginx
 
 ##### pipeline
 

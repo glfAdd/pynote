@@ -4,9 +4,6 @@
 https://www.zhihu.com/column/c_1527964562929893376
 https://github.com/ayamir/nvimdots/wiki/Plugins
 
-https://github.com/saadparwaiz1/cmp_luasnip
-https://github.com/L3MON4D3/LuaSnip
-https://github.com/rafamadriz/friendly-snippets
 
 单词拼写 待验证
 https://github.com/octaltree/cmp-look
@@ -27,7 +24,7 @@ quickfix
 
 [github](https://github.com/neovim/neovim/releases)
 
-##### linux - 编译
+### linux - 编译
 
 ```bash
 $ dnf install python3 bison
@@ -36,56 +33,59 @@ $ tar xvf nvim-linux64.tar.gz
 $ ln -s /opt/nvim-linux64/bin/nvim /usr/bin/nvim
 ```
 
-##### linux
+### linux
 
 ```bash
 $ dnf install neovim
 ```
 
-##### 配置文件
+### linux (centos 7 弃用)
 
-```
-~/.config/nvim/init.vim (弃用)
-~/.config/nvim/init.lua (推荐)
-```
+##### gcc
 
-##### 问题1: install GLIBC_2.29
+- gcc 版本太旧, 安装时需要临时切换到新版本的gcc, 否则编译失败
 
-> 提示失败是可能安装, 详细看提示
->
-> ```
-> ./nvim: /lib64/libc.so.6: version `GLIBC_2.28' not found (required by ./nvim)
-> ./nvim: /lib64/libm.so.6: version `GLIBC_2.29' not found (required by ./nvim)
-> ```
->
+  ```
+  configure: error:
+  *** These critical programs are missing or too old: make bison compiler
+  *** Check the INSTALL file for required versions.
+  ```
+
+- 安装 bison
+
+  ```bash
+  $ yum install bison
+  ```
+
+- 临时切换 gcc 版本
+
+##### install GLIBC_2.29
+
 > [download](https://ftp.gnu.org/gnu/glibc/)
 
-```bash
-$ wget https://ftp.gnu.org/gnu/glibc/glibc-2.29.tar.gz
-$ cd glibc-2.29
-$ mkdir build
-$ cd build
-$ ../configure --prefix=/usr --disable-profile --enable-add-ons --with-headers=/usr/include --with-binutils=/usr/bin
-$ make
-$ make install
-	
-# 查看版本
-$ strings /lib64/libc.so.6 |grep GLIBC_2.29
-```
+- 运行 neovim 时出现错误
 
-##### 问题2: gcc  版本低
+  ```
+  ./nvim: /lib64/libc.so.6: version `GLIBC_2.28' not found (required by ./nvim)
+  ./nvim: /lib64/libm.so.6: version `GLIBC_2.29' not found (required by ./nvim)
+  ```
 
-> gcc 版本太旧, 安装时需要临时切换到新版本的gcc, 否则编译失败
->
-> ```
-> configure: error:
-> *** These critical programs are missing or too old: make bison compiler
-> *** Check the INSTALL file for required versions.
-> ```
+- 安装
 
-```bash
-$ dnf install bison
-```
+  ```bash
+  $ wget https://ftp.gnu.org/gnu/glibc/glibc-2.29.tar.gz
+  $ cd glibc-2.29
+  $ mkdir build
+  $ cd build
+  $ ../configure --prefix=/usr --disable-profile --enable-add-ons --with-headers=/usr/include --with-binutils=/usr/bin
+  $ make
+  $ make install
+  
+  # 查看版本
+  $ strings /lib64/libc.so.6 |grep GLIBC_2.29
+  ```
+
+  
 
 # 依赖
 
@@ -206,6 +206,13 @@ dnf install words
 ```
 
 # package
+
+##### 配置文件
+
+```
+~/.config/nvim/init.vim (弃用)
+~/.config/nvim/init.lua (推荐)
+```
 
 ##### packer.nvim (包管理)
 
@@ -578,7 +585,7 @@ map <C-W>K :YodeLayoutShiftWinTop<CR>
   pip3 install ranger-fm pynvim
   
   # ueberzug is not supported in macOS because it depends on X11
-  python3 -m pip install ueberzug
+      python3 -m pip install ueberzug
   ```
 
 - 查看是否成功
@@ -663,6 +670,14 @@ map <C-W>K :YodeLayoutShiftWinTop<CR>
 
 ```
 
+```
+
+##### vim-startuptime (启动时间)
+
+> [github](https://github.com/dstein64/vim-startuptime)
+
+```
+:StartupTime
 ```
 
 
