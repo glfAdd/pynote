@@ -4,24 +4,53 @@
 $ yum install epel-release
 $ yum update -y
 $ yum makecache
-$ yum install vim git tree wget htop supervisor redis nginx net-tools zsh gcc lvm2 libcurl-devel glibc-devel lrzsz ncurses-devel gdbm-devel libffi-devel krb5-devel glibc zlib-devel bzip2-devel readline-devel gcc-c++ bzip2 tcpdump sqlite-devel openssl-devel keyutils-libs-devel python-3 bison
+$ yum install vim git tree wget htop supervisor redis nginx net-tools zsh gcc lvm2 libcurl-devel glibc-devel lrzsz ncurses-devel gdbm-devel libffi-devel krb5-devel glibc zlib-devel bzip2-devel readline-devel gcc-c++ bzip2 tcpdump sqlite-devel openssl-devel keyutils-libs-devel python-3 postgresql-devel yum-utils libinput-devel mesa-libgbm-devel libfm  sg3_utils libevent libinput-devel mesa-libgbm-devel libfm  sg3_utils libevent
 
+bison
+```
 
+##### python 3.7.10
 
+> 项目编译时 python 版本必须用 3.7.10, python3.pc 文件必须和 python 版本对应
+>
+> python3-devel 安装时时 3.6.8 和 python 版本不匹配, 不能用
 
-# 失败
+```bash
+$ cd Python-3.7.10
+$ ./configure --enable-optimizations
+$ make
+$ make install
+```
+
+##### 关闭 selinux
+
+```bash
+将 /etc/selinux/config
+SELINUX=enforcing
+改为
+SELINUX=disabled
+执行 setenforce 0
+可通过 getenforce 查看 selinux 状态
+```
+
+##### 关防火墙
+
+```bash
 $ systemctl stop firewalld
 $ systemctl disable firewalld
+```
 
 
 
+```bash
+go1.19.1
+jdk-11.0.12
+redis 开机启动
+nginx 开机启动
+docker 开机启动
 
-1）	关闭selinux
-将/etc/selinux/config中SELINUX= enforcing改为SELINUX=disabled
-执行setenforce 0
-
-最终可通过getenforce查看selinux状态
-
+$ systemctl enable redis
+$ systemctl enable nginx
 ```
 
 
@@ -42,7 +71,6 @@ $ yum install gcc lvm2 libcurl-devel glibc-devel lrzsz ncurses-devel gdbm-devel 
 
 $ yum install postgresql11-contrib postgresql11-llvmjit postgresql11-odbc postgresql11-plperl postgresql11-pltcl postgresql11-tcl postgresql11 postgresql11-libs postgresql11-libs
 $ yum install postgresql-devel postgresql postgresql-libs
-
 ```
 
 ```
@@ -56,21 +84,11 @@ yum list postgresql11*
 可以不升级, 用 pyenv 安装虚拟环境, 将 pgkconfig 的环境变量指向 python3.pc 路径也可以
 ```
 
-##### docker
-
-##### java
-
 ##### pipeline
 
 ```
- sh /sdwan/script/run-pipelinedb.sh start
+sh /sdwan/script/run-pipelinedb.sh start
 ```
-
-
-
-##### go 
-
-> go1.19.1
 
 ##### pgkconfig 文件指定
 
@@ -122,13 +140,6 @@ init 命令不再使用了
 
 
 
-##### 关闭防火墙
-
-```
-systemctl disable firewalld
-systemctl stop firewalld
-```
-
 ##### vmware 扩容
 
 > 成功 https://www.cnblogs.com/friendwang1001/p/15725732.html
@@ -165,8 +176,6 @@ systemctl stop firewalld
 	resize2fs /dev/mapper/centos-root
 
 ```
-
-
 
 # 新项 clone 项目
 
@@ -228,14 +237,10 @@ $ make install
    #include <Python.h>
   ```
 
-- 解决办法 (不能安装这个)
+- 解决办法 
 
   ```
-  # python2
-  $ dnf install python-devel 
-  
-  # python3
-  $ dnf install python3-devel
+  复制和 python 3.7.10 对应的 python3.pc 文件
   ```
 
 ##### sg_postgresql.c:4:22
@@ -358,29 +363,6 @@ ln -s /media/config /sdwan/config
 
 ```
 
-
-
-```
-终止home文件进程（切换到非home路径下执行这个命令）：fuser -km /home
-
-        3.1、如果没有fuser，在线安装
-
-               3.1.1、yum安装： yum install -y psmisc
-
-                3.1.2、终止home文件进程（切换到非home路径下执行这个命令）：fuser -km /home
-
-        3.2、如果没有fuser，离线安装
-
-                    3.2.1、下砸地址：https://developer.aliyun.com/packageSearch?word=psmisc
-
-                    3.2.2、下载对应架构离线包（lscpu看centos架构）：
-
-https://blog.csdn.net/u011627218/article/details/121994098
-
-```
-
-
-
 ##### pip 安装报错
 
 ```
@@ -414,15 +396,9 @@ $ chmod -R 777 py-server
 
 
 
-
-
 ```
 docker 连接时使用 172.17.0.2 不是 127.0.0.1
 ```
-
-
-
-
 
 ##### dev-6
 
