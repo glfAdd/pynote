@@ -33,12 +33,6 @@ $ tar xvf nvim-linux64.tar.gz
 $ ln -s /opt/nvim-linux64/bin/nvim /usr/bin/nvim
 ```
 
-### linux
-
-```bash
-$ dnf install neovim
-```
-
 ### linux (centos 7 弃用)
 
 ##### gcc
@@ -73,19 +67,43 @@ $ dnf install neovim
 - 安装
 
   ```bash
+  # 查看版本
+  $ strings /lib64/libc.so.6 | grep GLIBC_
+  
+  # 依赖 
+  $ dnf install bison
+  
   $ wget https://ftp.gnu.org/gnu/glibc/glibc-2.29.tar.gz
   $ cd glibc-2.29
   $ mkdir build
   $ cd build
   $ ../configure --prefix=/usr --disable-profile --enable-add-ons --with-headers=/usr/include --with-binutils=/usr/bin
-  $ make
+$ make
   $ make install
-  
-  # 查看版本
-  $ strings /lib64/libc.so.6 |grep GLIBC_2.29
   ```
-
   
+
+```
+collect2: error: ld returned 1 exit status
+Execution of gcc -B/usr/bin/ failed!
+The script has found some problems with your installation!
+Please read the FAQ and the README file and check the following:
+- Did you change the gcc specs file (necessary after upgrading from
+  Linux libc5)?
+- Are there any symbolic links of the form libXXX.so to old libraries?
+  Links like libm.so -> libm.so.5 (where libm.so.5 is an old library) are wrong,
+  libm.so should point to the newly installed glibc file - and there should be
+  only one such link (check e.g. /lib and /usr/lib)
+You should restart this script from your build directory after you've
+fixed all problems!
+Btw. the script doesn't work if you're installing GNU libc not as your
+primary library!
+make[1]: *** [Makefile:111: install] Error 1
+make[1]: Leaving directory '/opt/glibc-2.29'
+make: *** [Makefile:12: install] Error 2
+```
+
+
 
 # 依赖
 
