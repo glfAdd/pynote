@@ -107,6 +107,14 @@ make: *** [Makefile:12: install] Error 2
 
 # 依赖
 
+```
+$ pip install autopep8 black click debugpy isort pyaml PyYAML yapf pyright
+
+$ pip install pynvim
+```
+
+
+
 ##### python 3 支持
 
 ```bash
@@ -199,6 +207,10 @@ $ dnf install fd-find
 
 ```bash
 $ dnf install ranger
+或
+$ pip install ranger-fm
+
+
 ```
 
 ##### ueberzug (失败)

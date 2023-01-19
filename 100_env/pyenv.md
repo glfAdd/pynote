@@ -91,8 +91,6 @@ exec $SHELL -l
 
 - pycharm 选择这个脚本
 
-
-
 ##### 问题
 
 - 描述
@@ -153,8 +151,9 @@ pyenv versions
 
 ```
 阿里源下载 https://registry.npmmirror.com/binary.html?path=python/
-wget https://registry.npmmirror.com/-/binary/python/3.7.10/Python-3.7.10.tar.xz
-wget https://registry.npmmirror.com/-/binary/python/3.9.10/Python-3.9.10.tar.xz
+    wget https://registry.npmmirror.com/-/binary/python/3.7.10/Python-3.7.10.tar.xz
+    wget https://registry.npmmirror.com/-/binary/python/3.9.16/Python-3.9.16.tar.xz
+
 *.tar.xz
 创建目录放安装文件 ~/.pyenv/cache
 使用pyenv install 2.7.16 查看下载文件的目录, 并用wget下载

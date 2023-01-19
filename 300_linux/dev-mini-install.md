@@ -4,7 +4,7 @@
 $ yum install epel-release
 $ yum update -y
 $ yum makecache
-$ yum install vim git tree wget htop supervisor redis nginx net-tools zsh gcc lvm2 libcurl-devel glibc-devel lrzsz ncurses-devel gdbm-devel libffi-devel krb5-devel glibc zlib-devel bzip2-devel readline-devel gcc-c++ bzip2 tcpdump sqlite-devel openssl-devel keyutils-libs-devel python-3 postgresql-devel yum-utils libinput-devel mesa-libgbm-devel libfm  sg3_utils libevent libinput-devel mesa-libgbm-devel libfm  sg3_utils libevent
+$ yum install vim git tree wget htop supervisor redis nginx net-tools zsh gcc lvm2 libcurl-devel glibc-devel lrzsz ncurses-devel gdbm-devel libffi-devel krb5-devel glibc zlib-devel bzip2-devel readline-devel gcc-c++ bzip2 tcpdump sqlite-devel openssl-devel keyutils-libs-devel postgresql-devel yum-utils libinput-devel mesa-libgbm-devel libfm  sg3_utils libevent libinput-devel mesa-libgbm-devel libfm  sg3_utils libevent
 
 bison
 ```
@@ -22,6 +22,17 @@ $ make
 $ make install
 ```
 
+```bash
+$ python3 -m pip install virtualenv
+```
+
+```
+$ mv /usr/bin/python /usr/bin/python2.7.0                  
+$ ln -s /usr/self/Python3.5.2/bin/python3 /usr/bin/python  #把系统默认python命令改成python3
+```
+
+
+
 ##### 关闭 selinux
 
 ```bash
@@ -29,7 +40,7 @@ $ make install
 SELINUX=enforcing
 改为
 SELINUX=disabled
-执行 setenforce 0
+$ setenforce 0
 可通过 getenforce 查看 selinux 状态
 ```
 
@@ -52,8 +63,6 @@ docker 开机启动
 $ systemctl enable redis
 $ systemctl enable nginx
 ```
-
-
 
 # 旧的
 
