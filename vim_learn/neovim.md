@@ -24,7 +24,7 @@ quickfix
 
 [github](https://github.com/neovim/neovim/releases)
 
-### linux - 编译
+##### 二进制
 
 ```bash
 $ dnf install python3 bison
@@ -33,7 +33,7 @@ $ tar xvf nvim-linux64.tar.gz
 $ ln -s /opt/nvim-linux64/bin/nvim /usr/bin/nvim
 ```
 
-### linux (centos 7 弃用)
+##### linux (centos 7 弃用)
 
 ##### gcc
 
@@ -79,30 +79,34 @@ $ ln -s /opt/nvim-linux64/bin/nvim /usr/bin/nvim
   $ cd build
   $ ../configure --prefix=/usr --disable-profile --enable-add-ons --with-headers=/usr/include --with-binutils=/usr/bin
 $ make
+  # 有保存, 但不影响 glibc 升级
   $ make install
   ```
   
+- 问题
 
-```
-collect2: error: ld returned 1 exit status
-Execution of gcc -B/usr/bin/ failed!
-The script has found some problems with your installation!
-Please read the FAQ and the README file and check the following:
-- Did you change the gcc specs file (necessary after upgrading from
-  Linux libc5)?
-- Are there any symbolic links of the form libXXX.so to old libraries?
-  Links like libm.so -> libm.so.5 (where libm.so.5 is an old library) are wrong,
-  libm.so should point to the newly installed glibc file - and there should be
-  only one such link (check e.g. /lib and /usr/lib)
-You should restart this script from your build directory after you've
-fixed all problems!
-Btw. the script doesn't work if you're installing GNU libc not as your
-primary library!
-make[1]: *** [Makefile:111: install] Error 1
-make[1]: Leaving directory '/opt/glibc-2.29'
-make: *** [Makefile:12: install] Error 2
-```
-
+  ```
+  collect2: error: ld returned 1 exit status
+  Execution of gcc -B/usr/bin/ failed!
+  The script has found some problems with your installation!
+  Please read the FAQ and the README file and check the following:
+  - Did you change the gcc specs file (necessary after upgrading from
+    Linux libc5)?
+  - Are there any symbolic links of the form libXXX.so to old libraries?
+    Links like libm.so -> libm.so.5 (where libm.so.5 is an old library) are wrong,
+    libm.so should point to the newly installed glibc file - and there should be
+    only one such link (check e.g. /lib and /usr/lib)
+  You should restart this script from your build directory after you've
+  fixed all problems!
+  Btw. the script doesn't work if you're installing GNU libc not as your
+  primary library!
+  make[1]: *** [Makefile:111: install] Error 1
+  make[1]: Leaving directory '/opt/glibc-2.29'
+  make: *** [Makefile:12: install] Error 2
+  
+  
+  暂时没法解决, 但不影响 glibc 的升级
+  ```
 
 
 # 依赖

@@ -31,8 +31,6 @@ $ mv /usr/bin/python /usr/bin/python2.7.0
 $ ln -s /usr/self/Python3.5.2/bin/python3 /usr/bin/python  #把系统默认python命令改成python3
 ```
 
-
-
 ##### 关闭 selinux
 
 ```bash

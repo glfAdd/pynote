@@ -1,3 +1,5 @@
+# 命令
+
 ##### 用户 / 用户组
 
 ```bash
@@ -967,6 +969,29 @@ vim /etc/profile
 export PATH=/usr/local/mongodb/bin:$PATH
 ```
 
+##### locale
+
+
+
+```bash
+ $ locale
+locale: Cannot set LC_ALL to default locale: No such file or directory
+LANG=en_US.UTF-8
+LC_CTYPE="en_US.UTF-8"
+LC_NUMERIC="en_US.UTF-8"
+LC_TIME="en_US.UTF-8"
+LC_COLLATE="en_US.UTF-8"
+LC_MONETARY="en_US.UTF-8"
+LC_MESSAGES="en_US.UTF-8"
+LC_PAPER="en_US.UTF-8"
+LC_NAME="en_US.UTF-8"
+LC_ADDRESS="en_US.UTF-8"
+LC_TELEPHONE="en_US.UTF-8"
+LC_MEASUREMENT="en_US.UTF-8"
+LC_IDENTIFICATION="en_US.UTF-8"
+LC_ALL=
+```
+
 
 
 ##### 查看进程占用的端口
@@ -1042,6 +1067,55 @@ Conflicts: 描述与本package所冲突的其他package。版本号的描述也�
 Cflags: 编译器编译本package时所指定的编译选项，和其他并不支持pkg-config的library的一些编译选项值。假如所需要的library支持pkg-config,则它们应该被添加到Requires或者Requires.private中
 Libs: 链接本库时所需要的一些链接选项，和其他一些并不支持pkg-config的library的链接选项值。与Cflags类似
 Libs.private: 本库所需要的一些私有库的链接选项。
+```
+
+# 目录
+
+##### 目录说明
+
+> usr 是 Unix System Resource
+
+```
+lrwxrwxrwx.   1 root root    7 Jan 19 03:17 bin -> usr/bin
+dr-xr-xr-x.   5 root root 4.0K Jan 19 06:58 boot
+drwxr-xr-x.  18 root root 3.2K Jan 19 18:53 dev
+drwxr-xr-x.  80 root root 8.0K Jan 19 18:54 etc
+drwxr-xr-x.   2 root root    6 Apr 11  2018 home
+lrwxrwxrwx.   1 root root    7 Jan 19 03:17 lib -> usr/lib
+lrwxrwxrwx.   1 root root    9 Jan 19 03:17 lib64 -> usr/lib64
+drwxr-xr-x.   2 root root    6 Apr 11  2018 media
+drwxr-xr-x.   2 root root    6 Apr 11  2018 mnt
+drwxr-xr-x.   9 root root  135 Jan 19 22:56 opt
+dr-xr-xr-x. 260 root root    0 Jan 19 18:52 proc
+dr-xr-x---.  14 root root 4.0K Jan 19 23:10 root
+drwxr-xr-x.  24 root root  680 Jan 19 22:52 run
+lrwxrwxrwx.   1 root root    8 Jan 19 03:17 sbin -> usr/sbin
+drwxr-xr-x.   2 root root    6 Apr 11  2018 srv
+dr-xr-xr-x.  13 root root    0 Jan 19 18:53 sys
+drwxrwxrwt.  19 root root 4.0K Jan 19 22:54 tmp
+drwxr-xr-x.  13 root root  155 Jan 19 03:17 usr
+drwxr-xr-x.  19 root root  267 Jan 19 03:21 var
+```
+
+| 目录            | 说明                                                         |
+| --------------- | ------------------------------------------------------------ |
+| /bin            | 系统预装的可执行程序, 会随着系统升级而改变 (所有用户可用)    |
+| /usr/bin        |                                                              |
+| /sbin           | 系统预装的可执行程序, 会随着系统升级而改变 (只有超管可用)    |
+| /usr/sbin       |                                                              |
+| /usr/local/bin  | 用户可执行程序的地方, 不会被系统升级而覆盖同名文件 (所有用户可用) |
+| /usr/local/sbin | 用户可执行程序的地方, 不会被系统升级而覆盖同名文件 (只有超管可用) |
+|                 |                                                              |
+|                 |                                                              |
+|                 |                                                              |
+|                 |                                                              |
+
+##### 环境变量
+
+```bash
+# 前面的优先级高
+$ echo $PATH
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin:/opt/jdk-11.0.12/bin:/opt/go1.19.1/bin:/opt/go1.19.1/gopath/bin
 ```
 
 
