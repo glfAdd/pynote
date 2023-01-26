@@ -5,31 +5,37 @@ python3.7m
 
 ```
 
-
-
 # python
 
 ##### 编译安装 pyton
 
 ```bash
+# 3.7.10 / 3.9.16
+$ wget https://registry.npmmirror.com/-/binary/python/3.7.10/Python-3.7.10.tar.xz
+$ wget https://registry.npmmirror.com/-/binary/python/3.9.16/Python-3.9.16.tar.xz
+
 $ cd Python-3.7.10
-$ ./configure --enable-optimizations
+$ ./configure --prefix=/opt/python-3.7.10 --enable-optimizations
 $ make
 $ make install
+
 $ python3 -m pip install virtualenv
 ```
 
 ##### 删除编译安装 python
 
 ```bash
+# 1. 搜索安装包
 $ rpm -qa|grep python3
+
+# 2. 卸载
 $ rpm -e python3-rpm-macros-3-34.el7.noarch
 或
 $ rpm -e --nodeps python3-rpm-macros-3-34.el7.noarch
-    -e: 是卸载   
-    --nodeps: 是忽略依赖
+    -e: 卸载   
+    --nodeps: 忽略依赖
     
-# 查看是否都卸载了
+# 3. 查看是否都卸载了
 $ whereis python3
 ```
 
@@ -82,7 +88,7 @@ $ yum install python-devel python3-devel
   $ pip3 install --upgrade pip
   ```
 
-
+# pip
 
 ##### pip 参数
 
@@ -90,7 +96,6 @@ $ yum install python-devel python3-devel
 | ------- | ------------------------------------------------------------ |
 | --user  | 安装第三方库时只对当前用户可见<br />会将程序包安装到 $HOME/.local 路径下, 其中包含三个字文件夹 bin, lib 和 share<br />在虚拟环境下不可使用 --user 选项, 因为用户目录在该环境下不可见 |
 | --force |                                                              |
-|         |                                                              |
 
 ##### 临时改变源
 
@@ -108,38 +113,6 @@ index-url = https://pypi.mirrors.ustc.edu.cn/simple/
 [install]
 trusted-host = https://pypi.mirrors.ustc.edu.cn/
 ```
-
-##### pyenv 
-
-##### (错误) pip list
-
-- 报错信息
-
-  ```
-  DEPRECATION: The default format will switch to columns in the future. You can use --format=(legacy|columns) (or define a format=(legacy|columns) in your pip.conf under the [list] section) to disable this warning.
-  ```
-
-- 解决办法, 在 .pip/pip.conf 中添加
-
-  ```
-  [list]
-  format = columns
-  ```
-
-##### (错误) pip install --upgrade pip
-
-- 报错信息
-
-  ```
-  Could not fetch URL https://pypi.mirrors.ustc.edu.cn/simple/pip/: There was a problem confirming the ssl certificate: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:618) - skipping
-  Requirement already up-to-date: pip in /usr/lib/python2.7/site-packages
-  ```
-
-- 解决办法
-
-  ```
-  
-  ```
 
 # pyenv
 
@@ -166,8 +139,6 @@ $ apt-get install build-essential zlib1g-dev
 ##### pyenv
 
 > [github](https://github.com/pyenv/pyenv)
->
-> shell 文件 .zshrc .bash_profile
 >
 > pip 包安装在虚拟环境的 ~/.pyenv/versions/p-3.9.2-learn/lib 目录下
 
@@ -207,40 +178,6 @@ $ apt-get install build-essential zlib1g-dev
 exec $SHELL -l
 ```
 
-##### pycharm 用 sudo 权限启动 python
-
-- 创建脚本一定以 python 开头, 不然后面 Pycharm 无法识别 python_sudo.sh
-
-  ```shell
-  #!/bin/bash
-  sudo /home/glfadd/.pyenv/versions/p3710-dev/bin/python "$@"
-  ```
-
-- 可执行权限
-
-- pycharm 选择这个脚本
-
-##### 问题
-
-- 描述
-
-  ```
-  切换环境成功, 但 python 和 pip 没有切换
-  ```
-
-- 原因
-
-  ```
-  .zshrc 环境变量问题
-  ```
-
-- 解决办法
-
-  ```
-  在 .zshrc 中添加
-  eval "$(pyenv init --path)"
-  ```
-
 ##### 命令
 
 ```bash
@@ -268,6 +205,13 @@ pyenv uninstall env-3.6.4 			# 删除 env-3.6.4 这个虚拟环境
 ```
 
 ```
+# 安装时使用 -v 查看详细信息, 缺少哪个依赖安装哪个
+$ pyenv install -v 3.9.2
+```
+
+
+
+```
 pyenv global 3.3.3 2.7.6
 pyenv versions
   system
@@ -285,125 +229,9 @@ pyenv versions
 
 *.tar.xz
 创建目录放安装文件 ~/.pyenv/cache
-使用pyenv install 2.7.16 查看下载文件的目录, 并用wget下载
+使用 pyenv install 2.7.16 查看下载文件的目录, 并用wget下载
 安装 pyenv install 2.7.16
 ```
-
-
-
-##### 安装 python 失败
-
-- 原因
-
-  ```
-  缺少依赖
-  ```
-
-- 解决办法
-
-  ```bash
-  # 安装时使用 -v 查看详细信息, 缺少哪个依赖安装哪个
-  $ pyenv install -v 3.9.2
-  ```
-
-##### 安装 psycopg2 失败
-
-- centos
-
-  ```bash
-  $ yum install libjpeg libjpeg-devel zlib zlib-devel freetype freetype-devel lcms lcms-devel
-  $ yum install postgresql-devel*
-  $ yum install python-imaging
-  ```
-
-- man
-
-  ```bash
-  $ brew update
-  $ brew install --force ossp-uuid
-  $ brew install postgresql
-  $ pip install psycopg
-  ```
-
-##### pyltp 安装失败
-
-```
-error: $MACOSX_DEPLOYMENT_TARGET mismatch: now "10.12" but "10.15" during configure
-
-切换到虚拟环境
-$ git clone https://github.com/HIT-SCIR/pyltp
-$ cd pyltp
-$ git submodule init
-$ git submodule update
-vim setup.py 修改文件121行
-os.environ['MACOSX_DEPLOYMENT_TARGET'] = '10.12'
-修改为后问题解决
-os.environ['MACOSX_DEPLOYMENT_TARGET'] = '10.14' 
-$ python setup.py install
-
-
-$ MACOSX_DEPLOYMENT_TARGET=10.7 python setup.py install
-```
-
-##### 问题 1
-
-- 描述
-
-  ```
-  执行命令时提示
-  
-  -> % brew update
-  Error:
-    homebrew-core is a shallow clone.
-  To `brew update`, first run:
-    git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core fetch --unshallow
-  This command may take a few minutes to run due to the large size of the repository.
-  This restriction has been made on GitHub's request because updating shallow
-  clones is an extremely expensive operation due to the tree layout and traffic of
-  Homebrew/homebrew-core and Homebrew/homebrew-cask. We don't do this for you
-  automatically to avoid repeatedly performing an expensive unshallow operation in
-  CI systems (which should instead be fixed to not use shallow clones). Sorry for
-  the inconvenience!
-  ```
-
-- 解决办法
-
-  ```
-  $ cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
-  $ git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core fetch --unshallow
-  
-  $ cd "$(brew --repo)/Library/Taps/homebrew/homebrew-cask"
-  $ git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask fetch --unshallow
-  ```
-
-  
-
-##### 问题 2
-
-- 描述
-
-  ```
-  glfadd@gong [10:16:38] [~/.pyenv] [master]
-  -> % git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core fetch --unshallow
-  fatal: dumb http transport does not support shallow capabilities
-  ```
-
-- 原因
-
-  ```
-  换成了阿里源
-  ```
-
-- 解决办法
-
-  ```
-  换回原来的源
-  
-  $ cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
-  $ git remote set-url origin https://github.com/Homebrew/homebrew-core.git
-  $ cd "$(brew --repo)/Library/Taps/homebrew/homebrew-cask"
-  $ git remote set-url origin https://github.com/Homebrew/homebrew-cask.git
-  ```
 
 # venv
 
@@ -417,8 +245,6 @@ $ python3 -m venv /home/yan/env3
 > virtualenv 同时支持 Python2.X 和 Python3.X, 并且是系统已经存在的.
 
 ```bash
-# 
-
 # 安装
 $ pip install virtualenv
 
@@ -455,32 +281,66 @@ $ deactivate
 
 ##### 安装
 
+- 安装 (依赖 virtualenv)
+
+  ```bash
+  $ pip3 install --user virtualenv
+  $ pip3 install --user virtualenvwrapper
+  ```
+
+-  设置环境变量 (~/.zshrc)
+
+  ```bash
+  # 所有的虚拟环境会创建在 WORKON_HOME 目录下
+  export WORKON_HOME=$HOME/.virtualenvs
+  export PROJECT_HOME=$HOME/workspace
+  # 指定 python 路径
+  export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+  # 指定 virtualenv 路径
+  export VIRTUALENVWRAPPER_VIRTUALENV=~/.local/bin/virtualenv
+  ```
+
+- 激活
+
+  ```bash
+  $ source ~/.zshrc
+  $ source ~/.local/bin/virtualenvwrapper.sh
+  ```
+
+##### 环境变量
+
 ```bash
-# 安装
-$ pip install virtualenvwrapper
+# 指定使用 mkproject 创建的项目路径
+PROJECT_HOME
 
+# 指定 hooks 目录, 默认 $WORKON_HOME
+VIRTUALENVWRAPPER_HOOK_DIR
 
-# 设置环境变量, 创建的目录将在此目录下
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/workspace
+# hooks 日志
+VIRTUALENVWRAPPER_LOG_FILE
 
-# 激活virtualenvwrapper
-$ source /usr/local/bin/virtualenvwrapper.sh
+# 1 (默认): 使用 mkproject projectname 创建虚拟环境及工程目录后, workon projectname 默认会自动切换项目目录
+# 0: workon projectname 不进入工程目录只激活虚拟环境
+VIRTUALENVWRAPPER_WORKON_CD
 
+# python 路径
+VIRTUALENVWRAPPER_PYTHON
 
-$ source ~/.bash_profile
+# virtualenv 路径
+VIRTUALENVWRAPPER_VIRTUALENV
+
+# 产生的临时文件位置 ( 默认 $TMPDIR, 如果没有使用 /tmp)
+VIRTUALENVWRAPPER_TMPDIR
 ```
 
 ##### 命令
 
 ```bash
-# 参数
-	--python=python3
-
-
+mkvirtualenv [-a project_path] [-i package] [-r requirements_file] [virtualenv options] env_name
 
 # 创建虚拟环境：
 $ mkvirtualenv my_venv
+$ mkvirtualenv -p /opt/python-3.11.1/bin/python my_venv
 # 环境列表
 $ workon
 # 开始在虚拟环境
@@ -505,7 +365,80 @@ mkproject mic：创建mic项目和运行环境mic
 mktmpenv：创建临时运行环境
 ```
 
+# pipenv
 
+```
+pip 包管理工具
+```
+
+```bash
+$ pip3 install --user pipenv
+```
+
+```
+会在项目目录下生成2个文件Pipfile和Pipfile.lock
+
+
+pipenv install --dev生成自己的虚拟环境。
+
+Pipfile.lock 文件是通过hash算法将包的名称和版本，及依赖关系生成哈希值，可以保证包的完整性。
+```
+
+# 错误 / 失败
+
+##### pip list
+
+- 报错信息
+
+  ```
+  DEPRECATION: The default format will switch to columns in the future. You can use --format=(legacy|columns) (or define a format=(legacy|columns) in your pip.conf under the [list] section) to disable this warning.
+  ```
+
+- 解决办法, 在 .pip/pip.conf 中添加
+
+  ```
+  [list]
+  format = columns
+  ```
+
+##### pyltp 安装
+
+```
+error: $MACOSX_DEPLOYMENT_TARGET mismatch: now "10.12" but "10.15" during configure
+
+切换到虚拟环境
+$ git clone https://github.com/HIT-SCIR/pyltp
+$ cd pyltp
+$ git submodule init
+$ git submodule update
+vim setup.py 修改文件121行
+os.environ['MACOSX_DEPLOYMENT_TARGET'] = '10.12'
+修改为后问题解决
+os.environ['MACOSX_DEPLOYMENT_TARGET'] = '10.14' 
+$ python setup.py install
+
+
+$ MACOSX_DEPLOYMENT_TARGET=10.7 python setup.py install
+```
+
+##### 安装 psycopg2
+
+- centos
+
+  ```bash
+  $ yum install libjpeg libjpeg-devel zlib zlib-devel freetype freetype-devel lcms lcms-devel
+  $ yum install postgresql-devel*
+  $ yum install python-imaging
+  ```
+
+- mac
+
+  ```bash
+  $ brew update
+  $ brew install --force ossp-uuid
+  $ brew install postgresql
+  $ pip install psycopg
+  ```
 
 
 

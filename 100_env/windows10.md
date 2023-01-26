@@ -273,6 +273,10 @@ TranslucentTB 汉化版 使任务栏透明
 Fluent Terminal 终端
 ```
 
+##### xshell 配色
+
+.xcs 文件
+
 
 
 # docker
