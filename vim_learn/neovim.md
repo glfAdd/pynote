@@ -4,9 +4,6 @@
 https://www.zhihu.com/column/c_1527964562929893376
 https://github.com/ayamir/nvimdots/wiki/Plugins
 
-https://github.com/saadparwaiz1/cmp_luasnip
-https://github.com/L3MON4D3/LuaSnip
-https://github.com/rafamadriz/friendly-snippets
 
 单词拼写 待验证
 https://github.com/octaltree/cmp-look
@@ -15,6 +12,12 @@ https://github.com/octaltree/cmp-look
 (不好用)右边的图片: https://github.com/edluffy/hologram.nvim
 quickfix
 数据库支持: https://github.com/tpope/vim-dadbod
+
+
+
+重点:
+https://github.com/nshen/learn-neovim-lua/commit/2635dec11c52292cd93dc5320a7d1df5f397acc4
+v2 分支
 ```
 
 ##### [neovim map](https://neovim.io/doc/user/map.html)
@@ -27,7 +30,7 @@ quickfix
 
 [github](https://github.com/neovim/neovim/releases)
 
-##### linux - 编译
+##### 二进制
 
 ```bash
 $ dnf install python3 bison
@@ -36,58 +39,101 @@ $ tar xvf nvim-linux64.tar.gz
 $ ln -s /opt/nvim-linux64/bin/nvim /usr/bin/nvim
 ```
 
-##### linux
+##### linux (centos 7 弃用)
 
-```bash
-$ dnf install neovim
-```
+##### gcc
 
-##### 配置文件
+- gcc 版本太旧, 安装时需要临时切换到新版本的gcc, 否则编译失败
 
-```
-~/.config/nvim/init.vim
-~/.config/nvim/init.lua （推荐）
-```
+  ```
+  configure: error:
+  *** These critical programs are missing or too old: make bison compiler
+  *** Check the INSTALL file for required versions.
+  ```
 
-##### 问题1: install GLIBC_2.29
+- 安装 bison
 
-> 提示失败是可能安装, 详细看提示
->
-> ```
-> ./nvim: /lib64/libc.so.6: version `GLIBC_2.28' not found (required by ./nvim)
-> ./nvim: /lib64/libm.so.6: version `GLIBC_2.29' not found (required by ./nvim)
-> ```
+  ```bash
+  $ yum install bison
+  ```
 
-[download](https://ftp.gnu.org/gnu/glibc/)
+- 临时切换 gcc 版本
 
-```bash
-$ wget https://ftp.gnu.org/gnu/glibc/glibc-2.29.tar.gz
-$ cd glibc-2.29
-$ mkdir build
-$ cd build
-$ ../configure --prefix=/usr --disable-profile --enable-add-ons --with-headers=/usr/include --with-binutils=/usr/bin
+##### install GLIBC_2.29
+
+> [download](https://ftp.gnu.org/gnu/glibc/)
+
+- 运行 neovim 时出现错误
+
+  ```
+  ./nvim: /lib64/libc.so.6: version `GLIBC_2.28' not found (required by ./nvim)
+  ./nvim: /lib64/libm.so.6: version `GLIBC_2.29' not found (required by ./nvim)
+  ```
+
+- 安装
+
+  ```bash
+  # 查看版本
+  $ strings /lib64/libc.so.6 | grep GLIBC_
+  
+  # 依赖 
+  $ dnf install bison
+  
+  $ wget https://ftp.gnu.org/gnu/glibc/glibc-2.29.tar.gz
+  $ cd glibc-2.29
+  $ mkdir build
+  $ cd build
+  $ ../configure --prefix=/usr --disable-profile --enable-add-ons --with-headers=/usr/include --with-binutils=/usr/bin
 $ make
-$ make install
-	
-# 查看版本
-$ strings /lib64/libc.so.6 |grep GLIBC_2.29
-```
+  # 有保存, 但不影响 glibc 升级
+  $ make install
+  ```
+  
+- 问题
 
-##### 问题2: gcc  版本低
+  ```
+  collect2: error: ld returned 1 exit status
+  Execution of gcc -B/usr/bin/ failed!
+  The script has found some problems with your installation!
+  Please read the FAQ and the README file and check the following:
+  - Did you change the gcc specs file (necessary after upgrading from
+    Linux libc5)?
+  - Are there any symbolic links of the form libXXX.so to old libraries?
+    Links like libm.so -> libm.so.5 (where libm.so.5 is an old library) are wrong,
+    libm.so should point to the newly installed glibc file - and there should be
+    only one such link (check e.g. /lib and /usr/lib)
+  You should restart this script from your build directory after you've
+  fixed all problems!
+  Btw. the script doesn't work if you're installing GNU libc not as your
+  primary library!
+  make[1]: *** [Makefile:111: install] Error 1
+  make[1]: Leaving directory '/opt/glibc-2.29'
+  make: *** [Makefile:12: install] Error 2
+  
+  
+  暂时没法解决, 但不影响 glibc 的升级
+  ```
 
-> gcc 版本太旧, 安装时需要临时切换到新版本的gcc, 否则编译失败
->
-> ```
-> configure: error:
-> *** These critical programs are missing or too old: make bison compiler
-> *** Check the INSTALL file for required versions.
-> ```
-
-```bash
-$ dnf install bison
-```
 
 # 依赖
+
+```
+$ pip install autopep8 black click debugpy isort pyaml PyYAML yapf pyright
+
+$ pip install pynvim
+```
+
+```bash
+$ dnf install npm
+
+# 安装速度慢, 使用 -g 指定源 (临时)
+$ npm install vscode-langservers-extracted -g --registry=https://registry.npm.taobao.org
+
+(永久)
+$ npm config set registry https://registry.npm.taobao.org
+```
+
+
 
 ##### python 3 支持
 
@@ -96,8 +142,6 @@ $ dnf install bison
 :checkhealth
 
 $ pip install pynvim
-
-
 
 (未使用这个命令安装)
 $ /usr/bin/python3 -m pip install pynvim
@@ -119,7 +163,7 @@ $ pyenv activate p-3.9.2-neovim
 $ pip install --upgrade pip
 $ pip install neovim pynvim pytest debugpy isort ueberzug ranger-fm
 
-$ pip install autopep8
+$ pip install autopep8 yapf black
 ```
 
 ##### lua
@@ -141,6 +185,11 @@ $ dnf install nodejs npm
 ```
 $ sudo dnf copr enable atim/lazygit
 $ sudo dnf install lazygit 
+
+
+git clone https://github.com/jesseduffield/lazygit.git
+cd lazygit
+go install
 ```
 
 ##### lipboard 支持
@@ -178,6 +227,10 @@ $ dnf install fd-find
 
 ```bash
 $ dnf install ranger
+或
+$ pip install ranger-fm
+
+
 ```
 
 ##### ueberzug (失败)
@@ -202,7 +255,28 @@ $ dnf install tmux
 dnf install words
 ```
 
+##### xshell
+
+```
+
+```
+
+##### github 加速地址
+
+```bash
+$ git config --global url."https://hub.fastgit.xyz/".insteadOf "https://github.com/"
+```
+
+
+
 # package
+
+##### 配置文件
+
+```
+~/.config/nvim/init.vim (弃用)
+~/.config/nvim/init.lua (推荐)
+```
 
 ##### packer.nvim (包管理)
 
@@ -349,12 +423,6 @@ d 删除
 
 > [github](https://github.com/numToStr/Comment.nvim)
 
-```
-
-```
-
-
-
 - normal
 
   `gcc` - Toggles the current line using linewise comment
@@ -425,10 +493,8 @@ d 删除
   PersonAction , 2201     , HHKI!HA
   ```
 
-##### vim-translator
+##### vim-translator (词典)
 
-> 词典(功能不全)
->
 > [github](https://github.com/voldikss/vim-translator)
 
 - 翻译句子
@@ -494,8 +560,6 @@ d 删除
 
 > [github](https://github.com/voldikss/vim-floaterm)
 
-use
-
 ```
 :FloatermNew lazygit
 ```
@@ -526,10 +590,6 @@ use
 ```bash
 $ pip3 install Pillow
 ```
-
-##### winshift.nvim (移动窗口)
-
-> [github](https://github.com/sindrets/winshift.nvim)
 
 #####  yode-nvim (window内的悬浮终端)
 
@@ -589,7 +649,7 @@ map <C-W>K :YodeLayoutShiftWinTop<CR>
   pip3 install ranger-fm pynvim
   
   # ueberzug is not supported in macOS because it depends on X11
-  python3 -m pip install ueberzug
+      python3 -m pip install ueberzug
   ```
 
 - 查看是否成功
@@ -625,45 +685,122 @@ map <C-W>K :YodeLayoutShiftWinTop<CR>
   python -m pyaml -r ~/111.yaml
   ```
 
+- c
+
+  ```bash
+  # 安装 clang 
+  $ sudo dnf install clang
+  
+  
+  # 安装 clang-format
+  $ dnf search clang-format
+  $ dnf install git-clang-format
+  
+  # 使用
+  $ clang-format -version
+  
+  # 格式化(不修改源文件)
+  $ clang-format main.cpp
+  
+  # 格式化(修改源文件)
+  $ clang-format -i main.cpp
+  
+  # 设置格式化代码的风格
+  #  LLVM, GNU, Google, Chromium, Microsoft, Mozilla, WebKit
+  $ clang-format -style=google main.cpp
+  ```
+
+- sql
+
+  ```
+  sql = {
+          -- sqlformat
+          -- 安装方法:pip3 install --upgrade sqlparse
+          function()
+            return {
+              exe = "sqlformat",
+              -- upper|lower
+              args = {"-k", "lower", "-i", "lower", "-r", "-"},
+              stdin = true
+            }
+          end
+        }
+  
+  ```
+
+
+
+##### vim-startuptime (启动时间)
+
+> [github](https://github.com/dstein64/vim-startuptime)
+
+```
+:StartupTime
+```
+
+##### nvim-bqf
+
+> [github](https://github.com/kevinhwang91/nvim-bqf)
+
 ### lsp
 
-##### nvim-lspconfig (核心)
+##### mason.nvim (lsp 和 dap 安装管理工具)
 
-> [github](https://github.com/neovim/nvim-lspconfig)
-
-##### nvim-lsp-installer (lsp 安装工具)
-
-> [github](https://github.com/williamboman/nvim-lsp-installer)
+> [github](https://github.com/williamboman/mason.nvim)
 >
-> [github](https://github.com/williamboman/nvim-lsp-installer#available-lsps)
+> 安装时 npm 失败因为源速度慢, 设置npm 源
 >
-> 参考 https://zhuanlan.zhihu.com/p/444836713?utm_source=wechat_session&utm_medium=social&utm_oi=1269928803658530816
->
-> [语言对应的语言服务器](https://github.com/williamboman/nvim-lsp-installer#available-lsps)
+> ​	$ npm config set registry https://registry.npm.taobao.org
 
-命令 
+```bash
+# 依赖
+$ dnf install unzip gzip curl git wget
 
 ```
-:LspInstallInfo
-:LspUninstallAll	卸载所有语言服务器
-:LspInstallLog		在新选项卡窗口中打开日志文件
-:LspPrintInstalled	打印所有已安装的语言服务器
-:LspInstall pyright				python
-:LspInstall jdtls				java
-:LspInstall jsonls				json
-:LspInstall yamlls				yaml
-:LspInstall lemminx				xml
-:LspUninstall jdtls
-:LspInfo
-```
 
-#####  lsp_signature.nvim
+
+
+| 类型 | 语言     | lsp name    | mason 包 (安装时用这个名) |      |
+| ---- | -------- | ----------- | ------------------------- | ---- |
+| lsp  | lua      | sumneko_lua | lua-language-server       | v    |
+| lsp  | python   | pyright     | pyright                   | v    |
+| lsp  | go       | gopls       | gopls                     | v    |
+| lsp  | json     | jsonls      | json-lsp                  | v    |
+| lsp  | c        | clangd      | clangd                    | v    |
+| lsp  | xml      | lemminx     | lemminx                   | v    |
+| lsp  | yaml     | yaml        | yamlls                    |      |
+| lsp  | html     | html        | html-lsp                  |      |
+|      | markdown |             |                           |      |
+
+##### mason-lspconfig.nvim
+
+> [github](https://github.com/williamboman/mason-lspconfig.nvim)
+>
+> https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/server-mapping.md
+
+##### nvim-lspconfig
+
+> [github]([GitHub - neovim/nvim-lspconfig: Quickstart configs for Nvim LSP](https://github.com/neovim/nvim-lspconfig))
+
+#####  lsp_signature.nvim (参数提示)
 
 > [github](https://github.com/ray-x/lsp_signature.nvim)
 
-##### lspsaga.nvim(页面增强)
+##### lspsaga.nvim (ui 增强)
 
 > [github](https://github.com/glepnir/lspsaga.nvim)
+
+##### c
+
+```
+ccls
+https://github.com/MaskRay/ccls/wiki/Build
+3.3k
+
+
+
+clangd (用这个, 背后有大公司)
+```
 
 ### dap
 
@@ -677,30 +814,13 @@ map <C-W>K :YodeLayoutShiftWinTop<CR>
 https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation
 ```
 
-
-
-help
-
-```
-:help dap.txt
-:help dap-adapter
-:help dap-configuration
-:help dap-api
-```
-
 ##### nvim-dap-ui
 
 > [github](https://github.com/rcarriga/nvim-dap-ui)
 
-```
-
-```
-
 ##### DAPInstall.nvim
 
 > [github](https://github.com/ravenxrz/DAPInstall.nvim)
-
-
 
 ##### nvim-dap-python
 
@@ -771,11 +891,13 @@ $ pip install pytest debugpy
 
 ### 未使用
 
-##### [asyncrun.vim 代码运行](https://github.com/skywind3000/asyncrun.vim)
+##### scrollbar.nvim (滚动条)
 
-##### [滚动条](https://github.com/Xuyuanp/scrollbar.nvim)
+> [github](https://github.com/Xuyuanp/scrollbar.nvim)
 
-##### [coq](https://github.com/ms-jpq/coq_nvim)
+##### coq
+
+> [github](https://github.com/ms-jpq/coq_nvim)
 
 ##### [git]([github](https://github.com/tpope/vim-fugitive))
 
@@ -808,15 +930,53 @@ $ pip install pytest debugpy
 :Neoformat! python yapf
 ```
 
-##### 
+##### asyncrun.vim (执行系统 shell)
+
+> [github](https://github.com/skywind3000/asyncrun.vim)
+
+##### winshift.nvim (移动窗口)
+
+> [github](https://github.com/sindrets/winshift.nvim)
+>
+> 不好用
+
+##### nvim-lspconfig (核心)
+
+> [github](https://github.com/neovim/nvim-lspconfig)
+>
+> 被 mason 代替
+
+##### nvim-lsp-installer (lsp 安装工具) 
+
+> [github](https://github.com/williamboman/nvim-lsp-installer)
+>
+> [github](https://github.com/williamboman/nvim-lsp-installer#available-lsps)
+>
+> [语言对应的语言服务器](https://github.com/williamboman/nvim-lsp-installer#available-lsps)
+>
+> 被 mason 代替
+
+命令 
+
+```
+:LspInstallInfo
+:LspUninstallAll	卸载所有语言服务器
+:LspInstallLog		在新选项卡窗口中打开日志文件
+:LspPrintInstalled	打印所有已安装的语言服务器
+:LspInstall pyright				python
+:LspInstall jdtls				java
+:LspInstall jsonls				json
+:LspInstall yamlls				yaml
+:LspInstall lemminx				xml
+:LspUninstall jdtls
+:LspInfo
+```
+
+
 
 # python
 
 ##### import 管理
-
-```
-https://github.com/PyCQA/isort
-```
 
 >  [github](https://github.com/PyCQA/isort)
 >
@@ -865,8 +1025,6 @@ https://github.com/PyCQA/isort
 ```
 :messages								neovim 命令行显示的消息
 :lua print(vim.fn.stdpath('cache'))		neovim 日志目录
-
-
 ```
 
 ##### 分屏幕
@@ -1058,6 +1216,17 @@ e       ：  忽略执行过程中的错误。
 
 退出终端模式
 <c-\><c-n>C-w
+
+
+# 纵向分屏
+:vs term://$SHELL
+
+# 横向分屏
+:split term://$SHELL
+
+# 新标签打开
+:tabe term://$SHELL
+
 ```
 
 ##### 查看命令行历史

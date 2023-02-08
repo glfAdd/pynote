@@ -39,29 +39,29 @@ paste image 图片粘贴,(编辑 markdown 时, 直接粘贴图片, 图片可以�
 
 `v1.73.11020948`
 
-##### vscode-icons
+##### vscode-icons (图标)
 
-`v12.0.1` 图标
+`v12.0.1` 
 
 ##### Markdown Preview Enhanced
 
 `v0.6.5` markdown
 
-##### json
+##### json (json 目录树)
 
-`v2.0.2 ` json 目录树
+`v2.0.2 ` 
 
-##### Sort JSON objects
+##### Sort JSON objects (json 排序)
 
-`v1.20.0` json 排序
+`v1.20.0` 
 
-##### Sort lines
+##### Sort lines (json 排序)
 
-`v1.9.1` json 排序
+`v1.9.1` 
 
-##### Import Cost
+##### Import Cost (导入包大小)
 
-`v3.3.0` 导入包大小
+`v3.3.0` 
 
 ##### Vim
 
@@ -71,25 +71,25 @@ paste image 图片粘贴,(编辑 markdown 时, 直接粘贴图片, 图片可以�
 
 `v0.0.220`
 
-##### filesize
+##### filesize (文件大小)
 
-`v3.1.0` 文件大小
+`v3.1.0` 
 
-##### Docs View
+##### Docs View (文档窗口)
 
-`v0.0.11` 文档窗口
+`v0.0.11` 
 
-##### docstring
+##### docstring (注释)
 
-`v0.6.1` 注释
+`v0.6.1` 
 
-##### C/C++
+##### C/C++ (c 扩展)
 
-`v1.12.4` c 扩展
+`v1.12.4` 
 
-##### Remote - SSH
+##### Remote - SSH (远程调试)
 
-`v0.92.0` 远程调试
+`v0.92.0` 
 
 使用命令 `Ctrl + Shift + P` 打开对话框, 输入 `remote-ssh:open` , 编辑 `C:\Users\glfadd\.ssh\config`
 
@@ -108,9 +108,9 @@ Host dev
 
 ```
 
-##### Code Spell Checker
+##### Code Spell Checker (拼写检测)
 
-`v2.11.1` 拼写检测
+`v2.11.1` 
 
 ##### Parameter Hints
 
