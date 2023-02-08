@@ -167,15 +167,30 @@ Host dev
 
 ##### wakatime
 
+##### CodeSnap
+
+`v1.3.4` 代码截图照片
+
+##### Sourcegraph 
+
+`v2.2.14` 开源库代码搜索
+
+##### Draw.io Integration
+
+`v1.6.6` 原型图工具
+
 ### UI
 
 ##### GitHub Theme
 
-`v6.3.3`
-
+```
+主题
+v6.3.3
 ```
 
-```
+
+
+
 
 ##### vscode-icons (图标)
 
@@ -217,12 +232,43 @@ Host dev
 
 `v2.0.2` api 工具, 代替 postman
 
+##### autoDocstring - Python Docstring Generator
+
+```
+v0.6.1
+注释
+
+支持:
+	google
+    sphinx
+    numpy
+    docBlockr
+    one-line-sphinx
+    pep257
+
+设置风格
+"autoDocstring.docstringFormat": "numpy"
+
+
+epytext
+```
+
+
+
 ### 弃用
 
 ##### wakatime
 
 ```
 需要连接外部 api
+```
+
+##### Material Theme
+
+```
+主题
+v33.6.0
+不好看
 ```
 
 
