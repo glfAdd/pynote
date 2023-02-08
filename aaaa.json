@@ -1,0 +1,19 @@
+{
+    "language": "en_US",
+    "zh_CN":{
+    "oem_info": {
+        "copyright": "版权所有 © 2019-2023 奇安信网神信息技术（北京）股份有限公司 保留所有权利",
+        "title": "奇安信网神安全网络管控平台",
+        "work_mode": ""
+    }
+    },
+    "en_US":{
+    "oem_info": {
+        "copyright": "copyright © 2019-2023 QiAnXin (BeiJing)",
+        "title": "QiAnXin ctl",
+        "work_mode": ""
+    }
+    },
+
+    "web_ver": "16646935"
+}
