@@ -1,4 +1,4 @@
-##### `参考案例
+##### 参考案例
 
 ```
 https://www.zhihu.com/column/c_1527964562929893376
@@ -12,6 +12,12 @@ https://github.com/octaltree/cmp-look
 (不好用)右边的图片: https://github.com/edluffy/hologram.nvim
 quickfix
 数据库支持: https://github.com/tpope/vim-dadbod
+
+
+
+重点:
+https://github.com/nshen/learn-neovim-lua/commit/2635dec11c52292cd93dc5320a7d1df5f397acc4
+v2 分支
 ```
 
 ##### [neovim map](https://neovim.io/doc/user/map.html)
@@ -115,6 +121,16 @@ $ make
 $ pip install autopep8 black click debugpy isort pyaml PyYAML yapf pyright
 
 $ pip install pynvim
+```
+
+```bash
+$ dnf install npm
+
+# 安装速度慢, 使用 -g 指定源 (临时)
+$ npm install vscode-langservers-extracted -g --registry=https://registry.npm.taobao.org
+
+(永久)
+$ npm config set registry https://registry.npm.taobao.org
 ```
 
 
@@ -244,6 +260,14 @@ dnf install words
 ```
 
 ```
+
+##### github 加速地址
+
+```bash
+$ git config --global url."https://hub.fastgit.xyz/".insteadOf "https://github.com/"
+```
+
+
 
 # package
 
@@ -704,13 +728,7 @@ map <C-W>K :YodeLayoutShiftWinTop<CR>
   
   ```
 
-##### mason.nvim (lsp 和 dap 安装管理工具)
 
-> [github](https://github.com/williamboman/mason.nvim)
-
-```
-
-```
 
 ##### vim-startuptime (启动时间)
 
@@ -720,39 +738,49 @@ map <C-W>K :YodeLayoutShiftWinTop<CR>
 :StartupTime
 ```
 
+##### nvim-bqf
 
+> [github](https://github.com/kevinhwang91/nvim-bqf)
 
 ### lsp
 
-##### nvim-lspconfig (核心)
+##### mason.nvim (lsp 和 dap 安装管理工具)
 
-> [github](https://github.com/neovim/nvim-lspconfig)
-
-##### nvim-lsp-installer (lsp 安装工具)
-
-> [github](https://github.com/williamboman/nvim-lsp-installer)
+> [github](https://github.com/williamboman/mason.nvim)
 >
-> [github](https://github.com/williamboman/nvim-lsp-installer#available-lsps)
+> 安装时 npm 失败因为源速度慢, 设置npm 源
 >
-> 参考 https://zhuanlan.zhihu.com/p/444836713?utm_source=wechat_session&utm_medium=social&utm_oi=1269928803658530816
->
-> [语言对应的语言服务器](https://github.com/williamboman/nvim-lsp-installer#available-lsps)
+> ​	$ npm config set registry https://registry.npm.taobao.org
 
-命令 
+```bash
+# 依赖
+$ dnf install unzip gzip curl git wget
 
 ```
-:LspInstallInfo
-:LspUninstallAll	卸载所有语言服务器
-:LspInstallLog		在新选项卡窗口中打开日志文件
-:LspPrintInstalled	打印所有已安装的语言服务器
-:LspInstall pyright				python
-:LspInstall jdtls				java
-:LspInstall jsonls				json
-:LspInstall yamlls				yaml
-:LspInstall lemminx				xml
-:LspUninstall jdtls
-:LspInfo
-```
+
+
+
+| 类型 | 语言     | lsp name    | mason 包 (安装时用这个名) |      |
+| ---- | -------- | ----------- | ------------------------- | ---- |
+| lsp  | lua      | sumneko_lua | lua-language-server       | v    |
+| lsp  | python   | pyright     | pyright                   | v    |
+| lsp  | go       | gopls       | gopls                     | v    |
+| lsp  | json     | jsonls      | json-lsp                  | v    |
+| lsp  | c        | clangd      | clangd                    | v    |
+| lsp  | xml      | lemminx     | lemminx                   | v    |
+| lsp  | yaml     | yaml        | yamlls                    |      |
+| lsp  | html     | html        | html-lsp                  |      |
+|      | markdown |             |                           |      |
+
+##### mason-lspconfig.nvim
+
+> [github](https://github.com/williamboman/mason-lspconfig.nvim)
+>
+> https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/server-mapping.md
+
+##### nvim-lspconfig
+
+> [github]([GitHub - neovim/nvim-lspconfig: Quickstart configs for Nvim LSP](https://github.com/neovim/nvim-lspconfig))
 
 #####  lsp_signature.nvim (参数提示)
 
@@ -911,6 +939,38 @@ $ pip install pytest debugpy
 > [github](https://github.com/sindrets/winshift.nvim)
 >
 > 不好用
+
+##### nvim-lspconfig (核心)
+
+> [github](https://github.com/neovim/nvim-lspconfig)
+>
+> 被 mason 代替
+
+##### nvim-lsp-installer (lsp 安装工具) 
+
+> [github](https://github.com/williamboman/nvim-lsp-installer)
+>
+> [github](https://github.com/williamboman/nvim-lsp-installer#available-lsps)
+>
+> [语言对应的语言服务器](https://github.com/williamboman/nvim-lsp-installer#available-lsps)
+>
+> 被 mason 代替
+
+命令 
+
+```
+:LspInstallInfo
+:LspUninstallAll	卸载所有语言服务器
+:LspInstallLog		在新选项卡窗口中打开日志文件
+:LspPrintInstalled	打印所有已安装的语言服务器
+:LspInstall pyright				python
+:LspInstall jdtls				java
+:LspInstall jsonls				json
+:LspInstall yamlls				yaml
+:LspInstall lemminx				xml
+:LspUninstall jdtls
+:LspInfo
+```
 
 
 

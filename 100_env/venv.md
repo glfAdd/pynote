@@ -340,7 +340,7 @@ mkvirtualenv [-a project_path] [-i package] [-r requirements_file] [virtualenv o
 
 # 创建虚拟环境：
 $ mkvirtualenv my_venv
-$ mkvirtualenv -p /opt/python-3.11.1/bin/python my_venv
+$ mkvirtualenv -p /opt/python-3.11.1/bin/python3 p3111-nvim
 # 环境列表
 $ workon
 # 开始在虚拟环境
