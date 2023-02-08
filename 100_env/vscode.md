@@ -1,10 +1,4 @@
 ```
-创建虚拟环境
-python3 -m venv venv123
-
-激活虚拟环境
-shource ./venv123/bin/activate
-
 字符串拼接
 f'{name} {age}'
 
@@ -17,7 +11,6 @@ Wolf		代码预览
 AutoDocstring	注释
 python docstring 注释
 python type hint 请求参数类型补全
-Jupyter
 python test explorer for   测试插件
 终端输出彩色日志
 
@@ -33,15 +26,55 @@ comment Anchors
 paste image 图片粘贴,(编辑 markdown 时, 直接粘贴图片, 图片可以直接粘贴进来, 不用选择或者拖动)
 ```
 
+# 设置
+
+### 系统设置
+
+##### 终端
+
+```
+
+```
+
+
+
+### 快捷键
+
+|                  |                |          |
+| ---------------- | -------------- | -------- |
+| Ctrl + Shift + P | 打开对话框     |          |
+| Ctrl + Shift + N | 打开新窗口     |          |
+| Ctrl + Shift + B | 打开/关闭边栏  | Ctrl + B |
+| Alt + Shift + F  | 格式化 (black) |          |
+|                  |                |          |
+| F2               | 重命名变量     |          |
+|                  |                |          |
+| Ctrl+ `          | 打开终端       |          |
+
+
+
+```
+Sort JSON objects
+Cmd+Shift+P => Sort JSON
+
+Sort lines
+```
+
+##### 修改快捷键
+
+```
+
+```
+
+
+
 # 插件
 
 ##### Chinese (Simplified) (简体中文) Language Pack for Visual Studio Code
 
 `v1.73.11020948`
 
-##### vscode-icons (图标)
 
-`v12.0.1` 
 
 ##### Markdown Preview Enhanced
 
@@ -118,7 +151,7 @@ Host dev
 
 ##### Git Graph
 
-`v1.30.0` git
+`v1.30.0` git 图像显示
 
 ##### Docs View (卸载)
 
@@ -132,7 +165,21 @@ Host dev
 
 `v0.1.1` 自定写函数调用注释
 
+##### wakatime
 
+### UI
+
+##### GitHub Theme
+
+`v6.3.3`
+
+```
+
+```
+
+##### vscode-icons (图标)
+
+`v12.0.1` 
 
 ### python
 
@@ -169,6 +216,16 @@ Host dev
 ##### Thunder Client
 
 `v2.0.2` api 工具, 代替 postman
+
+### 弃用
+
+##### wakatime
+
+```
+需要连接外部 api
+```
+
+
 
 # 问题
 
@@ -257,21 +314,7 @@ Variables:
 
 
 
-##### 快捷键
 
-```
-Ctrl + Shift + P			打开对话框
-
-Ctrl + Shift + N           打开新窗口
-Ctrl + B               打开/关闭边栏
-
-
-Sort JSON objects
-Cmd+Shift+P => Sort JSON
-
-
-Sort lines
-```
 
 
 
@@ -283,7 +326,6 @@ x 单词拼写错误检查: Code Spell Checker
 运行选中代码段: Code Runner
 成本提示(提示 import 命令导入包的大小): Improt Cost
 x git 插件: GitLens — Git supercharged
-x 统计写代码用的时间: WakaTime
 x docker扩展插件: Docker
 x markdown: markdownlint
 主题: Material Theme
@@ -322,5 +364,30 @@ x markdown: markdownlint
       "default": true
     },
 ]
+```
+
+##### 终端
+
+打开终端提示如下信息, 禁止运行脚本, 导致虚拟环境无法启动
+
+```
+PS D:\code\pynote> & c:/Users/gonglongfei/Envs/p3710-dev/Scripts/Activate.ps1
+& : 无法加载文件 C:\Users\gonglongfei\Envs\p3710-dev\Scripts\Activate.ps1，因为在此系统上禁止运行脚本。有关详细信息，请参阅 https:/go.microsoft.com/fwl
+ink/?LinkID=135170 中的 about_Execution_Policies。
+所在位置 行:1 字符: 3
++ & c:/Users/gonglongfei/Envs/p3710-dev/Scripts/Activate.ps1
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : SecurityError: (:) []，PSSecurityException
+    + FullyQualifiedErrorId : UnauthorizedAccess
+```
+
+决绝办法
+
+```bash
+# 1. 管理源运行 powershell
+# 2. 执行 get-ExecutionPolicy 显示状态, Restricted 表示禁止
+# 3. 执行 set-ExecutionPolicy RemoteSigned
+# 4. 输入 y
+# 5. 再次查看状态, RemoteSigned 表示允许
 ```
 

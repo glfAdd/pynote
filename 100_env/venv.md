@@ -105,7 +105,11 @@ $ pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
 
 ##### 永久改变源 
 
-```
+```bash
+# windows
+%APPDATA%\pip\pip.ini
+
+# linux
 创建并添加 ~/.pip/pip.conf
 
 [global]
@@ -278,6 +282,8 @@ $ deactivate
 > 所有环境保存在 ~/.virtualenvs 
 >
 > [pip](https://pypi.org/project/virtualenvwrapper/)
+>
+> [Python Releases for Windows | Python.org](https://www.python.org/downloads/windows/)
 
 ##### 安装
 
@@ -363,6 +369,27 @@ $ lssitepackages
 
 mkproject mic：创建mic项目和运行环境mic
 mktmpenv：创建临时运行环境
+```
+
+# virtualenvwrapper-win
+
+```
+pip install virtualenvwrapper-win
+
+安装在
+C:\Users\username\Envs
+```
+
+##### 删除环境是禁止访问
+
+原因是有其他进程在使用这个环境
+
+```
+PS C:\Users\gonglongfei> rmvirtualenv p3710-dev
+p3710-dev\Scripts\python.exe - 拒绝访问。
+p3710-dev\Scripts\python3.dll - 拒绝访问。
+p3710-dev\Scripts\python39.dll - 拒绝访问。
+p3710-dev\Scripts\vcruntime140.dll - 拒绝访问。
 ```
 
 # pipenv
