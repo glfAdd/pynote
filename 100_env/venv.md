@@ -420,7 +420,7 @@ Pipfile.lock 文件是通过hash算法将包的名称和版本，及依赖关系
 
 ```bash
 $ pipenv --version
-$ pipenv install		# 安装 Pipfile 虚拟环境
+$ pipenv install				# 安装 Pipfile 虚拟环境
 安装完虚拟环境后会创建两个文件, 存在则覆盖:
 	Pipfile: 保存项目的python版本、依赖包等相关信息
 	Pipfile.lock: 用于对Pipfile的锁定	
@@ -431,24 +431,17 @@ $ pipenv uninstall XXX  		# 卸载XXX模块并从Pipfile中移除
 $ pipenv uninstall --all  		# 卸载全部包并从Pipfile中移除
 $ pipenv uninstall --all-dev  	# 卸载全部开发包并从Pipfile中移除
 
-$ pipenv shell			# 进入虚拟环境(项目目录下)
-$ exit					# 退出虚拟环境
-$ pipenv graph			# 查看包依赖关系
-$ pipenv --venv			# 查看虚拟环境安装路径
-```
+$ pipenv shell					# 进入虚拟环境(项目目录下)
+$ exit							# 退出虚拟环境
+$ pipenv graph					# 查看包依赖关系
+$ pipenv lock                  	#更新Pipfile.lock文件锁定当前环境的依赖版本
+$ pipenv check  				# 检查安全漏洞
+$ pipenv --venv					# 查看虚拟环境安装路径
 
 
-
-```
-pipenv --two  # 使用当前系统中的Python2 创建环境
-pipenv --three  # 使用当前系统中的Python3 创建环境
-
-pipenv --python 3  # 指定使用Python3创建环境
-pipenv --python 3.6  # 指定使用Python3.6创建环境
-pipenv --python 2.7.14  # 指定使用Python2.7.14创建环境
-
-
- 1）创建环境时应使用系统中已经安装的、能够在环境变量中搜索到的Python 版本，否则会报错。
+$ pipenv --python 3  # 指定使用Python3创建环境
+$ pipenv --python 3.6  # 指定使用Python3.6创建环境
+$ pipenv --python 2.7.14  # 指定使用Python2.7.14创建环境
 ```
 
 - Pipfile 文件
@@ -472,6 +465,166 @@ python_version = "3.7"
  
 [scripts]
 django = "python manage.py runserver 0.0.0.0:8080"
+```
+
+```
+source 用来设置仓库地址，即指定镜像源下载虚拟环境所需要的包
+packages 用来指定项目依赖的包，可以用于生产环境和生成requirements文件
+dev-packages 用来指定开发环境需要的包，这类包只用于开发过程，不用与生产环境。
+requires 指定目标Python版本
+scripts 添加自定义的脚本命令，并通过 pipenv run + 名称 的方式在虚拟环境中执行对应的命令 。
+
+pipenv run django 相当于 执行命令 pipenv run python manage.py runserver 0.0.0.0:8080
+```
+
+##### pipenv 与 virtualenvwrapper 结合使用
+
+```
+0. 操作系统安装 virtualenvwrapper 和 pipenv
+1. 先 workon 进入虚拟环境
+2. 在用 pipenv 安装虚拟环境
+```
+
+# pip-tools
+
+##### 安装
+
+```
+https://github.com/jazzband/pip-tools/
+https://github.com/jazzband/pip-tools/
+
+pip install pip-tools
+
+python 包管理工具, 包含 pip-compile 和 pip-sync 两部分
+```
+
+##### pip-compile
+
+- pip-compile 命令根据 requirements.in 或 setup.py 生成 requirements.txt 文件
+- requirements.in 或 setup.py 需要手动创建
+- 直接运行 pip-compile 会默认查找 requirements.in 或 setup.py 这两个文件, 也可以指定文件
+
+#####  使用 setup.py 文件
+
+```
+
+```
+
+##### 不使用 setup.py 文件
+
+- 1. 手动创建 requirements.in 文件. 例如 Flask 项目写入一下内容
+
+```
+# requirements.in
+# 可以指定版本
+flask==1.0.1
+```
+
+- 2. 生成 requirements.txt 文件
+
+```
+$ pip-compile requirements.in
+
+# 启动 hash 检测
+$ pip-compile --generate-hashes requirements.in
+```
+
+- 3. 如果需要根据多个 *.in 文件生成 *.txt 文件时必须制定输出的文件, 否则报错
+
+```
+$ pip-compile requirements_test.in requirements.in --output-file aaa.txt
+```
+
+- 4. 更新包. 如果 requirements.txt 指定了版本则会被更新, 使用指定的版本
+
+```
+# 更新所有包
+$ pip-compile --upgrade
+
+# 更新指定包
+$ pip-compile --upgrade-package flask
+
+# 同时更新两个包
+$ pip-compile --upgrade-package django --upgrade-package requests
+
+# django 更新到最新, requests 更新到 2.0.0
+$ pip-compile --upgrade-package django --upgrade-package requests==2.0.0
+$ pip-compile --upgrade --upgrade-package 'requests<3.0'
+$ pip-compile --upgrade-package 'django<1.0' --output-file requirements-django0x.txt
+```
+
+- CUSTOM_COMPILE_COMMAND
+
+```
+
+```
+
+##### pip-sync
+
+- pip-sync 根据 *.txt 文件安装包, 直接运行时默认使用 requirements.txt
+
+```
+$ pip-sync
+$ pip-sync requirements.txt
+$ pip-sync dev-requirements.txt
+$ pip-sync dev-requirements.txt requirements.txt
+```
+
+
+
+
+
+# pylint
+
+##### 参考
+
+```
+https://www.jianshu.com/p/c0bd637f706d
+```
+
+##### 安装
+
+
+
+##### pylint
+
+```bash
+$ pip install pylint
+版本信息
+$ pylint --version
+在当前目录生成默认配置文件 pylint.conf
+$ pylint --persistent=n --generate-rcfile > pylint.conf
+检测单个文件
+$ pylint --rcfile=pylint.conf abc.py
+```
+
+```
+C表示convention，规范
+W表示warning，告警；
+pylint结果总共有四个级别：error，warning，refactor，convention，可以根据首字母确定相应的级别。1, 0表示告警所在文件中的行号和列号。
+```
+
+##### pycharm
+
+```
+program：是python安装路径下的Scripts路径
+/Users/gladd/.pyenv/versions/2.7.16/envs/p27/bin/pylint
+Arguments:--reports=n --disable=C0103 $FilePath$  （最后必须以$FilePath$结尾）
+--reports=n --disable=C0103,C0301,W0703 $FilePath$
+
+working directory：$FileDir$（必须是这个）
+output filters：$FILE_PATH$:$LINE$:
+```
+
+##### 命令行命令
+
+```
+pylint pylint_example.py
+显示统计报告
+pylint -r y pylint_example.py
+不显示某个类型的信息
+pylint -r y pylint_example.py --disable=C
+pylint -r y pylint_example.py --disable=C0301
 ```
 
 
@@ -531,6 +684,29 @@ $ MACOSX_DEPLOYMENT_TARGET=10.7 python setup.py install
   $ brew install postgresql
   $ pip install psycopg
   ```
+
+##### mysqldb
+
+https://pypi.org/project/mysqlclient/
+
+```
+mysqlclient安装
+
+centos7
+先安装依赖
+yum install mysql-devel
+在安装
+pip install mysqlclient
+
+mac 安装
+brew install mysql-connector-c
+brew install mariadb
+pip install mysqlclient
+
+
+debian
+apt-get install default-libmysqlclient-dev build-essential
+```
 
 
 
