@@ -36,7 +36,16 @@ paste image 图片粘贴,(编辑 markdown 时, 直接粘贴图片, 图片可以�
 
 ```
 
+##### python 默认解释器
 
+在 .vscode 下创建 setting.json 文件
+
+```json
+{
+    "python.formatting.provider": "black",
+    "python.defaultInterpreterPath":"C:\\Users\\xxxxxx\\Envs\\p378-dev\\Scripts\\python.exe"
+}
+```
 
 ### 快捷键
 
@@ -438,5 +447,44 @@ ink/?LinkID=135170 中的 about_Execution_Policies。
 # 3. 执行 set-ExecutionPolicy RemoteSigned
 # 4. 输入 y
 # 5. 再次查看状态, RemoteSigned 表示允许
+```
+
+# 设置
+
+launch.json
+
+```json
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "name": "site_run",
+            "type": "python",
+            "request": "launch",
+            "module": "flask",
+            // 默认解释器
+            "python": "${command:python.interpreterPath}",
+            "cwd": "${workspaceFolder}/py-service/mgt_portal",
+            "env": {
+                "FLASK_APP": "${workspaceFolder}/mgt_portal/site_run.py:app",
+                "FLASK_ENV": "development",
+                "FLASK_DEBUG": "1"
+            },
+            "args": [
+                "run",
+                "--no-debugger",
+                "--no-reload",
+                "--port", "1601",
+                "--host", "0.0.0.0"
+            ],
+            "jinja": true,
+            "justMyCode": true
+        }
+    ]
+}
 ```
 

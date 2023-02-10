@@ -226,10 +226,13 @@ pyenv versions
 
 ##### 离线包安装python
 
+> [linux 阿里源下载](https://registry.npmmirror.com/binary.html?path=python/)
+>
+> [windows 下载](https://www.python.org/downloads/windows/)
+
 ```
-阿里源下载 https://registry.npmmirror.com/binary.html?path=python/
-    wget https://registry.npmmirror.com/-/binary/python/3.7.10/Python-3.7.10.tar.xz
-    wget https://registry.npmmirror.com/-/binary/python/3.9.16/Python-3.9.16.tar.xz
+wget https://registry.npmmirror.com/-/binary/python/3.7.10/Python-3.7.10.tar.xz
+wget https://registry.npmmirror.com/-/binary/python/3.9.16/Python-3.9.16.tar.xz
 
 *.tar.xz
 创建目录放安装文件 ~/.pyenv/cache
@@ -394,6 +397,8 @@ p3710-dev\Scripts\vcruntime140.dll - 拒绝访问。
 
 # pipenv
 
+##### 安装
+
 ```
 pip 包管理工具
 ```
@@ -410,6 +415,66 @@ pipenv install --dev生成自己的虚拟环境。
 
 Pipfile.lock 文件是通过hash算法将包的名称和版本，及依赖关系生成哈希值，可以保证包的完整性。
 ```
+
+##### 命令
+
+```bash
+$ pipenv --version
+$ pipenv install		# 安装 Pipfile 虚拟环境
+安装完虚拟环境后会创建两个文件, 存在则覆盖:
+	Pipfile: 保存项目的python版本、依赖包等相关信息
+	Pipfile.lock: 用于对Pipfile的锁定	
+$ pipenv install XXX  			# 安装模块并加入到 Pipfile
+$ pipenv install XXX==1.11
+$ pipenv install pytest --dev	# 仅安装开发环境下的依赖包（项目部署上线不需要的包）
+$ pipenv uninstall XXX  		# 卸载XXX模块并从Pipfile中移除
+$ pipenv uninstall --all  		# 卸载全部包并从Pipfile中移除
+$ pipenv uninstall --all-dev  	# 卸载全部开发包并从Pipfile中移除
+
+$ pipenv shell			# 进入虚拟环境(项目目录下)
+$ exit					# 退出虚拟环境
+$ pipenv graph			# 查看包依赖关系
+$ pipenv --venv			# 查看虚拟环境安装路径
+```
+
+
+
+```
+pipenv --two  # 使用当前系统中的Python2 创建环境
+pipenv --three  # 使用当前系统中的Python3 创建环境
+
+pipenv --python 3  # 指定使用Python3创建环境
+pipenv --python 3.6  # 指定使用Python3.6创建环境
+pipenv --python 2.7.14  # 指定使用Python2.7.14创建环境
+
+
+ 1）创建环境时应使用系统中已经安装的、能够在环境变量中搜索到的Python 版本，否则会报错。
+```
+
+- Pipfile 文件
+
+```
+[[source]]
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+verify_ssl = true
+name = "pypi"
+ 
+[packages]
+requests = "*"
+pyyaml = "*"
+Django = "*"
+ 
+[dev-packages]
+pytest = "*"
+ 
+[requires]
+python_version = "3.7"
+ 
+[scripts]
+django = "python manage.py runserver 0.0.0.0:8080"
+```
+
+
 
 # 错误 / 失败
 
