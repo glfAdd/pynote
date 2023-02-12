@@ -3,7 +3,16 @@ import schema
 
 class EventSchema(schema.Schema):
 
-    def validate(self, data, _is_event_schema=True):
+
+
+    def validate(self, data: str, _is_event_schema=True)->None:
+        """_summary_
+
+        :param _type_ data: _description_
+        :param _type_ _is_event_schema: _description_, defaults to True
+        :return _type_: _description_
+        """
+
         data = super(EventSchema, self).validate(data, _is_event_schema=False)
         if _is_event_schema and data.get("minimum", None) is None:
             data["minimum"] = data["capacity"]
