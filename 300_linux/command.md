@@ -1069,6 +1069,17 @@ Libs: 链接本库时所需要的一些链接选项，和其他一些并不支�
 Libs.private: 本库所需要的一些私有库的链接选项。
 ```
 
+##### 修改系统语言
+
+```bash
+$ locale
+$ localectl 
+
+$ localectl set-locale LANG=en_US.UTF-8
+$ localectl set-locale LANG=zh_CN.UTF-8
+会修改 /etc/locale.conf 文件
+```
+
 # 目录
 
 ##### 目录说明
